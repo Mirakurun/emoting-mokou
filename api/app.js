@@ -38,9 +38,9 @@ app.use('/api/twitter', twitterRouter);
 // error handler
 app.use((error, req, res, next) => {
   console.error(error);
+  const { message, data, errors } = error;
   const status = error.statusCode || 500;
-  const { message, data } = error;
-  res.status(status).json({ message, data });
+  res.status(status).json({ message, data, twitter_api_error: errors });
 });
 
 module.exports = app;
