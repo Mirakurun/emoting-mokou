@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.get('/tweet', auth, twitterController.tweet);
 
+router.get('/upload', auth, twitterController.upload);
+
 module.exports = router;
