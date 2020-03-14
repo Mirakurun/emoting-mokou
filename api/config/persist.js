@@ -1,5 +1,5 @@
 const passport = require('passport');
-const db = require('../db/firestore');
+const User = require('../models/user');
 
 module.exports = () => {
   passport.serializeUser((user, done) => {
@@ -11,19 +11,17 @@ module.exports = () => {
   passport.deserializeUser(async (id, done) => {
     console.log('Deserializing user...');
     console.log(id);
-    const usersRef = db.collection('users');
-    const docRef = usersRef.doc(id);
 
     try {
-      const docSnapshot = await docRef.get();
+      const user = await User.findById(id);
 
-      if (docSnapshot.exists) {
-        console.log('Deserialized user.');
-        const data = docSnapshot.data();
-        return done(null, data);
+      if (!user) {
+        return done(new Error('Document not found!'));
       }
 
-      return done(new Error('Document not found!'));
+      console.log('Deserialized user.');
+
+      return done(null, user);
     } catch (error) {
       console.error(error);
       return done(error);

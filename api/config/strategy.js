@@ -1,7 +1,6 @@
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
-
-const db = require('../db/firestore');
+const User = require('../models/user');
 
 passport.use(
   new TwitterStrategy(
@@ -12,61 +11,54 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, token, tokenSecret, profile, done) => {
+      console.log(profile);
+      const { displayName, id: uid, photos, provider, username } = profile;
       console.log('Finding user...');
-      // find user in database
-      const usersRef = db.collection('users');
 
       try {
-        const querySnapshot = await usersRef
-          .where('uid', '==', profile.id)
-          .get();
-
         if (!req.user) {
           // user not logged-in
           console.log('User not logged-in.');
-          if (querySnapshot.empty) {
+          const user = await User.findOne({ uid: profile.id });
+
+          if (!user) {
             // create new user
             console.log('User not found.');
             console.log('Creating new user...');
-            const data = {};
-            data.displayName = profile.displayName;
-            data.uid = profile.id;
-            data.photos = profile.photos;
-            data.provider = profile.provider;
-            data.username = profile.username;
-            data.token = token;
-            data.tokenSecret = tokenSecret;
+            const newUser = new User({
+              displayName,
+              uid,
+              photos,
+              provider,
+              token,
+              tokenSecret,
+              username,
+            });
 
-            const docRef = await usersRef.add(data);
+            const result = await newUser.save();
             console.log('Created new user.');
-            return done(null, docRef);
-          }
 
-          return querySnapshot.forEach(docSnapshot => {
-            if (docSnapshot.exists) {
-              // user exists
-              console.log('Found user.');
-              done(null, docSnapshot);
-            }
-          });
+            return done(null, result);
+          }
+          // user exists
+          console.log('Found user.');
+          return done(null, user);
         }
         // user exists and is logged-in
         const { user } = req;
 
-        return querySnapshot.forEach(async docSnapshot => {
-          const docRef = db.doc(`users/${docSnapshot.id}`);
+        user.displayName = displayName;
+        user.uid = uid;
+        user.photos = photos;
+        user.provider = provider;
+        user.username = username;
+        user.token = token;
+        user.tokenSecret = tokenSecret;
 
-          user.displayName = profile.displayName;
-          user.uid = profile.id;
-          user.photos = profile.photos;
-          user.provider = profile.provider;
-          user.username = profile.username;
-          user.token = token;
-          user.tokenSecret = tokenSecret;
+        const result = await user.save();
+        console.log('User updated.');
 
-          await docRef.set(user, { merge: true });
-          return done(null, docSnapshot);
-        });
+        return done(null, result);
       } catch (error) {
         console.error(error);
         return done(error);
