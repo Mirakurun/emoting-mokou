@@ -1,10 +1,20 @@
 const passport = require('passport');
-const { Firestore } = require('@google-cloud/firestore');
 const express = require('express');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 const app = express();
-const { FirestoreStore } = require('@google-cloud/connect-firestore');
+
+const store = new MongoDBStore({
+  uri: process.env.DB_URI,
+  databaseName: process.env.DB_NAME,
+  collection: 'sessions',
+});
+
+// catch errors
+store.on('error', error => {
+  console.error(error);
+});
 
 const persist = require('./config/persist');
 const authRouter = require('./routes/auth');
@@ -15,23 +25,23 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
-    store: new FirestoreStore({
-      dataset: new Firestore({
-        kind: 'express-sessions',
-      }),
-    }),
+    store,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    // cookie: { secure: true },
   })
 );
+
+if (app.get('env') === 'production') {
+  session.cookie.secure = true;
+}
 
 persist();
 
 app.use(passport.initialize());
 app.use(passport.session());
 
+// routes
 app.use('/api/auth', authRouter);
 app.use('/api/twitter', twitterRouter);
 
