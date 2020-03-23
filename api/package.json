@@ -13,6 +13,7 @@
     "connect-mongodb-session": "^2.3.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "express-validator": "^6.4.0",
     "mongoose": "^5.9.4",
     "passport": "^0.4.1",
     "passport-twitter": "^1.0.4",
