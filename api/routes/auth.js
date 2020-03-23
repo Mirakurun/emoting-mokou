@@ -1,5 +1,5 @@
 const express = require('express');
-const passportTwitter = require('../config/strategy');
+const passportTwitter = require('../config/passport');
 const authController = require('../controllers/auth');
 
 const router = express.Router();
