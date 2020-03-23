@@ -2,9 +2,11 @@ const passport = require('passport');
 const express = require('express');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+require('./config/passport');
 
 const app = express();
 
+// session store
 const store = new MongoDBStore({
   uri: process.env.DB_URI,
   databaseName: process.env.DB_NAME,
@@ -16,13 +18,14 @@ store.on('error', error => {
   console.error(error);
 });
 
-const persist = require('./config/persist');
 const authRouter = require('./routes/auth');
 const twitterRouter = require('./routes/twitter');
+const adminRouter = require('./routes/admin');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+// use the session middleware
 app.use(
   session({
     store,
@@ -32,18 +35,18 @@ app.use(
   })
 );
 
+// if environment is production, serve secure cookies
 if (app.get('env') === 'production') {
   session.cookie.secure = true;
 }
 
-persist();
-
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.initialize()); // initialize passport
+app.use(passport.session()); // persistent login sessions
 
 // routes
 app.use('/api/auth', authRouter);
 app.use('/api/twitter', twitterRouter);
+app.use('/api/admin', adminRouter);
 
 // error handler
 app.use((error, req, res, next) => {

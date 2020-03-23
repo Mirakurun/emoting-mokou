@@ -1,5 +1,5 @@
 const result = require('dotenv').config();
-const { mongoose } = require('./db/mongoose');
+require('./db/mongoose');
 
 if (result.error) {
   throw result.error;
