@@ -20,7 +20,7 @@ exports.addToFavorites = async (req, res, next) => {
   }
 };
 
-exports.removeFromFavorties = async (req, res, next) => {
+exports.removeFromFavorites = async (req, res, next) => {
   const { emoteId } = req.body;
 
   try {

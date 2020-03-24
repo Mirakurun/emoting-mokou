@@ -26,7 +26,7 @@ router.delete(
       .isString()
       .trim(),
   ],
-  userController.removeFromFavorties
+  userController.removeFromFavorites
 );
 
 module.exports = router;
