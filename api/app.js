@@ -21,6 +21,7 @@ store.on('error', error => {
 const authRouter = require('./routes/auth');
 const twitterRouter = require('./routes/twitter');
 const adminRouter = require('./routes/admin');
+const userRouter = require('./routes/user');
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -47,6 +48,7 @@ app.use(passport.session()); // persistent login sessions
 app.use('/api/auth', authRouter);
 app.use('/api/twitter', twitterRouter);
 app.use('/api/admin', adminRouter);
+app.use('/api/user', userRouter);
 
 // error handler
 app.use((error, req, res, next) => {
