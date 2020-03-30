@@ -5,6 +5,8 @@ const userController = require('../controllers/user');
 
 const router = express.Router();
 
+router.get('/profile', isAuth, userController.getProfile);
+
 router.post(
   '/favorites',
   isAuth,
@@ -27,6 +29,17 @@ router.delete(
       .trim(),
   ],
   userController.removeFromFavorites
+);
+
+router.post(
+  '/darkmode',
+  isAuth,
+  [
+    body('darkmode')
+      .exists()
+      .isBoolean(),
+  ],
+  userController.toggleDarkMode
 );
 
 module.exports = router;
