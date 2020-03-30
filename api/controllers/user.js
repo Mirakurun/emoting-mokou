@@ -1,5 +1,11 @@
 const Emote = require('../models/emote');
 
+exports.getProfile = (req, res) => {
+  const { user } = req;
+
+  res.status(200).json(user);
+};
+
 exports.addToFavorites = async (req, res, next) => {
   const { emoteId } = req.body;
 
@@ -28,7 +34,21 @@ exports.removeFromFavorites = async (req, res, next) => {
 
     console.log('Removed emote from favorite.');
 
-    res.status(200).send();
+    res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.toggleDarkMode = async (req, res, next) => {
+  const { darkmode } = req.body;
+
+  try {
+    const { darkMode } = await req.user.toggleDarkMode(darkmode);
+
+    console.log('Toggled dark mode.');
+
+    res.status(200).json({ darkMode });
   } catch (error) {
     next(error);
   }
