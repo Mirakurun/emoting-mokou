@@ -1,8 +1,9 @@
-exports.logout = (req, res) => {
+exports.logout = (req, res, next) => {
   req.session.destroy(error => {
     if (error) {
-      console.error(error);
+      next(error);
     }
-    res.redirect('/');
+    res.clearCookie('emoting_mokou_sid');
+    return res.status(204).send();
   });
 };
