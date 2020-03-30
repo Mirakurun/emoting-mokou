@@ -4,9 +4,11 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
+    darkMode: { type: Boolean, default: false },
     displayName: { type: String, required: true },
     favorites: [{ type: Schema.Types.ObjectId, ref: 'Emote' }],
-    photos: [{ value: { type: String, required: true } }],
+    profileBanner: { type: String, required: true },
+    profileImage: { type: String, required: true },
     provider: { type: String, required: true },
     role: { type: String, default: 'user' },
     token: { type: String },
@@ -38,6 +40,12 @@ userSchema.methods.removeFromFavorites = function(emote) {
   }
 
   return Promise.reject(new Error('Favorite not found!'));
+};
+
+userSchema.methods.toggleDarkMode = function(bool) {
+  this.darkMode = bool;
+
+  return this.save();
 };
 
 module.exports = mongoose.model('User', userSchema);
