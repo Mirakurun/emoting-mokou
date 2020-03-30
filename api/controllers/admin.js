@@ -13,6 +13,12 @@ AWS.config.update({ region: process.env.REGION });
 
 const s3 = new AWS.S3();
 
+exports.getProfile = async (req, res, next) => {
+  const { user } = req;
+
+  res.status(200).json(user);
+};
+
 exports.addEmote = async (req, res, next) => {
   const { description, filename, tags } = req.body;
 
