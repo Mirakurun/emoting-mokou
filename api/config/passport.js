@@ -41,7 +41,7 @@ passport.use(
     },
     async (req, token, tokenSecret, profile, done) => {
       console.log(profile);
-      const { displayName, id: uid, photos, provider, username } = profile;
+      const { displayName, id: uid, provider, _json: json, username } = profile;
       console.log('Finding user...');
 
       try {
@@ -57,7 +57,8 @@ passport.use(
             const newUser = new User({
               displayName,
               uid,
-              photos,
+              profileBanner: json.profile_banner_url,
+              profileImage: json.profile_image_url,
               provider,
               token,
               tokenSecret,
@@ -71,14 +72,27 @@ passport.use(
           }
           // user exists
           console.log('Found user.');
-          return done(null, user);
+
+          user.displayName = displayName;
+          user.uid = uid;
+          user.profileBanner = json.profile_banner_url;
+          user.profileImage = json.profile_image_url;
+          user.provider = provider;
+          user.username = username;
+          user.token = token;
+          user.tokenSecret = tokenSecret;
+
+          const result = await user.save();
+
+          return done(null, result);
         }
         // user exists and is logged-in
         const { user } = req;
 
         user.displayName = displayName;
         user.uid = uid;
-        user.photos = photos;
+        user.profileBanner = json.profile_banner_url;
+        user.profileImage = json.profile_image_url;
         user.provider = provider;
         user.username = username;
         user.token = token;
