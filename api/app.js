@@ -1,5 +1,6 @@
 const passport = require('passport');
 const express = require('express');
+const cors = require('cors');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 require('./config/passport');
@@ -23,6 +24,12 @@ const twitterRouter = require('./routes/twitter');
 const adminRouter = require('./routes/admin');
 const userRouter = require('./routes/user');
 
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN,
+  credentials: true,
+};
+
+app.use(cors(corsOptions)); // CORS for all routes
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
@@ -33,6 +40,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    name: 'emoting_mokou_sid',
   })
 );
 
