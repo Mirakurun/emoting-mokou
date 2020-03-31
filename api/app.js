@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const multer = require('multer');
 require('./config/passport');
 
 const app = express();
@@ -32,6 +33,7 @@ const corsOptions = {
 app.use(cors(corsOptions)); // CORS for all routes
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(multer().single('image'));
 
 // use the session middleware
 app.use(
