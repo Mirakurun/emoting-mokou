@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const emoteSchema = new Schema(
   {
-    description: { type: String, required: true },
+    caption: { type: String, required: true },
     filename: { type: String, required: true },
     tags: [{ type: String }],
   },
