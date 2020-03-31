@@ -20,13 +20,13 @@ exports.getProfile = async (req, res) => {
 };
 
 exports.addEmote = async (req, res, next) => {
-  const { description, filename, tags } = req.body;
+  const { caption, filename, tags } = req.body;
 
   try {
     console.log('Adding emote to database...');
 
     const emote = new Emote({
-      description,
+      caption,
       filename,
       tags,
     });
@@ -63,7 +63,7 @@ exports.updateEmote = async (req, res, next) => {
 };
 
 exports.createPresignedPost = (req, res, next) => {
-  const { filename } = req.body;
+  const { originalname } = req.file;
 
   console.log('Creating pre-signed POST...');
 
@@ -71,7 +71,7 @@ exports.createPresignedPost = (req, res, next) => {
     Bucket: process.env.BUCKET,
     Expires: 60,
     Fields: {
-      key: `${process.env.KEYPREFIX}${filename}`,
+      key: `${process.env.KEYPREFIX}${originalname}`,
     },
   };
 
