@@ -16,7 +16,6 @@
     "express-session": "^1.17.0",
     "express-validator": "^6.4.0",
     "mongoose": "^5.9.4",
-    "multer": "^1.4.2",
     "passport": "^0.4.1",
     "passport-twitter": "^1.0.4",
     "serverless-http": "^2.3.2",
