@@ -63,7 +63,7 @@ exports.updateEmote = async (req, res, next) => {
 };
 
 exports.createPresignedPost = (req, res, next) => {
-  const { originalname } = req.file;
+  const { filename } = req.body;
 
   console.log('Creating pre-signed POST...');
 
@@ -71,7 +71,7 @@ exports.createPresignedPost = (req, res, next) => {
     Bucket: process.env.BUCKET,
     Expires: 60,
     Fields: {
-      key: `${process.env.KEYPREFIX}${originalname}`,
+      key: `${process.env.KEYPREFIX}${filename}`,
     },
   };
 
