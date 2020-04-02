@@ -5,6 +5,7 @@ node_modules
 api/credentials/*
 api/emotes
 api/config/config.js
+thumbs.db
 
 # Quasar core related directories
 .quasar
