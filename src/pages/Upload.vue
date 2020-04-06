@@ -174,7 +174,7 @@ export default {
     },
     onReset() {
       this.form.caption = '';
-      this.form.file = '';
+      this.form.file = null;
       this.form.tags = [];
       this.tag = '';
       this.thumbnail = '';
