@@ -224,7 +224,6 @@ export default {
         );
 
         if (status === 204) {
-          this.isInvisible = true;
           this.label = 'Saving emote...';
 
           const emote = {
@@ -240,6 +239,7 @@ export default {
       } catch (error) {
         console.error(error);
       } finally {
+        this.isInvisible = true;
         this.isDisabled = false;
         this.isLoading = false;
         this.label = '';
