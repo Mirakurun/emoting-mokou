@@ -69,7 +69,10 @@ exports.createPresignedPost = (req, res, next) => {
 
   const params = {
     Bucket: process.env.BUCKET,
-    Conditions: [{ acl: 'public-read' }],
+    Conditions: [
+      { acl: 'public-read' },
+      ['starts-with', '$key', 'statics/images/emotes/'],
+    ],
     Expires: 60,
     Fields: {
       acl: 'public-read',
