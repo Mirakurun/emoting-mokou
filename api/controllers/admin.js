@@ -69,8 +69,10 @@ exports.createPresignedPost = (req, res, next) => {
 
   const params = {
     Bucket: process.env.BUCKET,
+    Conditions: [{ acl: 'public-read' }],
     Expires: 60,
     Fields: {
+      acl: 'public-read',
       key: `${process.env.KEYPREFIX}${filename}`,
     },
   };
