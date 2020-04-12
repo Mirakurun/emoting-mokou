@@ -1,4 +1,5 @@
 const Emote = require('../models/emote');
+const User = require('../models/user');
 
 exports.getProfile = (req, res) => {
   const { user } = req;
@@ -6,11 +7,42 @@ exports.getProfile = (req, res) => {
   res.status(200).json(user);
 };
 
-exports.addToFavorites = async (req, res, next) => {
-  const { emoteId } = req.body;
+exports.getFavorites = (req, res) => {
+  const { user } = req;
+
+  res.status(200).json(user.favorites);
+};
+
+exports.populateFavorites = async (req, res, next) => {
+  const { id } = req.user;
 
   try {
-    const emote = await Emote.findById(emoteId);
+    const user = await User.findById(id).populate('favorites');
+
+    const favorites = user.favorites.map(favorite => {
+      const { _id: renameId, caption, createdAt, filename, tags } = favorite;
+      const data = {};
+
+      data.id = renameId;
+      data.caption = caption;
+      data.createdAt = createdAt;
+      data.filename = filename;
+      data.tags = tags;
+
+      return data;
+    });
+
+    res.status(200).json(favorites);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.addToFavorites = async (req, res, next) => {
+  const { id } = req.body;
+
+  try {
+    const emote = await Emote.findById(id);
 
     if (!emote) {
       res.status(422).json({ message: 'Emote not found.' });
@@ -27,10 +59,10 @@ exports.addToFavorites = async (req, res, next) => {
 };
 
 exports.removeFromFavorites = async (req, res, next) => {
-  const { emoteId } = req.body;
+  const { id } = req.params;
 
   try {
-    await req.user.removeFromFavorties(emoteId);
+    await req.user.removeFromFavorites(id);
 
     console.log('Removed emote from favorite.');
 
