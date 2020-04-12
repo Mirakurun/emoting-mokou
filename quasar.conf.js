@@ -68,6 +68,7 @@ module.exports = function(ctx) {
         'QChip',
         'QLinearProgress',
         'QSpinnerHourglass',
+        'QSpace'
       ],
 
       directives: ['Ripple', 'ClosePopup'],
@@ -106,9 +107,11 @@ module.exports = function(ctx) {
       env: ctx.dev
         ? {
             API: JSON.stringify('http://localhost:3000/api'),
+            EMOTES: JSON.stringify('http://localhost:8080/statics/images/emotes'),
           }
         : {
             API: JSON.stringify('https://emoting-mokou.moe/api'),
+            EMOTES: JSON.stringify('https://emoting-mokou.moe/statics/images/emotes'),
           },
     },
 
