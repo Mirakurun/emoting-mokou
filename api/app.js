@@ -23,7 +23,7 @@ const authRouter = require('./routes/auth');
 const twitterRouter = require('./routes/twitter');
 const adminRouter = require('./routes/admin');
 const userRouter = require('./routes/user');
-const searchRouter = require('./routes/search');
+const emoteRouter = require('./routes/emote');
 
 const corsOptions = {
   origin: process.env.CORS_ORIGIN,
@@ -58,7 +58,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/twitter', twitterRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/user', userRouter);
-app.use('/api/search', searchRouter);
+app.use('/api/emote', emoteRouter);
 
 // error handler
 app.use((error, req, res, next) => {
