@@ -6,6 +6,7 @@ api/credentials/*
 api/emotes
 api/config/config.js
 thumbs.db
+src/statics/images/emotes/*
 
 # Quasar core related directories
 .quasar
