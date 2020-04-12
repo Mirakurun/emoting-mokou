@@ -7,11 +7,15 @@ const router = express.Router();
 
 router.get('/profile', isAuth, userController.getProfile);
 
+router.get('/favorites', isAuth, userController.getFavorites);
+
+router.get('/populate-favorites', isAuth, userController.populateFavorites);
+
 router.post(
   '/favorites',
   isAuth,
   [
-    body('emoteId')
+    body('id')
       .exists()
       .isString()
       .trim(),
@@ -19,17 +23,7 @@ router.post(
   userController.addToFavorites
 );
 
-router.delete(
-  '/favorites',
-  isAuth,
-  [
-    body('emoteId')
-      .exists()
-      .isString()
-      .trim(),
-  ],
-  userController.removeFromFavorites
-);
+router.delete('/favorites/:id', isAuth, userController.removeFromFavorites);
 
 router.post(
   '/darkmode',
