@@ -12,21 +12,21 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.5.2",
+    "@quasar/extras": "^1.6.1",
     "axios": "^0.19.2",
-    "quasar": "^1.9.6",
+    "quasar": "^1.9.12",
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@quasar/app": "^1.6.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-loader": "^3.0.3",
-    "eslint-plugin-import": "^2.20.1",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-loader": "^3.0.4",
+    "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-vue": "^6.2.1",
+    "eslint-plugin-vue": "^6.2.2",
     "prettier": "^1.19.1"
   },
   "engines": {
@@ -42,6 +42,7 @@
   },
   "prettier": {
     "singleQuote": true,
-    "trailingComma": "es5"
+    "trailingComma": "es5",
+    "endOfLine": "auto"
   }
 }
