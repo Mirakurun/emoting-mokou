@@ -29,13 +29,11 @@ userSchema.methods.addToFavorites = function(emote) {
   return this.save();
 };
 
-userSchema.methods.removeFromFavorites = function(emote) {
-  const { _id: id } = emote;
-
+userSchema.methods.removeFromFavorites = function(id) {
   const index = this.favorites.indexOf(id);
 
   if (index > -1) {
-    this.favorites(index, 1);
+    this.favorites.splice(index, 1);
     return this.save();
   }
 
