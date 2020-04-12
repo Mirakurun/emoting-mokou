@@ -10,6 +10,11 @@ const routes = [
         component: () => import('pages/Admin.vue'),
       },
       {
+        name: 'favorites',
+        path: '/favorites',
+        component: () => import('pages/Favorites.vue'),
+      },
+      {
         name: 'upload',
         path: '/upload',
         component: () => import('pages/Upload.vue'),
