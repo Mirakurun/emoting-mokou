@@ -64,7 +64,12 @@
             </q-img>
             <q-list>
               <!-- Upload -->
-              <q-item style="color: #1da1f2" to="/upload" clickable>
+              <q-item
+                v-if="$store.state.user.role === 'admin'"
+                style="color: #1da1f2"
+                to="/upload"
+                clickable
+              >
                 <q-item-section avatar>
                   <q-icon name="fas fa-upload fa-fw" />
                 </q-item-section>
@@ -75,7 +80,7 @@
               <!-- Favorites -->
               <q-item style="color: #1da1f2" to="/favorites" clickable>
                 <q-item-section avatar>
-                  <q-icon name="fas fa-star fa-fw" />
+                  <q-icon name="fas fa-bookmark fa-fw" />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label>Favorites</q-item-label>
