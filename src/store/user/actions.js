@@ -1,5 +1,17 @@
 import { axiosInstance } from 'boot/axios';
 
+export async function fetchFavorites({ commit }) {
+  try {
+    const { data, status } = await axiosInstance.get('/user/favorites');
+
+    if (status === 200) {
+      commit('setFavorites', data);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function fetchUser({ commit }) {
   try {
     const { data, status } = await axiosInstance.get('/user/profile');
