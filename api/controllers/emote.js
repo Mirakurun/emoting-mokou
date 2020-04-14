@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Emote = require('../models/emote');
 
 exports.searchEmotes = async (req, res, next) => {
@@ -43,10 +44,17 @@ exports.searchEmotes = async (req, res, next) => {
 };
 
 exports.sampleEmotes = async (req, res, next) => {
-  const { size = '20' } = req.query;
+  const { index, size } = req.query;
+  const { aggregated } = req.body;
 
   const aggregate = Emote.aggregate([
-    { $sample: { size: +size } },
+    { $sample: { size: +index * +size + +size } },
+    {
+      $match: {
+        _id: { $nin: aggregated.map(val => mongoose.Types.ObjectId(val)) },
+      },
+    },
+    { $limit: +size },
     {
       $project: {
         caption: 1,

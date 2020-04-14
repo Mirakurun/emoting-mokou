@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get('/', emoteController.searchEmotes);
 
-router.get('/random', emoteController.sampleEmotes);
+router.post('/random', emoteController.sampleEmotes);
 
 module.exports = router;
