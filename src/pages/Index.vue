@@ -11,13 +11,13 @@
                 dense
                 rounded
                 outlined
-                @keyup.enter="fetchEmote"
+                @keyup.enter="onSearch"
               >
                 <template #append>
                   <q-icon
                     class="cursor-pointer"
                     name="fas fa-search"
-                    @click="fetchEmote"
+                    @click="onSearch"
                   />
                 </template>
               </q-input>
@@ -64,15 +64,6 @@ export default {
     },
   },
   methods: {
-    async fetchEmote() {
-      try {
-        const { data } = await this.$axios.get(`emote?query=${this.search}`);
-
-        this.data = data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
     async onLoad(index, done) {
       try {
         const { data, status } = await this.$axios.post(
@@ -93,6 +84,9 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+    onSearch() {
+      this.$router.push({ name: 'search', query: { query: this.search } });
     },
   },
 };
