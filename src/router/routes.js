@@ -15,6 +15,12 @@ const routes = [
         component: () => import('pages/Favorites.vue'),
       },
       {
+        name: 'search',
+        path: '/search',
+        component: () => import('pages/Search.vue'),
+        props: route => ({ query: route.query.query }),
+      },
+      {
         name: 'upload',
         path: '/upload',
         component: () => import('pages/Upload.vue'),
