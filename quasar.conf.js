@@ -68,7 +68,9 @@ module.exports = function(ctx) {
         'QChip',
         'QLinearProgress',
         'QSpinnerHourglass',
-        'QSpace'
+        'QSpace',
+        'QInfiniteScroll',
+        'QSpinnerDots'
       ],
 
       directives: ['Ripple', 'ClosePopup'],
