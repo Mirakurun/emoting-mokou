@@ -70,7 +70,7 @@ module.exports = function(ctx) {
         'QSpinnerHourglass',
         'QSpace',
         'QInfiniteScroll',
-        'QSpinnerDots'
+        'QSpinnerDots',
       ],
 
       directives: ['Ripple', 'ClosePopup'],
