@@ -18,6 +18,7 @@
         <q-chip
           v-for="(tag, i) in highlightTags"
           :key="i"
+          class="text-pink"
           color="light-blue-1"
           size="sm"
         >
@@ -29,7 +30,9 @@
               >{{ text.value }}
             </mark>
             <mark v-else-if="text.value === ' '" :key="j">&nbsp;</mark>
-            <template v-else>&nbsp;</template>
+            <template v-else>{{ text.value }}</template>
+
+            <template v-if="j < tag.texts.length - 1">&zwj;</template>
           </template>
         </q-chip>
       </template>
