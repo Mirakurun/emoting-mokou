@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <q-infinite-scroll debounce="1000" :offset="10" @load="onLoad">
-      <div class="row">
+      <div id="infinite-scroll" class="row">
         <div class="col-12 col-sm-12 col-md-9 col-lg-10">
           <div class="row">
             <div class="col">
@@ -33,7 +33,9 @@
             </div>
           </div>
         </div>
-        <div class="col-12 gt-sm col-md-3 col-lg-2">twitter</div>
+        <div class="col-12 gt-sm col-md-3 col-lg-2">
+          <twitter-timeline :key="timelineKey" />
+        </div>
       </div>
       <template #loading>
         <div class="row justify-center q-my-xl">
@@ -46,16 +48,20 @@
 
 <script>
 import EmoteCard from 'components/EmoteCard';
+import TwitterTimeline from 'components/TwitterTimeline';
+import { timelineMixin } from 'mixins/timeline';
 
 export default {
   name: 'PageIndex',
   components: {
     EmoteCard,
+    TwitterTimeline,
   },
+  mixins: [timelineMixin],
   data() {
     return {
-      search: '',
       data: [],
+      search: '',
     };
   },
   computed: {
