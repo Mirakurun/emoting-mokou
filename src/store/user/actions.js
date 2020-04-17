@@ -13,15 +13,17 @@ export async function fetchFavorites({ commit }) {
 }
 
 export async function setDarkMode({ commit }, payload) {
-  try {
-    const { data, status } = await axiosInstance.post('/user/darkmode', {
-      darkmode: payload,
-    });
-
-    if (status === 200) {
-      commit('setDarkMode', data.darkMode);
-    }
-  } catch (error) {
-    console.error(error);
-  }
+  return new Promise((resolve, reject) => {
+    axiosInstance
+      .post('/user/darkmode', { darkmode: payload })
+      .then(({ data, status }) => {
+        if (status === 200) {
+          commit('setDarkMode', data.darkMode);
+          resolve(data.darkMode);
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
 }

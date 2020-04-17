@@ -11,6 +11,7 @@
             <q-file
               v-model="form.file"
               bottom-slots
+              color="teal"
               :error="$v.form.file.$error"
               error-message="Required"
               label="Select image..."
@@ -18,14 +19,25 @@
               @input="onPreviewFile"
             >
               <template #prepend>
-                <q-icon name="fas fa-file-image" />
+                <q-icon color="teal" name="fas fa-file-image" />
               </template>
             </q-file>
             <!-- Image preview -->
             <q-img :src="thumbnail || 'blank'" contain style="height: 300px">
               <template #error>
-                <div class="absolute-full flex flex-center bg-grey-1">
-                  <q-icon color="grey-4" name="fas fa-image" size="200px" />
+                <div
+                  :class="[
+                    'absolute-full',
+                    'flex',
+                    'flex-center',
+                    $q.dark.isActive ? 'bg-grey-9' : 'bg-grey-1',
+                  ]"
+                >
+                  <q-icon
+                    :color="$q.dark.isActive ? 'grey-10' : 'grey-4'"
+                    name="fas fa-image"
+                    size="200px"
+                  />
                 </div>
               </template>
             </q-img>
@@ -33,22 +45,29 @@
             <q-input
               v-model="form.caption"
               bottom-slots
+              color="teal"
               :error="$v.form.caption.$error"
               error-message="Required"
               label="Caption"
             >
               <template #prepend>
-                <q-icon name="fas fa-closed-captioning" />
+                <q-icon color="teal" name="fas fa-closed-captioning" />
               </template>
             </q-input>
             <!-- Tag -->
-            <q-input v-model="tag" label="Tag" @keyup.enter="onAddTag">
+            <q-input
+              v-model="tag"
+              color="teal"
+              label="Tag"
+              @keyup.enter="onAddTag"
+            >
               <template #prepend>
-                <q-icon name="fas fa-tag" />
+                <q-icon color="teal" name="fas fa-tag" />
               </template>
               <template #append>
                 <q-btn
                   v-if="tag"
+                  color="teal"
                   round
                   dense
                   flat
@@ -84,6 +103,7 @@
           />
           <q-btn
             class="full-width"
+            color="blue"
             :disable="isDisabled"
             icon="fas fa-upload"
             label="Upload"

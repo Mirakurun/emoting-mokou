@@ -7,15 +7,18 @@
             <q-input
               v-model="search"
               placeholder="Search emotes..."
+              color="teal"
               dense
-              rounded
-              outlined
+              :outlined="!$q.dark.isActive"
+              :filled="$q.dark.isActive"
               @keyup.enter="onSearch(search)"
             >
               <template #append>
                 <q-icon
                   class="cursor-pointer"
+                  color="teal"
                   name="fas fa-search"
+                  size="xs"
                   @click="onSearch(search)"
                 />
               </template>
@@ -32,19 +35,25 @@
           </div>
         </div>
       </div>
-      <div class="col-12 gt-sm col-md-3 col-lg-2">twitter</div>
+      <div class="col-12 gt-sm col-md-3 col-lg-2">
+        <twitter-timeline :key="timelineKey" />
+      </div>
     </div>
   </q-page>
 </template>
 
 <script>
 import EmoteCard from 'components/EmoteCard';
+import TwitterTimeline from 'components/TwitterTimeline';
+import { timelineMixin } from 'mixins/timeline';
 
 export default {
   name: 'PageSearch',
   components: {
     EmoteCard,
+    TwitterTimeline,
   },
+  mixins: [timelineMixin],
   props: {
     query: {
       type: String,

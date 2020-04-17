@@ -8,15 +8,18 @@
               <q-input
                 v-model="search"
                 placeholder="Search emotes..."
+                color="teal"
                 dense
-                rounded
-                outlined
+                :outlined="!$q.dark.isActive"
+                :filled="$q.dark.isActive"
                 @keyup.enter="onSearch"
               >
                 <template #append>
                   <q-icon
                     class="cursor-pointer"
+                    color="teal"
                     name="fas fa-search"
+                    size="xs"
                     @click="onSearch"
                   />
                 </template>

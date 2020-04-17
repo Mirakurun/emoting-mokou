@@ -1,7 +1,7 @@
 <template>
-  <q-card class="full-height column">
+  <q-card :bordered="$q.dark.isActive" class="full-height column">
     <q-img contain :src="imageURL" :ratio="4 / 3" />
-    <q-card-section class="text-body1 text-grey-14">
+    <q-card-section class="text-body1 caption">
       <template v-if="isHighlightCaption">
         <template v-for="(text, i) in highlightCaption[0].texts">
           <mark v-if="text.type === 'hit'" :key="i" class="text-weight-bold">{{
@@ -15,18 +15,9 @@
     </q-card-section>
     <q-card-section class="q-pa-sm">
       <template v-if="isHighlightTags">
-        <q-chip
-          v-for="(tag, i) in highlightTags"
-          :key="i"
-          class="text-pink"
-          color="light-blue-1"
-          size="sm"
-        >
+        <q-chip v-for="(tag, i) in highlightTags" :key="i" dense>
           <template v-for="(text, j) in tag.texts">
-            <mark
-              v-if="text.type === 'hit'"
-              :key="j"
-              class="text-weight-bold text-pink"
+            <mark v-if="text.type === 'hit'" :key="j" class="text-weight-bold"
               >{{ text.value }}
             </mark>
             <mark v-else-if="text.value === ' '" :key="j">&nbsp;</mark>
@@ -36,26 +27,19 @@
           </template>
         </q-chip>
       </template>
-      <q-chip
-        v-for="tag in remainingTags"
-        :key="tag"
-        color="light-blue-1"
-        size="sm"
-        text-color="pink"
-        >{{ tag }}</q-chip
-      >
+      <q-chip v-for="tag in remainingTags" :key="tag" dense>{{ tag }}</q-chip>
     </q-card-section>
     <q-card-actions align="right" class="col items-end">
       <q-btn
         v-if="$store.state.user.username"
         flat
         round
-        color="teal"
+        color="blue"
         :icon="isFavorite ? 'fas fa-bookmark' : 'far fa-bookmark'"
         @click="isFavorite ? onRemoveFromFavorites(id) : onAddToFavorites(id)"
       />
-      <q-btn v-if="$store.state.user.username" flat round color="teal">
-        <q-icon color="teal">
+      <q-btn v-if="$store.state.user.username" flat round color="blue">
+        <q-icon color="blue">
           <add-tweet-icon />
         </q-icon>
       </q-btn>
@@ -63,7 +47,7 @@
         v-if="$store.state.user.role === 'admin'"
         flat
         round
-        color="teal"
+        color="blue"
         icon="far fa-edit"
         :to="`/emote/${id}`"
       />
@@ -172,3 +156,36 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.q-card--dark {
+  background-color: $blue-grey-10;
+}
+
+.q-card {
+  & ::v-deep .caption {
+    color: $grey-14;
+  }
+}
+
+.q-card--dark {
+  & ::v-deep .caption {
+    color: $grey-4;
+  }
+}
+
+.q-chip {
+  background-color: $light-blue-1;
+  color: $pink;
+}
+
+.q-chip--dark {
+  background-color: $blue-grey-10;
+  border: 1px solid $pink-4;
+  color: $light-blue-4;
+}
+
+.q-chip--dark mark {
+  color: $light-blue;
+}
+</style>

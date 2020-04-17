@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar>
+      <q-toolbar class="bg-deep-purple">
         <q-toolbar-title>
           Emoting Mokou
         </q-toolbar-title>
@@ -26,6 +26,7 @@
         <q-btn-dropdown
           v-if="$store.state.user.username"
           content-class="shadow-10"
+          no-caps
           stretch
           flat
         >
@@ -208,6 +209,7 @@ export default {
       next(vm => {
         if (status === 200) {
           vm.$store.commit('user/setUser', data);
+          vm.$q.dark.set(data.darkMode);
         }
       });
     } catch (error) {
@@ -225,8 +227,17 @@ export default {
       get() {
         return this.$store.state.user.darkMode;
       },
-      set(value) {
-        this.$store.dispatch('user/setDarkMode', value);
+      async set(value) {
+        try {
+          const darkMode = await this.$store.dispatch(
+            'user/setDarkMode',
+            value
+          );
+
+          this.$q.dark.set(darkMode);
+        } catch (error) {
+          console.error(error);
+        }
       },
     },
   },
