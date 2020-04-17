@@ -1,6 +1,5 @@
 <template>
   <div class="q-px-md">
-    <div class="text-subtitle1 text-grey-14">Meet the artist</div>
     <a
       class="twitter-timeline"
       data-height="100vh"
