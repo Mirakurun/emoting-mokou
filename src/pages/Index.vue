@@ -5,25 +5,7 @@
         <div class="col-12 col-sm-12 col-md-9 col-lg-10">
           <div class="row">
             <div class="col">
-              <q-input
-                v-model="search"
-                placeholder="Search emotes..."
-                color="teal"
-                dense
-                :outlined="!$q.dark.isActive"
-                :filled="$q.dark.isActive"
-                @keyup.enter="onSearch"
-              >
-                <template #append>
-                  <q-icon
-                    class="cursor-pointer"
-                    color="teal"
-                    name="fas fa-search"
-                    size="xs"
-                    @click="onSearch"
-                  />
-                </template>
-              </q-input>
+              <searchbar :search-fn="searchFn" :search.sync="search" />
             </div>
           </div>
           <div class="row q-pt-md q-col-gutter-md">
@@ -52,12 +34,14 @@
 <script>
 import EmoteCard from 'components/EmoteCard';
 import TwitterTimeline from 'components/TwitterTimeline';
+import Searchbar from 'components/Searchbar';
 import { timelineMixin } from 'mixins/timeline';
 
 export default {
   name: 'PageIndex',
   components: {
     EmoteCard,
+    Searchbar,
     TwitterTimeline,
   },
   mixins: [timelineMixin],
@@ -94,7 +78,7 @@ export default {
         console.error(error);
       }
     },
-    onSearch() {
+    searchFn() {
       this.$router.push({ name: 'search', query: { query: this.search } });
     },
   },
