@@ -11,23 +11,39 @@
           <template v-else>{{ text.value }}</template>
         </template>
       </template>
-      <div v-else>{{ caption }}</div>
+      <template v-else>
+        {{ caption }}
+      </template>
     </q-card-section>
-    <q-card-section class="q-pa-sm">
-      <template v-if="isHighlightTags">
-        <q-chip v-for="(tag, i) in highlightTags" :key="i" dense>
-          <template v-for="(text, j) in tag.texts">
-            <mark v-if="text.type === 'hit'" :key="j" class="text-weight-bold"
-              >{{ text.value }}
-            </mark>
-            <mark v-else-if="text.value === ' '" :key="j">&nbsp;</mark>
-            <template v-else>{{ text.value }}</template>
-
-            <template v-if="j < tag.texts.length - 1">&zwj;</template>
-          </template>
+    <q-card-section class="q-pa-sm" style="max-width: 100%">
+      <template v-if="isHighlightTags" style="max-width: 100%">
+        <q-chip
+          v-for="(tag, i) in highlightTags"
+          :key="i"
+          class="q-ml-none"
+          dense
+        >
+          <div class="ellipsis">
+            <template v-for="(text, j) in tag.texts">
+              <mark
+                v-if="text.type === 'hit'"
+                :key="j"
+                class="text-weight-bold"
+                >{{ text.value }}</mark
+              >
+              <mark v-else-if="text.value === ' '" :key="j">&nbsp;</mark>
+              <template v-else>{{ text.value }}</template>
+            </template>
+          </div>
         </q-chip>
       </template>
-      <q-chip v-for="tag in remainingTags" :key="tag" dense>{{ tag }}</q-chip>
+      <q-chip
+        v-for="tag in remainingTags"
+        :key="tag"
+        class="q-ml-none"
+        dense
+        :label="tag"
+      />
     </q-card-section>
     <q-card-actions align="right" class="col items-end">
       <q-btn
@@ -176,6 +192,11 @@ export default {
 
 .q-chip {
   background-color: $light-blue-1;
+  color: $pink;
+  max-width: 100%;
+}
+
+.q-chip mark {
   color: $pink;
 }
 
