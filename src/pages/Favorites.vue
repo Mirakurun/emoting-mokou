@@ -1,16 +1,7 @@
 <template>
-  <q-page
-    padding
-    :class="{
-      flex: !$store.state.user.favorites.length,
-      'flex-center': !$store.state.user.favorites.length,
-    }"
-  >
+  <q-page padding>
     <div class="row">
       <div class="col-12 col-sm-12 col-md-9 col-lg-10">
-        <div v-if="!$store.state.user.favorites.length">
-          Nothing here...
-        </div>
         <div class="row">
           <div
             :class="[
@@ -22,7 +13,7 @@
             Favorites
           </div>
         </div>
-        <emote-results :emotes="data" :loading="loading">
+        <emote-results :emotes="data" :loading="loading" :status="status">
           <template #loading>
             <div class="row justify-center">
               <q-spinner-dots color="light-blue" size="xl" />
@@ -63,6 +54,7 @@ export default {
     return {
       data: [],
       loading: false,
+      status: 0,
     };
   },
   async beforeRouteEnter(to, from, next) {
@@ -84,10 +76,13 @@ export default {
     async populateFavorites() {
       try {
         this.loading = true;
-        const { data } = await this.$axios.get('/user/populate-favorites');
+        const { data, status } = await this.$axios.get(
+          '/user/populate-favorites'
+        );
 
         this.data = data;
         this.loading = false;
+        this.status = status;
       } catch (error) {
         console.error(error);
       }

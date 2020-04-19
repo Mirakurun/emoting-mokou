@@ -13,7 +13,12 @@
             <span class="text-weight-bold">"{{ query }}"</span>
           </div>
         </div>
-        <emote-results class="q-pt-md" :emotes="data" :loading="loading">
+        <emote-results
+          class="q-pt-md"
+          :emotes="data"
+          :loading="loading"
+          :status="status"
+        >
           <template #loading>
             <div class="row justify-center">
               <q-spinner-dots color="light-blue" size="xl" />
@@ -59,9 +64,10 @@ export default {
   },
   data() {
     return {
-      search: '',
       data: [],
       loading: false,
+      search: '',
+      status: 0,
     };
   },
   watch: {
@@ -79,10 +85,11 @@ export default {
       try {
         this.search = query;
         this.loading = true;
-        const { data } = await this.$axios.get(`emote?query=${query}`);
+        const { data, status } = await this.$axios.get(`emote?query=${query}`);
 
         this.data = data;
         this.loading = false;
+        this.status = status;
       } catch (error) {
         console.error(error);
       }
