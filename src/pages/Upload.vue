@@ -81,6 +81,8 @@
               <q-chip
                 v-for="item in form.tags"
                 :key="item"
+                color="pink"
+                text-color="white"
                 removable
                 @remove="onRemove(item)"
               >
