@@ -2,19 +2,21 @@
   <q-input
     v-model="input"
     placeholder="Search emotes..."
+    clearable
+    clear-icon="close"
     color="teal"
     dense
     :outlined="!$q.dark.isActive"
     :filled="$q.dark.isActive"
     @keyup.enter="onSearch(search)"
   >
-    <template #append>
+    <template #after>
       <q-btn
+        class="full-height"
         color="teal"
-        flat
         icon="fas fa-search"
-        round
         size="sm"
+        unelevated
         @click="onSearch(search)"
       />
     </template>
@@ -31,7 +33,7 @@ export default {
     },
     search: {
       type: String,
-      required: true,
+      default: '',
     },
   },
   computed: {
@@ -46,11 +48,9 @@ export default {
   },
   methods: {
     onSearch(search) {
-      if (search === '') {
-        return;
+      if (search) {
+        this.searchFn(search);
       }
-
-      this.searchFn(search);
     },
   },
 };

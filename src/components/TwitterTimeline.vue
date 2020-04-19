@@ -1,5 +1,5 @@
 <template>
-  <div class="q-px-md">
+  <div class="q-pl-md">
     <a
       class="twitter-timeline"
       data-height="100vh"

@@ -2,9 +2,21 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar class="bg-deep-purple">
-        <q-toolbar-title>
-          Emoting Mokou
-        </q-toolbar-title>
+        <q-btn href="/" flat no-caps stretch type="a">
+          <q-avatar rounded>
+            <q-img
+              class="bg-white"
+              contain
+              src="statics/images/padoru.jpg"
+              height="38px"
+            />
+          </q-avatar>
+          <q-toolbar-title>
+            Emoting Mokou
+          </q-toolbar-title>
+        </q-btn>
+
+        <q-space />
 
         <q-btn
           v-if="!$store.state.user.username"
@@ -33,16 +45,16 @@
           <template #label>
             <div class="row items-center q-gutter-x-md">
               <q-avatar size="40px">
-                <img :src="$store.state.user.profileImage" />
+                <q-img :src="$store.state.user.profileImage" />
               </q-avatar>
               <div>{{ $store.state.user.displayName }}</div>
             </div>
           </template>
           <div class="column">
             <q-img :src="$store.state.user.profileBanner" style="width: 350px">
-              <div class="row items-center q-gutter-x-md absolute-bottom">
-                <q-avatar size="50px">
-                  <img :src="$store.state.user.profileImage" />
+              <div class="row items-center absolute-bottom">
+                <q-avatar class="on-left" size="50px">
+                  <q-img :src="$store.state.user.profileImage" />
                 </q-avatar>
                 <div>
                   <div class="text-h6">
@@ -58,7 +70,7 @@
               <!-- Upload -->
               <q-item
                 v-if="$store.state.user.role === 'admin'"
-                style="color: #1da1f2"
+                class="text-blue"
                 to="/upload"
                 clickable
               >
@@ -70,7 +82,7 @@
                 </q-item-section>
               </q-item>
               <!-- Favorites -->
-              <q-item style="color: #1da1f2" to="/favorites" clickable>
+              <q-item class="text-blue" to="/favorites" clickable>
                 <q-item-section avatar>
                   <q-icon name="fas fa-bookmark fa-fw" />
                 </q-item-section>
@@ -79,7 +91,7 @@
                 </q-item-section>
               </q-item>
               <!-- Dark mode -->
-              <q-item v-ripple tag="label" style="color: #1da1f2">
+              <q-item v-ripple tag="label" class="text-blue">
                 <q-item-section avatar>
                   <q-icon name="fas fa-adjust fa-fw fa-flip-horizontal" />
                 </q-item-section>
