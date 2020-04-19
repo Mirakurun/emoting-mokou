@@ -1,38 +1,39 @@
 <template>
   <q-page padding>
-    <q-infinite-scroll debounce="1000" :offset="10" @load="onLoad">
-      <div id="infinite-scroll" class="row">
-        <div class="col-12 col-sm-12 col-md-9 col-lg-10">
-          <div class="row">
-            <div class="col">
-              <searchbar :search-fn="searchFn" :search.sync="search" />
-            </div>
-          </div>
-          <div class="row q-pt-md q-col-gutter-md">
-            <div
-              v-for="(emote, index) in data"
-              :key="index"
-              class="col-xs-6 col-sm-4 col-md-3 col-lg-2"
-            >
-              <emote-card v-bind="emote" />
-            </div>
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-9 col-lg-10">
+        <div class="row">
+          <div class="col">
+            <searchbar :search-fn="searchFn" :search.sync="search" />
           </div>
         </div>
-        <div class="col-12 gt-sm col-md-3 col-lg-2">
-          <twitter-timeline :key="timelineKey" />
+        <div class="row">
+          <div class="col">
+            <q-infinite-scroll debounce="1000" :offset="10" @load="onLoad">
+              <emote-results class="q-pt-md" :emotes="data" />
+              <template #loading>
+                <div class="row justify-center q-my-xl">
+                  <q-spinner-dots color="light-blue" size="xl" />
+                </div>
+              </template>
+            </q-infinite-scroll>
+          </div>
+        </div>
+        <div v-if="done" class="row">
+          <div class="col text-subtitle1 text-center q-py-md">
+            End of results
+          </div>
         </div>
       </div>
-      <template #loading>
-        <div class="row justify-center q-my-xl">
-          <q-spinner-dots color="light-blue" size="xl" />
-        </div>
-      </template>
-    </q-infinite-scroll>
+      <div class="col-12 gt-sm col-md-3 col-lg-2">
+        <twitter-timeline :key="timelineKey" />
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script>
-import EmoteCard from 'components/EmoteCard';
+import EmoteResults from 'components/EmoteResults';
 import TwitterTimeline from 'components/TwitterTimeline';
 import Searchbar from 'components/Searchbar';
 import { timelineMixin } from 'mixins/timeline';
@@ -40,7 +41,7 @@ import { timelineMixin } from 'mixins/timeline';
 export default {
   name: 'PageIndex',
   components: {
-    EmoteCard,
+    EmoteResults,
     Searchbar,
     TwitterTimeline,
   },
@@ -48,6 +49,7 @@ export default {
   data() {
     return {
       data: [],
+      done: false,
       search: '',
     };
   },
@@ -72,6 +74,7 @@ export default {
             done();
           } else {
             done(true);
+            this.done = true;
           }
         }
       } catch (error) {

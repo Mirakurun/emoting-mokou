@@ -22,15 +22,13 @@
             Favorites
           </div>
         </div>
-        <div class="row q-col-gutter-md">
-          <div
-            v-for="(emote, index) in data"
-            :key="index"
-            class="col-xs-6 col-sm-4 col-md-3 col-lg-2"
-          >
-            <emote-card v-bind="emote" />
-          </div>
-        </div>
+        <emote-results :emotes="data" :loading="loading">
+          <template #loading>
+            <div class="row justify-center">
+              <q-spinner-dots color="light-blue" size="xl" />
+            </div>
+          </template>
+        </emote-results>
       </div>
       <div class="col-12 gt-sm col-md-3 col-lg-2">
         <twitter-timeline :key="timelineKey" />
@@ -41,20 +39,21 @@
 
 <script>
 import { axiosInstance } from 'boot/axios';
-import EmoteCard from 'components/EmoteCard';
+import EmoteResults from 'components/EmoteResults';
 import TwitterTimeline from 'components/TwitterTimeline';
 import { timelineMixin } from 'mixins/timeline';
 
 export default {
   name: 'PageFavorites',
   components: {
-    EmoteCard,
+    EmoteResults,
     TwitterTimeline,
   },
   mixins: [timelineMixin],
   data() {
     return {
       data: [],
+      loading: false,
     };
   },
   async beforeRouteEnter(to, from, next) {
@@ -75,9 +74,11 @@ export default {
   methods: {
     async populateFavorites() {
       try {
+        this.loading = true;
         const { data } = await this.$axios.get('/user/populate-favorites');
 
         this.data = data;
+        this.loading = false;
       } catch (error) {
         console.error(error);
       }
