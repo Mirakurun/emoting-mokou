@@ -21,13 +21,13 @@
         <q-btn
           v-if="!$store.state.user.username"
           :href="`${apiURI}/auth/twitter`"
-          icon="fab fa-twitter"
-          label="login"
           flat
           stretch
-          style="color: #1da1f2"
           type="a"
-        />
+        >
+          <q-icon name="fab fa-twitter" left style="color: #1da1f2" />
+          <div class="text-white">Login</div>
+        </q-btn>
 
         <q-btn v-if="$store.state.user.username" flat round>
           <q-icon color="white">
