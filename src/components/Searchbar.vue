@@ -9,11 +9,12 @@
     @keyup.enter="onSearch(search)"
   >
     <template #append>
-      <q-icon
-        class="cursor-pointer"
+      <q-btn
         color="teal"
-        name="fas fa-search"
-        size="xs"
+        flat
+        icon="fas fa-search"
+        round
+        size="sm"
         @click="onSearch(search)"
       />
     </template>
