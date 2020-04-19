@@ -110,6 +110,7 @@
             icon="fas fa-upload"
             label="Upload"
             :loading="isLoading"
+            unelevated
             @click="onUpload"
           >
             <template #loading>
