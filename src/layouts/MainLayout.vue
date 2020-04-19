@@ -21,7 +21,9 @@
         <q-btn
           v-if="!$store.state.user.username"
           :href="`${apiURI}/auth/twitter`"
+          class="gt-xs"
           flat
+          no-wrap
           stretch
           type="a"
         >
