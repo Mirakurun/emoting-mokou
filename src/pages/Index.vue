@@ -29,6 +29,15 @@
         <twitter-timeline :key="timelineKey" />
       </div>
     </div>
+
+    <!-- Page scroller -->
+    <q-page-scroller
+      position="bottom-right"
+      :scroll-offset="150"
+      :offset="[18, 18]"
+    >
+      <q-btn fab icon="fas fa-arrow-up" color="teal" />
+    </q-page-scroller>
   </q-page>
 </template>
 
