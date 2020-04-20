@@ -35,6 +35,11 @@
           <q-icon color="white">
             <draft-tweet-icon />
           </q-icon>
+          <q-tooltip
+            content-class="bg-light-blue"
+            content-style="font-size: 16px"
+            >Compose tweet</q-tooltip
+          >
         </q-btn>
 
         <q-btn-dropdown
@@ -65,7 +70,13 @@
           icon="menu"
           aria-label="Menu"
           @click="$refs['right-drawer'].open()"
-        />
+        >
+          <q-tooltip
+            content-class="bg-light-blue"
+            content-style="font-size: 16px"
+            >Menu</q-tooltip
+          >
+        </q-btn>
       </q-toolbar>
     </q-header>
 

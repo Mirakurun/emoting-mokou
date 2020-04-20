@@ -2,18 +2,23 @@
   <q-card :bordered="$q.dark.isActive" class="full-height column">
     <q-img contain :src="imageURL" :ratio="4 / 3" />
     <q-card-section class="text-body1 caption">
-      <template v-if="isHighlightCaption">
-        <template v-for="(text, i) in highlightCaption[0].texts">
-          <mark v-if="text.type === 'hit'" :key="i" class="text-weight-bold">{{
-            text.value
-          }}</mark>
-          <mark v-else-if="text.value === ' '" :key="i">&nbsp;</mark>
-          <template v-else>{{ text.value }}</template>
+      <div :title="caption">
+        <template v-if="isHighlightCaption">
+          <template v-for="(text, i) in highlightCaption[0].texts">
+            <mark
+              v-if="text.type === 'hit'"
+              :key="i"
+              class="text-weight-bold"
+              >{{ text.value }}</mark
+            >
+            <mark v-else-if="text.value === ' '" :key="i">&nbsp;</mark>
+            <template v-else>{{ text.value }}</template>
+          </template>
         </template>
-      </template>
-      <template v-else>
-        {{ caption }}
-      </template>
+        <template v-else>
+          {{ caption }}
+        </template>
+      </div>
     </q-card-section>
     <q-card-section class="q-pa-sm" style="max-width: 100%">
       <template v-if="isHighlightTags" style="max-width: 100%">
@@ -22,6 +27,7 @@
           :key="i"
           class="q-ml-none"
           dense
+          :title="tag"
         >
           <div class="ellipsis">
             <template v-for="(text, j) in tag.texts">
@@ -43,6 +49,7 @@
         class="q-ml-none"
         dense
         :label="tag"
+        :title="tag"
       />
     </q-card-section>
     <q-card-actions align="right" class="col items-end">
@@ -53,11 +60,22 @@
         color="blue"
         :icon="isFavorite ? 'fas fa-bookmark' : 'far fa-bookmark'"
         @click="isFavorite ? onRemoveFromFavorites(id) : onAddToFavorites(id)"
-      />
+      >
+        <q-tooltip
+          content-class="bg-light-blue"
+          content-style="font-size: 16px"
+          >{{
+            isFavorite ? 'Remove from favorites' : 'Add to favorites'
+          }}</q-tooltip
+        >
+      </q-btn>
       <q-btn v-if="$store.state.user.username" flat round color="blue">
         <q-icon color="blue">
           <add-tweet-icon />
         </q-icon>
+        <q-tooltip content-class="bg-light-blue" content-style="font-size: 16px"
+          >Add to tweet</q-tooltip
+        >
       </q-btn>
       <q-btn
         v-if="$store.state.user.role === 'admin'"
@@ -66,7 +84,11 @@
         color="blue"
         icon="far fa-edit"
         :to="`/emote/${id}`"
-      />
+      >
+        <q-tooltip content-class="bg-light-blue" content-style="font-size: 16px"
+          >Edit</q-tooltip
+        >
+      </q-btn>
     </q-card-actions>
   </q-card>
 </template>

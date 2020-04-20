@@ -73,6 +73,7 @@ module.exports = function(ctx) {
         'QInfiniteScroll',
         'QSpinnerDots',
         'QPageScroller',
+        'QTooltip',
       ],
 
       directives: ['Ripple', 'ClosePopup'],
