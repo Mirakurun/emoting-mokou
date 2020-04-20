@@ -11,9 +11,14 @@
               height="38px"
             />
           </q-avatar>
-          <q-toolbar-title>
+          <q-toolbar-title class="gt-xs">
             Emoting Mokou
           </q-toolbar-title>
+          <q-tooltip
+            content-class="bg-light-blue"
+            content-style="font-size: 16px"
+            >Go home</q-tooltip
+          >
         </q-btn>
 
         <q-space />
@@ -31,7 +36,7 @@
           <div class="text-white">Login</div>
         </q-btn>
 
-        <q-btn v-if="$store.state.user.username" class="gt-xs" flat round>
+        <q-btn v-if="$store.state.user.username" class="on-left" flat round>
           <q-icon color="white">
             <draft-tweet-icon />
           </q-icon>
@@ -53,7 +58,7 @@
         >
           <template #label>
             <div class="row items-center q-gutter-x-md">
-              <q-avatar size="40px">
+              <q-avatar size="38px">
                 <q-img :src="$store.state.user.profileImage" />
               </q-avatar>
               <div>{{ $store.state.user.displayName }}</div>
@@ -67,14 +72,15 @@
           flat
           dense
           round
-          icon="menu"
-          aria-label="Menu"
           @click="$refs['right-drawer'].open()"
         >
+          <q-avatar size="38px">
+            <q-img :src="$store.state.user.profileImage" />
+          </q-avatar>
           <q-tooltip
             content-class="bg-light-blue"
             content-style="font-size: 16px"
-            >Menu</q-tooltip
+            >Profile</q-tooltip
           >
         </q-btn>
       </q-toolbar>

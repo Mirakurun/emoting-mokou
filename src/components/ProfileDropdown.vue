@@ -14,20 +14,6 @@
       </div>
     </q-img>
     <q-list>
-      <!-- Compose tweet -->
-      <q-item class="lt-sm text-blue" clickable>
-        <q-item-section avatar>
-          <q-icon>
-            <draft-tweet-icon />
-          </q-icon>
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>Tweet</q-item-label>
-        </q-item-section>
-      </q-item>
-
-      <q-separator inset />
-
       <!-- Upload -->
       <q-item
         v-if="$store.state.user.role === 'admin'"
@@ -84,13 +70,8 @@
 </template>
 
 <script>
-import DraftTweetIcon from 'components/DraftTweetIcon';
-
 export default {
   name: 'ProfileDropdown',
-  components: {
-    DraftTweetIcon,
-  },
   computed: {
     toggleDarkMode: {
       get() {
