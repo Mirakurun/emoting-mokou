@@ -10,6 +10,23 @@ const routes = [
         component: () => import('pages/Admin.vue'),
       },
       {
+        name: 'emote',
+        path: '/emotes/:id',
+        component: () => import('pages/Emote.vue'),
+        children: [
+          {
+            name: 'emote-home',
+            path: '',
+            component: () => import('pages/EmoteHome.vue'),
+          },
+          {
+            name: 'edit',
+            path: '/edit',
+            component: () => import('pages/EmoteEdit.vue'),
+          },
+        ],
+      },
+      {
         name: 'favorites',
         path: '/favorites',
         component: () => import('pages/Favorites.vue'),

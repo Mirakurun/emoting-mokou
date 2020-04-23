@@ -1,6 +1,35 @@
 const mongoose = require('mongoose');
 const Emote = require('../models/emote');
 
+exports.getEmote = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const emote = await Emote.findById(id);
+
+    if (!emote) {
+      const error = new Error('Emote not found!');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    console.log('Found emote.');
+
+    const { _id: renameId, caption, createdAt, filename, tags } = emote;
+    const result = {};
+
+    result.id = renameId;
+    result.caption = caption;
+    result.createdAt = createdAt;
+    result.filename = filename;
+    result.tags = tags;
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.searchEmotes = async (req, res, next) => {
   const { query } = req.query;
 
