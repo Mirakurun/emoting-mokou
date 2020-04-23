@@ -16,7 +16,7 @@
           </q-toolbar-title>
           <q-tooltip
             content-class="bg-light-blue"
-            content-style="font-size: 16px"
+            content-style="font-size: 12px"
             >Go home</q-tooltip
           >
         </q-btn>
@@ -42,7 +42,7 @@
           </q-icon>
           <q-tooltip
             content-class="bg-light-blue"
-            content-style="font-size: 16px"
+            content-style="font-size: 12px"
             >Compose tweet</q-tooltip
           >
         </q-btn>
@@ -79,7 +79,7 @@
           </q-avatar>
           <q-tooltip
             content-class="bg-light-blue"
-            content-style="font-size: 16px"
+            content-style="font-size: 12px"
             >Profile</q-tooltip
           >
         </q-btn>
