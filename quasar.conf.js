@@ -74,12 +74,13 @@ module.exports = function(ctx) {
         'QSpinnerDots',
         'QPageScroller',
         'QTooltip',
+        'QDialog'
       ],
 
       directives: ['Ripple', 'ClosePopup'],
 
       // Quasar plugins
-      plugins: ['Cookies'],
+      plugins: ['Cookies', 'AppFullscreen'],
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
@@ -116,11 +117,9 @@ module.exports = function(ctx) {
       env: ctx.dev
         ? {
             API: JSON.stringify('http://localhost:3000/api'),
-            EMOTES: JSON.stringify('http://localhost:8080/statics/images/emotes'),
           }
         : {
             API: JSON.stringify('https://emoting-mokou.moe/api'),
-            EMOTES: JSON.stringify('https://emoting-mokou.moe/statics/images/emotes'),
           },
     },
 
