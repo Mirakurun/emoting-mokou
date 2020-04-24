@@ -51,6 +51,7 @@
 
 <script>
 import Vue from 'vue';
+import { axiosInstance } from 'boot/axios';
 import TwitterTimeline from 'components/TwitterTimeline';
 import CaptionInput from 'components/CaptionInput';
 import TagInput from 'components/TagInput';
@@ -83,6 +84,18 @@ export default {
         required,
       },
     },
+  },
+  async beforeRouteEnter(to, from, next) {
+    try {
+      const { status } = await axiosInstance.get('/admin/profile');
+
+      if (status === 200) {
+        next();
+      }
+    } catch (error) {
+      console.error(error);
+      next('*');
+    }
   },
   methods: {
     async onSave() {
