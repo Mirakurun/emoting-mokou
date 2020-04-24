@@ -1,118 +1,96 @@
 <template>
-  <q-card :bordered="$q.dark.isActive" class="full-height column">
-    <q-img contain :src="imageURL" :ratio="4 / 3" />
-    <q-card-section class="text-body1 caption">
-      <div :title="caption">
-        <template v-if="isHighlightCaption">
-          <template v-for="(text, i) in highlightCaption[0].texts">
-            <mark
-              v-if="text.type === 'hit'"
-              :key="i"
-              class="text-weight-bold"
-              >{{ text.value }}</mark
-            >
-            <mark v-else-if="text.value === ' '" :key="i">&nbsp;</mark>
-            <template v-else>{{ text.value }}</template>
-          </template>
-        </template>
-        <template v-else>
-          {{ caption }}
-        </template>
-      </div>
-    </q-card-section>
-    <q-card-section class="q-pa-sm" style="max-width: 100%">
-      <template v-if="isHighlightTags" style="max-width: 100%">
-        <q-chip
-          v-for="(tag, i) in highlightTags"
-          :key="i"
-          class="q-ml-none"
-          dense
-          :title="tag"
-        >
-          <div class="ellipsis">
-            <template v-for="(text, j) in tag.texts">
+  <router-link :to="`/emotes/${id}`">
+    <q-card :bordered="$q.dark.isActive" class="full-height column">
+      <q-img
+        :alt="caption"
+        contain
+        :src="`statics/images/emotes/${filename}`"
+        :ratio="4 / 3"
+      />
+      <q-card-section class="text-body1 caption">
+        <div :title="caption">
+          <template v-if="isHighlightCaption">
+            <template v-for="(text, i) in highlightCaption[0].texts">
               <mark
                 v-if="text.type === 'hit'"
-                :key="j"
+                :key="i"
                 class="text-weight-bold"
                 >{{ text.value }}</mark
               >
-              <mark v-else-if="text.value === ' '" :key="j">&nbsp;</mark>
+              <mark v-else-if="text.value === ' '" :key="i">&nbsp;</mark>
               <template v-else>{{ text.value }}</template>
             </template>
-          </div>
-        </q-chip>
-      </template>
-      <q-chip
-        v-for="tag in remainingTags"
-        :key="tag"
-        class="q-ml-none"
-        dense
-        :label="tag"
-        :title="tag"
-      />
-    </q-card-section>
-    <q-card-actions align="right" class="col items-end">
-      <q-btn
-        v-if="$store.state.user.username"
-        flat
-        round
-        color="blue"
-        :icon="isFavorite ? 'fas fa-bookmark' : 'far fa-bookmark'"
-        @click="isFavorite ? onRemoveFromFavorites(id) : onAddToFavorites(id)"
-      >
-        <q-tooltip
-          content-class="bg-light-blue"
-          content-style="font-size: 16px"
-          >{{
-            isFavorite ? 'Remove from favorites' : 'Add to favorites'
-          }}</q-tooltip
-        >
-      </q-btn>
-      <q-btn v-if="$store.state.user.username" flat round color="blue">
-        <q-icon color="blue">
-          <add-tweet-icon />
-        </q-icon>
-        <q-tooltip content-class="bg-light-blue" content-style="font-size: 16px"
-          >Add to tweet</q-tooltip
-        >
-      </q-btn>
-      <q-btn
-        v-if="$store.state.user.role === 'admin'"
-        flat
-        round
-        color="blue"
-        icon="far fa-edit"
-        :to="`/emote/${id}`"
-      >
-        <q-tooltip content-class="bg-light-blue" content-style="font-size: 16px"
-          >Edit</q-tooltip
-        >
-      </q-btn>
-    </q-card-actions>
-  </q-card>
+          </template>
+          <template v-else>
+            {{ caption }}
+          </template>
+        </div>
+      </q-card-section>
+      <q-card-section class="q-pa-sm" style="max-width: 100%">
+        <template v-if="isHighlightTags" style="max-width: 100%">
+          <q-chip
+            v-for="(tag, i) in highlightTags"
+            :key="i"
+            class="q-ml-none"
+            dense
+            :title="tag"
+          >
+            <div class="ellipsis">
+              <template v-for="(text, j) in tag.texts">
+                <mark
+                  v-if="text.type === 'hit'"
+                  :key="j"
+                  class="text-weight-bold"
+                  >{{ text.value }}</mark
+                >
+                <mark v-else-if="text.value === ' '" :key="j">&nbsp;</mark>
+                <template v-else>{{ text.value }}</template>
+              </template>
+            </div>
+          </q-chip>
+        </template>
+        <q-chip
+          v-for="tag in remainingTags"
+          :key="tag"
+          class="q-ml-none"
+          dense
+          :label="tag"
+          :title="tag"
+        />
+      </q-card-section>
+      <q-card-actions align="right" class="col items-end">
+        <add-to-favorites-btn :id="id" flat round />
+        <add-to-tweet-btn :id="id" flat round />
+        <edit-emote-btn :id="id" flat round />
+      </q-card-actions>
+    </q-card>
+  </router-link>
 </template>
 
 <script>
-import AddTweetIcon from 'components/AddTweetIcon';
+import AddToFavoritesBtn from 'components/AddToFavoritesBtn';
+import AddToTweetBtn from 'components/AddToTweetBtn';
+import EditEmoteBtn from 'components/EditEmoteBtn';
 
 export default {
   name: 'EmoteCard',
   components: {
-    AddTweetIcon,
+    AddToFavoritesBtn,
+    AddToTweetBtn,
+    EditEmoteBtn,
   },
   props: {
     id: {
       type: String,
-      required: true,
+      default: '',
     },
     caption: {
       type: String,
-      required: true,
+      default: '',
     },
     filename: {
       type: String,
-      required: true,
+      default: '',
     },
     highlight: {
       type: Array,
@@ -148,12 +126,6 @@ export default {
         return highlight.path === 'tags';
       });
     },
-    imageURL() {
-      return `${process.env.EMOTES}/${this.filename}`;
-    },
-    isFavorite() {
-      return this.$store.state.user.favorites.includes(this.id);
-    },
     remainingTags() {
       const highlights = this.highlightTags.map(tag => {
         return tag.texts
@@ -169,33 +141,28 @@ export default {
     },
   },
   methods: {
-    async onAddToFavorites(id) {
-      try {
-        const { status } = await this.$axios.post('user/favorites', { id });
-
-        if (status === 204) {
-          this.$store.dispatch('user/fetchFavorites');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async onRemoveFromFavorites(id) {
-      try {
-        const { status } = await this.$axios.delete(`user/favorites/${id}`);
-
-        if (status === 204) {
-          this.$store.dispatch('user/fetchFavorites');
-        }
-      } catch (error) {
-        console.error(error);
-      }
+    onAddToTweet() {
+      console.log('test');
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.q-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.q-card:hover {
+  transform: scale(1.05);
+  box-shadow: $shadow-10;
+}
+
 .q-card--dark {
   background-color: $blue-grey-10;
 }
