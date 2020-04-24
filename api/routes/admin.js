@@ -11,7 +11,7 @@ router.post(
   '/emote',
   isAdmin,
   [
-    body('description')
+    body('caption')
       .exists()
       .isString()
       .isLength({ min: 1 })
@@ -36,7 +36,7 @@ router.put(
   '/emote/:id',
   isAdmin,
   [
-    body('description')
+    body('caption')
       .optional()
       .isString()
       .isLength({ min: 1 })

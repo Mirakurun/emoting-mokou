@@ -21,7 +21,7 @@ const routes = [
           },
           {
             name: 'edit',
-            path: '/edit',
+            path: 'edit',
             component: () => import('pages/EmoteEdit.vue'),
           },
         ],

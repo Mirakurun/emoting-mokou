@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <keep-alive :include="'EmoteHome'">
+    <router-view />
+  </keep-alive>
 </template>
 
 <script>
