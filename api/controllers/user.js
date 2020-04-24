@@ -20,12 +20,11 @@ exports.populateFavorites = async (req, res, next) => {
     const user = await User.findById(id).populate('favorites');
 
     const favorites = user.favorites.map(favorite => {
-      const { _id: renameId, caption, createdAt, filename, tags } = favorite;
+      const { _id: renameId, caption, filename, tags } = favorite;
       const data = {};
 
       data.id = renameId;
       data.caption = caption;
-      data.createdAt = createdAt;
       data.filename = filename;
       data.tags = tags;
 

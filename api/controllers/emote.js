@@ -50,7 +50,6 @@ exports.searchEmotes = async (req, res, next) => {
         caption: 1,
         filename: 1,
         tags: 1,
-        createdAt: 1,
         _id: 0,
         id: '$_id',
         score: {
@@ -89,7 +88,6 @@ exports.sampleEmotes = async (req, res, next) => {
         caption: 1,
         filename: 1,
         tags: 1,
-        createdAt: 1,
         _id: 0,
         id: '$_id',
       },
