@@ -7,7 +7,7 @@
     :unelevated="unelevated"
     @click.prevent="onAddToTweet(id)"
   >
-    <q-icon class="on-left">
+    <q-icon :class="{ 'on-left': label }">
       <add-tweet-icon />
     </q-icon>
     <div>{{ label }}</div>
