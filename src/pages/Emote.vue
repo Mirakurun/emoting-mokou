@@ -1,5 +1,5 @@
 <template>
-  <keep-alive :include="'EmoteHome'">
+  <keep-alive include="EmoteHome">
     <router-view />
   </keep-alive>
 </template>
