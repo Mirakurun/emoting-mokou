@@ -93,12 +93,28 @@ export default {
   },
   methods: {
     async onLogout() {
-      const { status } = await this.$axios.get('auth/logout');
+      try {
+        const { status } = await this.$axios.get('auth/logout');
 
-      if (status === 204) {
-        this.$store.commit('user/clearUser');
-        this.$router.replace('/').catch(err => err);
+        if (status === 204) {
+          this.$store.commit('user/clearUser');
+          if (this.$route.path === '/') {
+            this.notify();
+          } else {
+            this.$router.push('/', () => {
+              this.notify();
+            });
+          }
+        }
+      } catch (error) {
+        console.error(error);
       }
+    },
+    notify() {
+      this.$q.notify({
+        type: 'info',
+        message: 'Logged out.',
+      });
     },
   },
 };
