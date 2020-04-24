@@ -48,7 +48,7 @@ import Searchbar from 'components/Searchbar';
 import { timelineMixin } from 'mixins/timeline';
 
 export default {
-  name: 'PageIndex',
+  name: 'Index',
   components: {
     EmoteResults,
     Searchbar,
