@@ -89,7 +89,9 @@
     <right-drawer ref="right-drawer" />
 
     <q-page-container>
-      <router-view />
+      <keep-alive include="Index">
+        <router-view />
+      </keep-alive>
     </q-page-container>
   </q-layout>
 </template>
