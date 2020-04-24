@@ -1,4 +1,9 @@
 export const timelineMixin = {
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.timelineKey += 1;
+    });
+  },
   data() {
     return {
       timelineKey: 0,
