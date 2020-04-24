@@ -41,54 +41,13 @@
                 </div>
               </template>
             </q-img>
-            <!-- Caption -->
-            <q-input
-              v-model="form.caption"
-              bottom-slots
-              color="teal"
+            <!-- Caption input -->
+            <caption-input
+              :caption.sync="form.caption"
               :error="$v.form.caption.$error"
-              error-message="Required"
-              label="Caption"
-            >
-              <template #prepend>
-                <q-icon color="teal" name="fas fa-closed-captioning" />
-              </template>
-            </q-input>
-            <!-- Tag -->
-            <q-input
-              v-model="tag"
-              color="teal"
-              label="Tag"
-              @keyup.enter="onAddTag"
-            >
-              <template #prepend>
-                <q-icon color="teal" name="fas fa-tag" />
-              </template>
-              <template #append>
-                <q-btn
-                  v-if="tag"
-                  color="teal"
-                  round
-                  dense
-                  flat
-                  icon="add"
-                  @click="onAddTag"
-                />
-              </template>
-            </q-input>
-            <!-- Tags -->
-            <div class="q-gutter-xs">
-              <q-chip
-                v-for="item in form.tags"
-                :key="item"
-                color="pink"
-                text-color="white"
-                removable
-                @remove="onRemove(item)"
-              >
-                {{ item }}
-              </q-chip>
-            </div>
+            />
+            <!-- Tag input -->
+            <tag-input :tag.sync="tag" :tags.sync="form.tags" />
           </div>
         </q-card-section>
         <!-- Upload -->
@@ -129,11 +88,17 @@ import Vue from 'vue';
 import { axiosInstance } from 'boot/axios';
 import Vuelidate from 'vuelidate';
 import { required } from 'vuelidate/lib/validators';
+import CaptionInput from 'components/CaptionInput';
+import TagInput from 'components/TagInput';
 
 Vue.use(Vuelidate);
 
 export default {
   name: 'PageUpload',
+  components: {
+    CaptionInput,
+    TagInput,
+  },
   data() {
     return {
       form: {
@@ -173,12 +138,6 @@ export default {
     }
   },
   methods: {
-    onAddTag() {
-      if (!this.form.tags.includes(this.tag)) {
-        this.form.tags.push(this.tag);
-        this.tag = '';
-      }
-    },
     onPreviewFile() {
       const reader = new FileReader();
 
@@ -189,11 +148,6 @@ export default {
       if (this.form.file) {
         reader.readAsDataURL(this.form.file);
       }
-    },
-    onRemove(tag) {
-      const index = this.form.tags.indexOf(tag);
-
-      this.form.tags.splice(index, 1);
     },
     onReset() {
       this.form.caption = '';
