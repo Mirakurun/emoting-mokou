@@ -49,7 +49,7 @@ import Searchbar from 'components/Searchbar';
 import { timelineMixin } from 'mixins/timeline';
 
 export default {
-  name: 'PageSearch',
+  name: 'Search',
   components: {
     EmoteResults,
     Searchbar,
