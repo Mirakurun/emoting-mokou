@@ -1,6 +1,6 @@
 <template>
   <keep-alive include="EmoteHome">
-    <router-view />
+    <router-view :key="$route.path" />
   </keep-alive>
 </template>
 

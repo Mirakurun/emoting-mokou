@@ -6,6 +6,7 @@ const emoteSchema = new Schema(
   {
     caption: { type: String, required: true },
     filename: { type: String, required: true },
+    series: [{ type: Schema.Types.ObjectId, ref: 'Emote' }],
     tags: [{ type: String }],
   },
   { timestamps: true }

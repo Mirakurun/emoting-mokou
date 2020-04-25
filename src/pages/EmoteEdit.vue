@@ -20,6 +20,8 @@
               />
               <!-- Tag input -->
               <tag-input :tag.sync="tag" :tags.sync="emote.tags" />
+              <!-- Panel input -->
+              <panel-input :panel.sync="panel" :series.sync="series" />
             </div>
           </q-card-section>
           <q-card-actions class="q-pa-md">
@@ -54,6 +56,7 @@ import Vue from 'vue';
 import { axiosInstance } from 'boot/axios';
 import TwitterTimeline from 'components/TwitterTimeline';
 import CaptionInput from 'components/CaptionInput';
+import PanelInput from 'components/PanelInput';
 import TagInput from 'components/TagInput';
 import { timelineMixin } from 'mixins/timeline';
 import { emoteMixin } from 'mixins/emote';
@@ -66,6 +69,7 @@ export default {
   name: 'EmoteEdit',
   components: {
     CaptionInput,
+    PanelInput,
     TagInput,
     TwitterTimeline,
   },
@@ -75,6 +79,7 @@ export default {
       isDisabled: false,
       isLoading: false,
       label: '',
+      panel: '',
       tag: '',
     };
   },
@@ -112,6 +117,7 @@ export default {
 
         const data = {};
         data.caption = this.emote.caption;
+        data.series = this.emote.series;
         data.tags = this.emote.tags;
 
         const { status } = await this.$axios.put(

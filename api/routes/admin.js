@@ -21,6 +21,13 @@ router.post(
       .isString()
       .isLength({ min: 1 })
       .trim(),
+    body('series')
+      .optional()
+      .isArray(),
+    body('series.*')
+      .isString()
+      .isLength({ min: 1 })
+      .trim(),
     body('tags')
       .exists()
       .isArray(),
@@ -43,6 +50,13 @@ router.put(
       .trim(),
     body('filename')
       .optional()
+      .isString()
+      .isLength({ min: 1 })
+      .trim(),
+    body('series')
+      .optional()
+      .isArray(),
+    body('series.*')
       .isString()
       .isLength({ min: 1 })
       .trim(),

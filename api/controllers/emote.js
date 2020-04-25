@@ -5,7 +5,7 @@ exports.getEmote = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const emote = await Emote.findById(id);
+    const emote = await Emote.findById(id).populate('series');
 
     if (!emote) {
       const error = new Error('Emote not found!');
@@ -15,13 +15,27 @@ exports.getEmote = async (req, res, next) => {
 
     console.log('Found emote.');
 
-    const { _id: renameId, caption, createdAt, filename, tags } = emote;
+    const { _id: emoteId, caption, createdAt, filename, tags } = emote;
+    let series = [];
+
+    if (emote.series.length) {
+      series = emote.series.map(item => {
+        const { _id: itemId, filename: itemFilename } = item;
+        const data = {};
+        data.id = itemId;
+        data.filename = itemFilename;
+
+        return data;
+      });
+    }
+
     const result = {};
 
-    result.id = renameId;
+    result.id = emoteId;
     result.caption = caption;
     result.createdAt = createdAt;
     result.filename = filename;
+    result.series = series;
     result.tags = tags;
 
     res.status(200).json(result);
