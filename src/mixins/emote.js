@@ -7,7 +7,7 @@ export const emoteMixin = {
     };
   },
   created() {
-    this.fetchEmote();
+    this.fetchEmote(this.$route.params.id);
   },
   computed: {
     isSeries() {
@@ -26,11 +26,9 @@ export const emoteMixin = {
     },
   },
   methods: {
-    async fetchEmote() {
+    async fetchEmote(id) {
       try {
-        const { data, status } = await axiosInstance.get(
-          `/emote/${this.$route.params.id}`
-        );
+        const { data, status } = await axiosInstance.get(`/emote/${id}`);
 
         if (status === 200) {
           this.emote = data;

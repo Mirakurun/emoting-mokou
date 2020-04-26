@@ -30,8 +30,10 @@
                 <edit-emote-btn :id="emote.id" flat label="Edit" />
               </q-card-actions>
               <q-card-section class="caption">
-                <div class="text-h6">{{ emote.caption }}</div>
-                <div class="text-subtitle1 text-grey">
+                <div class="text-h6">
+                  {{ emote.caption }}
+                </div>
+                <div v-if="emote.createdAt" class="text-subtitle1 text-grey">
                   Uploaded on {{ formatCreatedAt }}
                 </div>
               </q-card-section>
@@ -98,6 +100,11 @@ export default {
     TwitterTimeline,
   },
   mixins: [emoteMixin, timelineMixin],
+  beforeRouteUpdate(to, from, next) {
+    this.emote = {};
+    this.fetchEmote(to.params.id);
+    next();
+  },
   computed: {
     formatCreatedAt() {
       if (this.emote.createdAt) {
