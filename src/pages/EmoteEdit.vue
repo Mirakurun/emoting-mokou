@@ -117,7 +117,7 @@ export default {
 
         const data = {};
         data.caption = this.emote.caption;
-        data.series = this.emote.series;
+        data.series = this.series;
         data.tags = this.emote.tags;
 
         const { status } = await this.$axios.put(
