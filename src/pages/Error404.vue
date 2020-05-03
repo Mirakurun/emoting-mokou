@@ -1,21 +1,27 @@
 <template>
-  <div class="fixed-center text-center">
-    <p>
-      <img
-        src="~assets/sad.svg"
-        style="width:30vw;max-width:150px;"
-      >
-    </p>
-    <p class="text-faded">
-      Sorry, nothing here...<strong>(404)</strong>
-    </p>
-    <q-btn
-      color="secondary"
-      style="width:200px;"
-      to="/"
-      label="Go back"
-    />
-  </div>
+  <q-layout>
+    <q-page-container>
+      <q-page class="flex flex-center">
+        <div style="width: 355px">
+          <q-img
+            contain
+            src="statics/images/nothing.png"
+            style="max-width: 355px"
+          />
+          <div class="text-h4 text-center q-mt-md q-mb-xl">
+            404 Page not found
+          </div>
+          <q-btn
+            class="full-width"
+            color="teal"
+            unelevated
+            @click="$router.push('/')"
+            >Go home</q-btn
+          >
+        </div>
+      </q-page>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
