@@ -92,11 +92,14 @@ export default {
   },
   async beforeRouteEnter(to, from, next) {
     try {
-      const { status } = await axiosInstance.get('/admin/profile');
+      const fetchProfile = axiosInstance.get('/admin/profile');
+      const fetchEmote = axiosInstance.get(`/emote/${to.params.id}`);
 
-      if (status === 200) {
-        next();
-      }
+      const responses = await Promise.all([fetchProfile, fetchEmote]);
+
+      next(vm => {
+        vm.emote = responses[1].data;
+      });
     } catch (error) {
       console.error(error);
       next('*');

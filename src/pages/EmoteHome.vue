@@ -117,6 +117,7 @@ import TwitterTimeline from 'components/TwitterTimeline';
 import { timelineMixin } from 'mixins/timeline';
 import { emoteMixin } from 'mixins/emote';
 import { format } from 'date-fns';
+import { axiosInstance } from 'boot/axios';
 
 export default {
   name: 'EmoteHome',
@@ -128,6 +129,22 @@ export default {
     TwitterTimeline,
   },
   mixins: [emoteMixin, timelineMixin],
+  async beforeRouteEnter(to, from, next) {
+    try {
+      const { data, status } = await axiosInstance.get(
+        `/emote/${to.params.id}`
+      );
+
+      if (status === 200) {
+        next(vm => {
+          vm.emote = data;
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      next('*');
+    }
+  },
   beforeRouteUpdate(to, from, next) {
     this.emote = {};
     this.fetchEmote(to.params.id);

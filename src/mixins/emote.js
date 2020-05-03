@@ -1,13 +1,8 @@
-import { axiosInstance } from 'boot/axios';
-
 export const emoteMixin = {
   data() {
     return {
       emote: {},
     };
-  },
-  created() {
-    this.fetchEmote(this.$route.params.id);
   },
   computed: {
     isSeries() {
@@ -23,19 +18,6 @@ export const emoteMixin = {
         });
       }
       return null;
-    },
-  },
-  methods: {
-    async fetchEmote(id) {
-      try {
-        const { data, status } = await axiosInstance.get(`/emote/${id}`);
-
-        if (status === 200) {
-          this.emote = data;
-        }
-      } catch (error) {
-        console.error(error);
-      }
     },
   },
 };
