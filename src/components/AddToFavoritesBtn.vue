@@ -3,13 +3,19 @@
     v-if="$store.state.user.username"
     :color="$q.dark.isActive ? 'cyan' : 'blue'"
     :flat="flat"
-    :icon="isFavorite ? 'fas fa-bookmark' : 'far fa-bookmark'"
+    :icon="
+      $store.getters['user/isFavorite'](id)
+        ? 'fas fa-bookmark'
+        : 'far fa-bookmark'
+    "
     :label="label"
     :loading="loading"
     :round="round"
     :unelevated="unelevated"
     @click.prevent="
-      isFavorite ? onRemoveFromFavorites(id) : onAddToFavorites(id)
+      $store.getters['user/isFavorite'](id)
+        ? onRemoveFromFavorites(id)
+        : onAddToFavorites(id)
     "
   >
     <template #loading>
@@ -20,7 +26,9 @@
       content-class="bg-light-blue"
       content-style="font-size: 12px"
       >{{
-        isFavorite ? 'Remove from favorites' : 'Add to favorites'
+        $store.getters['user/isFavorite'](id)
+          ? 'Remove from favorites'
+          : 'Add to favorites'
       }}</q-tooltip
     >
   </q-btn>
@@ -52,11 +60,6 @@ export default {
     return {
       loading: false,
     };
-  },
-  computed: {
-    isFavorite() {
-      return this.$store.state.user.favorites.includes(this.id);
-    },
   },
   methods: {
     async onAddToFavorites(id) {
