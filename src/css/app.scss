@@ -3,3 +3,28 @@
 .body--light {
   background-color: $indigo-1;
 }
+
+.fa-fw {
+  text-align: center !important;
+  width: 1.25em !important;
+}
+
+.img-fw img {
+  text-align: center !important;
+  width: 1.25em !important;
+}
+
+.notify-icon img {
+  height: 42px;
+  min-width: auto !important;
+}
+
+.q-item.svg-color img {
+  filter: invert(51%) sepia(95%) saturate(2531%) hue-rotate(183deg)
+    brightness(97%) contrast(96%) !important;
+}
+
+.q-item--dark.svg-color img {
+  filter: invert(69%) sepia(51%) saturate(5386%) hue-rotate(146deg)
+    brightness(96%) contrast(101%) !important;
+}

@@ -1,10 +1,25 @@
+export function addMedia(state, payload) {
+  state.media.push(payload);
+}
+
+export function clearMedia(state) {
+  state.media = [];
+}
+
 export function clearUser(state) {
   state.displayName = '';
   state.favorites = [];
+  state.media = [];
   state.profileBanner = '';
   state.profileImage = '';
   state.role = '';
   state.username = '';
+}
+
+export function deleteMedia(state, index) {
+  if (index > -1) {
+    state.media.splice(index, 1);
+  }
 }
 
 export function setDarkMode(state, payload) {
@@ -20,6 +35,7 @@ export function setUser(state, payload) {
     darkMode,
     displayName,
     favorites,
+    media,
     profileBanner,
     profileImage,
     role,
@@ -29,6 +45,7 @@ export function setUser(state, payload) {
   state.darkMode = darkMode;
   state.displayName = displayName;
   state.favorites = favorites;
+  state.media = media;
   state.profileBanner = profileBanner;
   state.profileImage = profileImage;
   state.role = role;

@@ -12,6 +12,18 @@ router.get('/favorites', isAuth, userController.getFavorites);
 router.get('/populate-favorites', isAuth, userController.populateFavorites);
 
 router.post(
+  '/media',
+  isAuth,
+  [
+    body('id')
+      .exists()
+      .isString()
+      .trim(),
+  ],
+  userController.addToMedia
+);
+
+router.post(
   '/favorites',
   isAuth,
   [
@@ -22,6 +34,8 @@ router.post(
   ],
   userController.addToFavorites
 );
+
+router.delete('/media/:index', isAuth, userController.removeFromMedia);
 
 router.delete('/favorites/:id', isAuth, userController.removeFromFavorites);
 

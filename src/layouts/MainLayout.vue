@@ -36,7 +36,20 @@
           <div class="text-white">Login</div>
         </q-btn>
 
-        <q-btn v-if="$store.state.user.username" class="on-left" flat round>
+        <q-btn
+          v-if="$store.state.user.username"
+          class="on-left"
+          flat
+          round
+          @click="$refs['tweet-dialog'].toggle()"
+        >
+          <q-badge
+            v-if="$store.state.user.media.length"
+            color="red"
+            floating
+            :label="$store.state.user.media.length"
+            transparent
+          />
           <q-icon color="white">
             <draft-tweet-icon />
           </q-icon>
@@ -88,6 +101,8 @@
 
     <right-drawer ref="right-drawer" />
 
+    <tweet-dialog ref="tweet-dialog" />
+
     <q-page-container>
       <keep-alive include="Index">
         <router-view />
@@ -100,6 +115,7 @@
 import DraftTweetIcon from 'components/DraftTweetIcon';
 import RightDrawer from 'components/RightDrawer';
 import ProfileDropdown from 'components/ProfileDropdown';
+import TweetDialog from 'components/TweetDialog';
 import { axiosInstance } from 'boot/axios';
 
 export default {
@@ -108,6 +124,7 @@ export default {
     DraftTweetIcon,
     ProfileDropdown,
     RightDrawer,
+    TweetDialog,
   },
   data() {
     return {

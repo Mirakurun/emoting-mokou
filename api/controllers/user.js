@@ -19,8 +19,8 @@ exports.populateFavorites = async (req, res, next) => {
   try {
     const user = await User.findById(id).populate('favorites');
 
-    const favorites = user.favorites.map(favorite => {
-      const { _id: renameId, caption, filename, tags } = favorite;
+    const favorites = user.favorites.map(emote => {
+      const { _id: renameId, caption, filename, tags } = emote;
       const data = {};
 
       data.id = renameId;
@@ -32,6 +32,40 @@ exports.populateFavorites = async (req, res, next) => {
     });
 
     res.status(200).json(favorites);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.addToMedia = async (req, res, next) => {
+  const { id } = req.body;
+
+  try {
+    const emote = await Emote.findById(id);
+
+    if (!emote) {
+      res.status(422).json({ message: 'Emote not found.' });
+    }
+
+    await req.user.addToMedia(emote);
+
+    console.log('Added emote to media.');
+
+    res.status(201).send(emote.filename);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.removeFromMedia = async (req, res, next) => {
+  const { index } = req.params;
+
+  try {
+    await req.user.removeFromMedia(index);
+
+    console.log('Removed emote from draft.');
+
+    res.status(204).send();
   } catch (error) {
     next(error);
   }

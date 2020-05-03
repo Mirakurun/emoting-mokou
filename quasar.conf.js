@@ -74,13 +74,17 @@ module.exports = function(ctx) {
         'QSpinnerDots',
         'QPageScroller',
         'QTooltip',
-        'QDialog'
+        'QDialog',
+        'QEditor',
+        'QCircularProgress',
+        'QBadge',
+        'QBanner'
       ],
 
       directives: ['Ripple', 'ClosePopup'],
 
       // Quasar plugins
-      plugins: ['AppFullscreen', 'Notify'],
+      plugins: ['AppFullscreen', 'BottomSheet', 'Notify'],
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie

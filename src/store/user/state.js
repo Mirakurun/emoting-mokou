@@ -3,6 +3,7 @@ export default function() {
     darkMode: false,
     displayName: '',
     favorites: [],
+    media: [],
     profileBanner: '',
     profileImage: '',
     role: '',

@@ -2,11 +2,19 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
+function arrayLimit(val) {
+  return val.length <= 4;
+}
+
 const userSchema = new Schema(
   {
     darkMode: { type: Boolean, default: false },
     displayName: { type: String, required: true },
     favorites: [{ type: Schema.Types.ObjectId, ref: 'Emote' }],
+    media: {
+      type: [{ type: String }],
+      validate: [arrayLimit, '{PATH} exceeds the limit of 4!'],
+    },
     profileBanner: { type: String, required: true },
     profileImage: { type: String, required: true },
     provider: { type: String, required: true },
@@ -18,6 +26,30 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
+
+userSchema.methods.addToMedia = function(emote) {
+  const { filename } = emote;
+
+  if (!this.media.includes(filename)) {
+    this.media.push(filename);
+  }
+
+  return this.save();
+};
+
+userSchema.methods.removeFromMedia = function(index) {
+  if (index > -1) {
+    this.media.splice(index, 1);
+    return this.save();
+  }
+
+  return Promise.reject(new Error('Emote not found!'));
+};
+
+userSchema.methods.clearMedia = function() {
+  this.media = [];
+  return this.save();
+};
 
 userSchema.methods.addToFavorites = function(emote) {
   const { _id: id } = emote;
