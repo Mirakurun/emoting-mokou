@@ -72,7 +72,7 @@ export default {
     async onLoad(index, done) {
       try {
         const { data, status } = await this.$axios.post(
-          `emote/random?index=${index}&size=18`,
+          `/emote/random?index=${index}&size=18`,
           {
             aggregated: this.aggregated,
           }
