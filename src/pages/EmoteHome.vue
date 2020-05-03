@@ -16,18 +16,46 @@
               <q-card-actions align="right">
                 <add-to-favorites-btn
                   :id="emote.id"
+                  ref="favorite"
+                  class="gt-xs"
                   flat
-                  label="Add to Favorites"
+                  :label="
+                    this.$store.getters['user/isFavorite'](emote.id)
+                      ? 'Remove from favorites'
+                      : 'Add to favorites'
+                  "
                 />
-                <add-to-tweet-btn :id="emote.id" flat label="Add to Tweet" />
+                <add-to-tweet-btn
+                  :id="emote.id"
+                  ref="tweet"
+                  :filename="emote.filename"
+                  class="gt-xs"
+                  flat
+                  label="Add to Tweet"
+                />
                 <q-btn
+                  class="gt-xs"
                   :color="$q.dark.isActive ? 'cyan' : 'blue'"
                   flat
                   icon="fas fa-expand"
                   label="fullscreen"
                   @click="onToggle"
                 />
-                <edit-emote-btn :id="emote.id" flat label="Edit" />
+                <edit-emote-btn
+                  :id="emote.id"
+                  ref="edit"
+                  class="gt-xs"
+                  flat
+                  label="Edit"
+                />
+                <q-btn
+                  class="lt-sm"
+                  :color="$q.dark.isActive ? 'cyan' : 'blue'"
+                  icon="more_vert"
+                  flat
+                  round
+                  @click="onShowMore"
+                />
               </q-card-actions>
               <q-card-section class="caption">
                 <div class="text-h6">
@@ -114,6 +142,68 @@ export default {
     },
   },
   methods: {
+    onShowMore() {
+      this.$q
+        .bottomSheet({
+          actions: [
+            {
+              color: this.$q.dark.isActive ? 'cyan' : 'blue',
+              label: this.$store.getters['user/isFavorite'](this.emote.id)
+                ? 'Remove from favorites'
+                : 'Add to favorites',
+              icon: this.$store.getters['user/isFavorite'](this.emote.id)
+                ? 'fas fa-bookmark fa-fw'
+                : 'far fa-bookmark fa-fw',
+              id: 'favorite',
+            },
+            {
+              classes: [
+                { disabled: this.$store.state.user.media.length >= 4 },
+                'img-fw',
+                'svg-color',
+              ],
+              label: 'Add to tweet',
+              img: 'statics/icons/add-tweet.svg',
+              id: 'tweet',
+            },
+            {
+              color: this.$q.dark.isActive ? 'cyan' : 'blue',
+              label: 'Fullscreen',
+              icon: 'fas fa-expand fa-fw',
+              id: 'fullscreen',
+            },
+            {
+              classes: [{ hidden: this.$store.state.user.role !== 'admin' }],
+              color: this.$q.dark.isActive ? 'cyan' : 'blue',
+              label: 'Edit',
+              icon: 'fas fa-pencil-alt fa-fw',
+              id: 'edit',
+            },
+          ],
+        })
+        .onOk(action => {
+          switch (action.id) {
+            case 'favorite':
+              if (this.$store.getters['user/isFavorite'](this.emote.id)) {
+                this.$refs.favorite.onRemoveFromFavorites(this.emote.id);
+              } else {
+                this.$refs.favorite.onAddToFavorites(this.emote.id);
+              }
+              break;
+            case 'tweet':
+              this.$refs.tweet.onAddToTweet(this.emote.id);
+              break;
+            case 'fullscreen':
+              this.onToggle();
+              break;
+            default:
+              this.$router.push({
+                name: 'edit',
+                params: { id: this.emote.id },
+              });
+          }
+        });
+    },
     onToggle() {
       this.$refs.fullscreen.toggle();
       const target = this.$el.querySelector('#fullscreen');
