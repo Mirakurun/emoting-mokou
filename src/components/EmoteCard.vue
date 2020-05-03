@@ -60,7 +60,7 @@
       </q-card-section>
       <q-card-actions align="right" class="col items-end">
         <add-to-favorites-btn :id="id" flat round />
-        <add-to-tweet-btn :id="id" flat round />
+        <add-to-tweet-btn :id="id" :filename="filename" flat round />
         <edit-emote-btn :id="id" flat round />
       </q-card-actions>
     </q-card>
@@ -138,11 +138,6 @@ export default {
       return this.tags.filter(tag => {
         return !highlights.includes(tag);
       });
-    },
-  },
-  methods: {
-    onAddToTweet() {
-      console.log('test');
     },
   },
 };
