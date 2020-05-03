@@ -3,7 +3,7 @@
     v-if="$store.state.user.role === 'admin'"
     :color="$q.dark.isActive ? 'cyan' : 'blue'"
     :flat="flat"
-    icon="far fa-edit"
+    icon="fas fa-pencil-alt"
     :label="label"
     :round="round"
     :unelevated="unelevated"
