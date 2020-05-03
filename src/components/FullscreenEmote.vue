@@ -8,6 +8,7 @@
       ]"
     >
       <q-img
+        basic
         contain
         :src="`statics/images/emotes/${filename}`"
         :height="height"
