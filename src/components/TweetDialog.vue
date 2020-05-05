@@ -2,7 +2,7 @@
   <q-dialog
     v-model="dialog"
     :maximized="$q.screen.lt.sm"
-    position="top"
+    :position="$q.screen.lt.sm ? 'standard' : 'top'"
     :transition-show="null"
     :transition-hide="null"
   >
@@ -301,5 +301,12 @@ export default {
     width: 1em;
     height: 1em;
   }
+}
+
+.body--dark .emoji-mart {
+  color: #fff;
+  border: 1px solid #d9d9d9;
+  border-color: #555453;
+  background: #222;
 }
 </style>

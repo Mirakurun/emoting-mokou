@@ -28,3 +28,28 @@
   filter: invert(69%) sepia(51%) saturate(5386%) hue-rotate(146deg)
     brightness(96%) contrast(101%) !important;
 }
+
+.body--dark .emoji-mart {
+  color: #fff;
+  border: 1px solid #d9d9d9;
+  border-color: #555453;
+  background: #222;
+}
+
+.body--dark .emoji-mart-category-label span {
+  background-color: #222;
+}
+
+.body--dark .emoji-mart-search input {
+  color: #fff;
+  border-color: #555453;
+  background-color: #2f2f2f;
+}
+
+.body--dark .emoji-mart-category .emoji-mart-emoji:hover:before {
+  background-color: #444;
+}
+
+.body--dark .emoji-mart-anchor:hover {
+  color: #bfbfbf;
+}
