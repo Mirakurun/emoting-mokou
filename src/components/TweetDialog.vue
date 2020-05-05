@@ -1,5 +1,11 @@
 <template>
-  <q-dialog v-model="dialog" :maximized="$q.screen.lt.sm">
+  <q-dialog
+    v-model="dialog"
+    :maximized="$q.screen.lt.sm"
+    position="top"
+    :transition-show="null"
+    :transition-hide="null"
+  >
     <q-card style="width: 600px">
       <q-card-section class="row items-center">
         <div class="text-h6">Compose tweet</div>
@@ -20,10 +26,11 @@
       <q-card-section horizontal>
         <q-card-section avatar class="q-pr-none q-pb-none">
           <q-avatar size="50px">
-            <q-img :src="$store.state.user.profileImage" />
+            <q-img basic :src="$store.state.user.profileImage" />
           </q-avatar>
         </q-card-section>
         <q-card-section class="col q-px-xs q-pb-none">
+          <!-- Editor -->
           <q-editor
             ref="editor"
             v-model="tweet"
@@ -65,42 +72,57 @@
           </div>
         </q-img>
       </q-card-section>
-      <q-card-actions class="q-pa-md" align="right">
-        <q-circular-progress
-          :class="[{ invisible: !tweet }, 'on-left']"
-          color="grey-9"
-          font-size="0.41em"
-          :track-color="progressColor"
-          reverse
-          :show-value="charLimit - parseText.weightedLength <= 20"
-          size="md"
-          :min="0"
-          :max="charLimit"
-          :value="Math.max(charLimit - parseText.weightedLength, 0)"
-        >
-          <template>
-            {{ charLimit - parseText.weightedLength }}
-          </template>
-        </q-circular-progress>
-        <q-btn
-          color="blue"
-          label="Tweet"
-          :disable="
-            isDisabled ||
-              $store.getters['user/isEmptyMedia'] ||
-              !parseText.valid
-          "
-          :loading="isTweeting"
-          no-caps
-          :percentage="percentage"
-          rounded
-          unelevated
-          @click="onTweet"
-        >
-          <template #loading>
-            <q-spinner-hourglass />
-          </template>
+      <q-card-actions class="q-pa-md" align="between">
+        <q-btn color="blue" flat round>
+          <q-icon><emoji-icon /></q-icon>
+          <q-popup-proxy :transition-show="null" :transition-hide="null">
+            <static-picker
+              :data="index"
+              emoji="smile"
+              set="twitter"
+              theme="dark"
+              title="Choose your emoji..."
+              @select="onSelect"
+            />
+          </q-popup-proxy>
         </q-btn>
+        <div>
+          <q-circular-progress
+            :class="[{ invisible: !tweet }, 'on-left']"
+            color="grey-9"
+            font-size="0.41em"
+            :track-color="progressColor"
+            reverse
+            :show-value="charLimit - parseText.weightedLength <= 20"
+            size="md"
+            :min="0"
+            :max="charLimit"
+            :value="Math.max(charLimit - parseText.weightedLength, 0)"
+          >
+            <template>
+              {{ charLimit - parseText.weightedLength }}
+            </template>
+          </q-circular-progress>
+          <q-btn
+            color="blue"
+            label="Tweet"
+            :disable="
+              isDisabled ||
+                $store.getters['user/isEmptyMedia'] ||
+                !parseText.valid
+            "
+            :loading="isTweeting"
+            no-caps
+            :percentage="percentage"
+            rounded
+            unelevated
+            @click="onTweet"
+          >
+            <template #loading>
+              <q-spinner-hourglass />
+            </template>
+          </q-btn>
+        </div>
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -109,14 +131,24 @@
 <script>
 import twitter from 'twitter-text';
 import { openURL } from 'quasar';
+import EmojiIcon from 'components/EmojiIcon';
+import dataset from 'emoji-mart-vue-fast/data/twitter.json';
+import { StaticPicker, EmojiIndex } from 'emoji-mart-vue-fast';
+import 'emoji-mart-vue-fast/css/emoji-mart.css';
+import { parse } from 'twemoji-parser';
 
 export default {
   name: 'TweetDialog',
+  components: {
+    EmojiIcon,
+    StaticPicker,
+  },
   data() {
     return {
       charLimit: 280,
       currentLoading: null,
       dialog: false,
+      index: null,
       isDisabled: false,
       isTweeting: false,
       percentage: 0,
@@ -125,7 +157,7 @@ export default {
   },
   computed: {
     parseText() {
-      return twitter.parseTweet(this.tweet);
+      return twitter.parseTweet(this.text);
     },
     progressColor() {
       if (280 - this.parseText.weightedLength <= 0) {
@@ -136,6 +168,13 @@ export default {
       }
       return 'blue';
     },
+    text() {
+      return new DOMParser().parseFromString(this.tweet, 'text/html').body
+        .textContent;
+    },
+  },
+  mounted() {
+    this.index = new EmojiIndex(dataset);
   },
   methods: {
     isLoading(i) {
@@ -162,6 +201,14 @@ export default {
         this.currentLoading = null;
       }
     },
+    onSelect(emoji) {
+      const entities = parse(emoji.native);
+      const { url } = entities[0];
+      const html = `<span contenteditable="false" style="background-image: url(${url});
+                    background-size: 1em 1em; padding: 0.20em; background-position: center center;
+                    background-repeat: no-repeat; -webkit-text-fill-color: transparent;">${emoji.native}</span>&nbsp;`;
+      this.$refs.editor.runCmd('insertHTML', html, false);
+    },
     async onTweet() {
       try {
         this.isDisabled = true;
@@ -179,7 +226,7 @@ export default {
 
         const formData = new FormData();
 
-        formData.append('text', this.tweet);
+        formData.append('text', this.text);
 
         blobs.forEach(blob => {
           formData.append('images', blob);
@@ -247,5 +294,12 @@ export default {
 
 .q-editor.q-dark {
   color: $grey-4;
+}
+
+.q-editor {
+  & ::v-deep img {
+    width: 1em;
+    height: 1em;
+  }
 }
 </style>

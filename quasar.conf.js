@@ -78,7 +78,8 @@ module.exports = function(ctx) {
         'QEditor',
         'QCircularProgress',
         'QBadge',
-        'QBanner'
+        'QBanner',
+        'QPopupProxy',
       ],
 
       directives: ['Ripple', 'ClosePopup'],
