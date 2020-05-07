@@ -1,12 +1,14 @@
 <template>
   <q-dialog
+    :key="key"
     v-model="dialog"
     :maximized="$q.screen.lt.sm"
     :position="$q.screen.lt.sm ? 'standard' : 'top'"
     :transition-show="null"
     :transition-hide="null"
+    @show="onShow"
   >
-    <q-card style="width: 600px">
+    <q-card style="width: 600px;">
       <q-card-section class="row items-center">
         <div class="text-h6">Compose tweet</div>
         <q-space />
@@ -37,12 +39,14 @@
             :content-style="{ 'font-size': '18px' }"
             flat
             :toolbar="[]"
+            @keydown.delete="onKeydown"
+            @keyup.delete="onKeyup"
           />
         </q-card-section>
       </q-card-section>
       <q-banner v-if="$store.getters['user/isEmptyMedia']">
         <template #avatar>
-          <q-img src="statics/images/comfy.png" style="width: 100px" />
+          <q-img src="statics/images/comfy.png" style="width: 100px;" />
         </template>
         Add at least 1 emote before you can tweet.
       </q-banner>
@@ -54,11 +58,15 @@
           basic
           class="bg-grey-8"
           contain
-          style="height: 128px; width: 128px"
+          style="height: 128px; width: 128px;"
         >
           <div
             class="absolute-top-right"
-            style="padding: 0 !important; margin: 4px 4px 0 0; border-radius: 50%"
+            style="
+              padding: 0 !important;
+              margin: 4px 4px 0 0;
+              border-radius: 50%;
+            "
           >
             <q-btn
               :disable="isDisabled"
@@ -145,6 +153,7 @@ export default {
   },
   data() {
     return {
+      key: 0,
       charLimit: 280,
       currentLoading: null,
       dialog: false,
@@ -169,8 +178,28 @@ export default {
       return 'blue';
     },
     text() {
-      return new DOMParser().parseFromString(this.tweet, 'text/html').body
+      return new DOMParser().parseFromString(this.special, 'text/html').body
         .textContent;
+    },
+    special() {
+      if (this.tweet.length > 0) {
+        let string = new DOMParser().parseFromString(this.tweet, 'text/html')
+          .body.innerHTML;
+
+        const elements = string.match(/<[^>]*>/g);
+
+        if (elements.length > 0) {
+          elements.forEach(html => {
+            const entities = parse(html);
+            if (entities.length > 0) {
+              string = string.replace(html, entities[0].text);
+            }
+          });
+          return string;
+        }
+        return '';
+      }
+      return '';
     },
   },
   mounted() {
@@ -202,12 +231,18 @@ export default {
       }
     },
     onSelect(emoji) {
+      // /<[^>]*>/g
       const entities = parse(emoji.native);
       const { url } = entities[0];
-      const html = `<span contenteditable="false" style="background-image: url(${url});
-                    background-size: 1em 1em; padding: 0.20em; background-position: center center;
-                    background-repeat: no-repeat; -webkit-text-fill-color: transparent;">${emoji.native}</span>&nbsp;`;
+      // const html = `<span contenteditable="false" style="background-image: url(${url});
+      //               background-size: 1em 1em; padding: 0.20em; background-position: center center;
+      //               background-repeat: no-repeat; -webkit-text-fill-color: transparent;">${emoji.native}</span>`;
+      // const html = `<q-icon name="img:${url}" size="1em"></q-icon>`;
+      const html = `<img src="${url}" alt="${emoji.native}" style="width: 1em; height: 1em;">`;
       this.$refs.editor.runCmd('insertHTML', html, false);
+    },
+    onShow() {
+      this.$refs.editor.runCmd('insertHTML', '<div><br></div>', false);
     },
     async onTweet() {
       try {
@@ -282,6 +317,16 @@ export default {
     },
     toggle() {
       this.dialog = !this.dialog;
+    },
+    onKeydown(e) {
+      if (e.which === 8 && this.text.length === 0) {
+        e.preventDefault();
+      }
+    },
+    onKeyup(e) {
+      if (e.which === 8 && this.text.length === 0 && this.tweet === '<br>') {
+        this.$refs.editor.runCmd('insertHTML', '<div><br></div>', false);
+      }
     },
   },
 };

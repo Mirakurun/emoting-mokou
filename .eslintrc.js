@@ -3,11 +3,11 @@ module.exports = {
 
   parserOptions: {
     parser: 'babel-eslint',
-    sourceType: 'module'
+    sourceType: 'module',
   },
 
   env: {
-    browser: true
+    browser: true,
   },
 
   extends: [
@@ -20,22 +20,19 @@ module.exports = {
     // 'plugin:vue/strongly-recommended' // Priority B: Strongly Recommended (Improving Readability)
     'plugin:vue/recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
     'plugin:prettier/recommended',
-    'prettier/vue'
+    'prettier/vue',
   ],
 
   // required to lint *.vue files
-  plugins: [
-    'vue',
-    'prettier'
-  ],
+  plugins: ['vue', 'prettier'],
 
   globals: {
-    'ga': true, // Google Analytics
-    'cordova': true,
-    '__statics': true,
-    'process': true,
-    'Capacitor': true,
-    'chrome': true
+    ga: true, // Google Analytics
+    cordova: true,
+    __statics: true,
+    process: true,
+    Capacitor: true,
+    chrome: true,
   },
 
   // add your custom rules here
@@ -53,10 +50,16 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'prefer-promise-reject-errors': 'off',
 
-    'prettier/prettier': ['error', { singleQuote: true, trailingComma: 'es5' }],
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+        trailingComma: 'es5',
+      },
+    ],
     'no-console': 'off',
 
     // allow debugger during development only
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
-  }
-}
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+  },
+};

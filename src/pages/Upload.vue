@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center" padding>
-    <q-form ref="form" style="width: 100%; max-width: 500px" @reset="onReset">
+    <q-form ref="form" style="width: 100%; max-width: 500px;" @reset="onReset">
       <q-card bordered flat>
         <q-card-section>
           <div class="text-h6">Upload</div>
@@ -23,7 +23,7 @@
               </template>
             </q-file>
             <!-- Image preview -->
-            <q-img :src="thumbnail || 'blank'" contain style="height: 300px">
+            <q-img :src="thumbnail || 'blank'" contain style="height: 300px;">
               <template #error>
                 <div
                   :class="[
