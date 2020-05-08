@@ -1,6 +1,5 @@
 <template>
   <q-dialog
-    :key="key"
     v-model="dialog"
     :maximized="$q.screen.lt.sm"
     :position="$q.screen.lt.sm ? 'standard' : 'top'"
