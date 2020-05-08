@@ -121,6 +121,18 @@ import { axiosInstance } from 'boot/axios';
 
 export default {
   name: 'EmoteHome',
+  metaInfo() {
+    return {
+      title: 'Emoting Mokou',
+      titleTemplate: `%s - ${this.emote.caption}`,
+      meta: [
+        {
+          name: 'description',
+          content: `${this.emote.caption}`,
+        },
+      ],
+    };
+  },
   components: {
     AddToFavoritesBtn,
     AddToTweetBtn,

@@ -19,6 +19,7 @@
     "quasar": "^1.9.15",
     "twitter-text": "^3.1.0",
     "vue-gtag": "^1.6.2",
+    "vue-meta": "^2.3.3",
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {
