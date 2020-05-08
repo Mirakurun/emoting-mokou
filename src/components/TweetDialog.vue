@@ -150,7 +150,6 @@ export default {
   },
   data() {
     return {
-      key: 0,
       charLimit: 280,
       currentLoading: null,
       dialog: false,
