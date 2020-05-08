@@ -2,8 +2,14 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar class="bg-deep-purple">
-        <q-btn href="/" flat no-caps stretch type="a">
-          <q-avatar rounded>
+        <q-btn
+          flat
+          no-caps
+          :round="$route.name !== 'home'"
+          :stretch="$route.name === 'home'"
+          @click="$router.go(-1)"
+        >
+          <q-avatar v-if="$route.name === 'home'" rounded>
             <q-img
               class="bg-white"
               contain
@@ -11,14 +17,10 @@
               height="38px"
             />
           </q-avatar>
-          <q-toolbar-title class="gt-xs">
+          <q-icon v-else name="fas fa-arrow-left" />
+          <q-toolbar-title v-if="$route.name === 'home'" class="gt-xs">
             Emoting Mokou
           </q-toolbar-title>
-          <q-tooltip
-            content-class="bg-light-blue"
-            content-style="font-size: 12px"
-            >Go home</q-tooltip
-          >
         </q-btn>
 
         <q-space />
