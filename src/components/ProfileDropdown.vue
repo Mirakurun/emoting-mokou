@@ -94,6 +94,7 @@ export default {
   methods: {
     async onLogout() {
       try {
+        this.$q.loading.show({ message: 'Logging out...' });
         const { status } = await this.$axios.get('auth/logout');
 
         if (status === 204) {
@@ -108,6 +109,8 @@ export default {
         }
       } catch (error) {
         console.error(error);
+      } finally {
+        this.$q.loading.hide();
       }
     },
     notify() {
