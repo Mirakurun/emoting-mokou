@@ -5,6 +5,7 @@
     :position="$q.screen.lt.sm ? 'standard' : 'top'"
     :transition-show="null"
     :transition-hide="null"
+    @show="onDialogShow"
   >
     <q-card style="width: 600px;">
       <q-card-section class="row items-center">
@@ -34,10 +35,14 @@
           <q-editor
             ref="editor"
             v-model="tweet"
-            :content-style="{ 'font-size': '18px' }"
+            :content-style="{
+              'font-size': '18px',
+              '-webkit-user-modify': 'read-write-plaintext-only',
+            }"
             :content-class="{ twemoji: true }"
             flat
             :toolbar="[]"
+            @paste.native="evt => pasteCapture(evt)"
           />
         </q-card-section>
       </q-card-section>
@@ -80,7 +85,7 @@
       <q-card-actions class="q-pa-md" align="between">
         <q-btn color="blue" flat round>
           <q-icon><emoji-icon /></q-icon>
-          <q-menu :transition-show="null" :transition-hide="null">
+          <q-menu ref="menu" :transition-show="null" :transition-hide="null">
             <static-picker
               :data="index"
               emoji="smile"
@@ -186,6 +191,26 @@ export default {
         responseType: 'blob',
       });
     },
+    pasteCapture(evt) {
+      let text;
+      let onPasteStripFormattingIEPaste;
+
+      evt.preventDefault();
+
+      if (evt.originalEvent && evt.originalEvent.clipboardData.getData) {
+        text = evt.originalEvent.clipboardData.getData('text/plain');
+        this.$refs.editor.runCmd('insertText', text);
+      } else if (evt.clipboardData && evt.clipboardData.getData) {
+        text = evt.clipboardData.getData('text/plain');
+        this.$refs.editor.runCmd('insertText', text);
+      } else if (window.clipboardData && window.clipboardData.getData) {
+        if (!onPasteStripFormattingIEPaste) {
+          onPasteStripFormattingIEPaste = true;
+          this.$refs.editor.runCmd('ms-pasteTextOnly', text);
+        }
+        onPasteStripFormattingIEPaste = false;
+      }
+    },
     async onRemoveFromTweet(index) {
       try {
         this.isDisabled = true;
@@ -203,6 +228,10 @@ export default {
     },
     onSelect(emoji) {
       this.$refs.editor.runCmd('insertText', emoji.native, false);
+      this.$refs.menu.show();
+    },
+    onDialogShow() {
+      this.$refs.editor.focus();
     },
     async onTweet() {
       try {
