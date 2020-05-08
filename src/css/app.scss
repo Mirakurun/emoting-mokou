@@ -1,5 +1,15 @@
 // app global css in SCSS form
 
+@font-face {
+  font-family: twemoji;
+  src: url(./fonts/TwitterColorEmoji-SVGinOT.ttf);
+}
+
+.twemoji {
+  font-family: 'twemoji', 'Roboto', '-apple-system', 'Helvetica Neue', Helvetica,
+    Arial, sans-serif;
+}
+
 .body--light {
   background-color: $indigo-1;
 }

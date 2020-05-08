@@ -6,7 +6,6 @@
     :position="$q.screen.lt.sm ? 'standard' : 'top'"
     :transition-show="null"
     :transition-hide="null"
-    @show="onShow"
   >
     <q-card style="width: 600px;">
       <q-card-section class="row items-center">
@@ -37,10 +36,9 @@
             ref="editor"
             v-model="tweet"
             :content-style="{ 'font-size': '18px' }"
+            :content-class="{ twemoji: true }"
             flat
             :toolbar="[]"
-            @keydown.delete="onKeydown"
-            @keyup.delete="onKeyup"
           />
         </q-card-section>
       </q-card-section>
@@ -48,7 +46,7 @@
         <template #avatar>
           <q-img src="statics/images/comfy.png" style="width: 100px;" />
         </template>
-        Add at least 1 emote before you can tweet.
+        Add at least 1 emoting mokou before you can tweet.
       </q-banner>
       <q-card-section v-else class="q-gutter-xs">
         <q-img
@@ -83,7 +81,7 @@
       <q-card-actions class="q-pa-md" align="between">
         <q-btn color="blue" flat round>
           <q-icon><emoji-icon /></q-icon>
-          <q-popup-proxy :transition-show="null" :transition-hide="null">
+          <q-menu :transition-show="null" :transition-hide="null">
             <static-picker
               :data="index"
               emoji="smile"
@@ -92,7 +90,7 @@
               title="Choose your emoji..."
               @select="onSelect"
             />
-          </q-popup-proxy>
+          </q-menu>
         </q-btn>
         <div>
           <q-circular-progress
@@ -143,7 +141,6 @@ import EmojiIcon from 'components/EmojiIcon';
 import dataset from 'emoji-mart-vue-fast/data/twitter.json';
 import { StaticPicker, EmojiIndex } from 'emoji-mart-vue-fast';
 import 'emoji-mart-vue-fast/css/emoji-mart.css';
-import { parse } from 'twemoji-parser';
 
 export default {
   name: 'TweetDialog',
@@ -166,7 +163,7 @@ export default {
   },
   computed: {
     parseText() {
-      return twitter.parseTweet(this.text);
+      return twitter.parseTweet(this.tweet);
     },
     progressColor() {
       if (280 - this.parseText.weightedLength <= 0) {
@@ -176,30 +173,6 @@ export default {
         return 'orange';
       }
       return 'blue';
-    },
-    text() {
-      return new DOMParser().parseFromString(this.special, 'text/html').body
-        .textContent;
-    },
-    special() {
-      if (this.tweet.length > 0) {
-        let string = new DOMParser().parseFromString(this.tweet, 'text/html')
-          .body.innerHTML;
-
-        const elements = string.match(/<[^>]*>/g);
-
-        if (elements.length > 0) {
-          elements.forEach(html => {
-            const entities = parse(html);
-            if (entities.length > 0) {
-              string = string.replace(html, entities[0].text);
-            }
-          });
-          return string;
-        }
-        return '';
-      }
-      return '';
     },
   },
   mounted() {
@@ -231,18 +204,7 @@ export default {
       }
     },
     onSelect(emoji) {
-      // /<[^>]*>/g
-      const entities = parse(emoji.native);
-      const { url } = entities[0];
-      // const html = `<span contenteditable="false" style="background-image: url(${url});
-      //               background-size: 1em 1em; padding: 0.20em; background-position: center center;
-      //               background-repeat: no-repeat; -webkit-text-fill-color: transparent;">${emoji.native}</span>`;
-      // const html = `<q-icon name="img:${url}" size="1em"></q-icon>`;
-      const html = `<img src="${url}" alt="${emoji.native}" style="width: 1em; height: 1em;">`;
-      this.$refs.editor.runCmd('insertHTML', html, false);
-    },
-    onShow() {
-      this.$refs.editor.runCmd('insertHTML', '<div><br></div>', false);
+      this.$refs.editor.runCmd('insertText', emoji.native, false);
     },
     async onTweet() {
       try {
@@ -261,7 +223,7 @@ export default {
 
         const formData = new FormData();
 
-        formData.append('text', this.text);
+        formData.append('text', this.tweet);
 
         blobs.forEach(blob => {
           formData.append('images', blob);
@@ -317,16 +279,6 @@ export default {
     },
     toggle() {
       this.dialog = !this.dialog;
-    },
-    onKeydown(e) {
-      if (e.which === 8 && this.text.length === 0) {
-        e.preventDefault();
-      }
-    },
-    onKeyup(e) {
-      if (e.which === 8 && this.text.length === 0 && this.tweet === '<br>') {
-        this.$refs.editor.runCmd('insertHTML', '<div><br></div>', false);
-      }
     },
   },
 };
