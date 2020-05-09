@@ -105,6 +105,48 @@
 
     <tweet-dialog ref="tweet-dialog" />
 
+    <q-footer>
+      <q-toolbar
+        :class="[{ 'q-pa-md': $q.screen.lt.sm }, 'bg-teal']"
+        style="min-height: 36px;"
+      >
+        <q-space />
+        <q-tabs
+          v-model="tab"
+          align="center"
+          dense
+          :indicator-color="$q.screen.lt.sm ? 'transparent' : ''"
+          :vertical="$q.screen.lt.sm"
+        >
+          <q-route-tab
+            name="tos"
+            label="Terms of service"
+            no-caps
+            :to="'/terms-of-service'"
+          />
+          <q-route-tab
+            name="privacy"
+            label="Privacy policy"
+            no-caps
+            :to="'/privacy-policy'"
+          />
+          <q-btn
+            flat
+            no-caps
+            stretch
+            type="a"
+            href="https://github.com/Mirakurun/emoting-mokou"
+            target="_blank"
+          >
+            <div class="text-subtitle2 text-teal-1">
+              Copyright © 2020 Kevin Chhay
+            </div>
+          </q-btn>
+        </q-tabs>
+        <q-space class="lt-sm" />
+      </q-toolbar>
+    </q-footer>
+
     <q-page-container>
       <keep-alive include="Index">
         <router-view />
@@ -131,6 +173,7 @@ export default {
   data() {
     return {
       search: '',
+      tab: '',
     };
   },
   async beforeRouteEnter(to, from, next) {
