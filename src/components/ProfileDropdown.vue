@@ -17,7 +17,12 @@
       <!-- Upload -->
       <q-item
         v-if="$store.state.user.role === 'admin'"
-        class="text-blue"
+        v-ripple
+        :active-class="
+          $q.dark.isActive
+            ? 'text-blue-2 bg-blue-grey-10'
+            : 'text-blue-10 bg-blue-1'
+        "
         to="/upload"
         clickable
       >
@@ -29,7 +34,17 @@
         </q-item-section>
       </q-item>
       <!-- Favorites -->
-      <q-item class="text-blue" to="/favorites" clickable>
+      <q-item
+        v-ripple
+        :active-class="
+          $q.dark.isActive
+            ? 'text-blue-3 bg-blue-grey-10'
+            : 'text-blue-10 bg-blue-1'
+        "
+        to="/favorites"
+        clickable
+        exact
+      >
         <q-item-section avatar>
           <q-icon name="fas fa-bookmark fa-fw" />
         </q-item-section>
@@ -38,7 +53,7 @@
         </q-item-section>
       </q-item>
       <!-- Dark mode -->
-      <q-item v-ripple tag="label" class="text-blue">
+      <q-item v-ripple tag="label">
         <q-item-section avatar>
           <q-icon name="fas fa-adjust fa-fw fa-flip-horizontal" />
         </q-item-section>
@@ -56,8 +71,63 @@
 
       <q-separator inset />
 
+      <!-- Terms of service -->
+      <q-item
+        v-ripple
+        class="lt-sm"
+        :active-class="
+          $q.dark.isActive
+            ? 'text-blue-3 bg-blue-grey-10'
+            : 'text-blue-10 bg-blue-1'
+        "
+        to="/terms-of-service"
+        clickable
+        exact
+      >
+        <q-item-section avatar>
+          <q-icon name="fas fa-file-contract fa-fw" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>Terms of service</q-item-label>
+        </q-item-section>
+      </q-item>
+      <!-- Privacy policy -->
+      <q-item
+        v-ripple
+        class="lt-sm"
+        :active-class="
+          $q.dark.isActive
+            ? 'text-blue-3 bg-blue-grey-10'
+            : 'text-blue-10 bg-blue-1'
+        "
+        to="/privacy-policy"
+        clickable
+        exact
+      >
+        <q-item-section avatar>
+          <q-icon name="fas fa-user-lock fa-fw" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>Privacy policy</q-item-label>
+        </q-item-section>
+      </q-item>
+
+      <q-separator inset />
+
+      <!-- Delete account -->
+      <q-item v-ripple class="text-red" clickable @click="onOpenDialog">
+        <q-item-section avatar>
+          <q-icon name="fas fa-trash-alt fa-fw" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>Delete account</q-item-label>
+        </q-item-section>
+      </q-item>
+
+      <q-separator inset />
+
       <!-- Logout -->
-      <q-item class="text-grey" clickable @click="onLogout">
+      <q-item v-ripple class="text-grey" clickable @click="onLogout">
         <q-item-section avatar>
           <q-icon name="fas fa-sign-out-alt fa-fw" />
         </q-item-section>
@@ -66,12 +136,56 @@
         </q-item-section>
       </q-item>
     </q-list>
+
+    <q-dialog v-model="dialog" :maximized="$q.screen.lt.sm">
+      <q-card style="width: 600px;">
+        <q-card-section class="row items-center">
+          <q-icon
+            class="on-left text-red"
+            name="fas fa-exclamation-triangle"
+            size="md"
+          />
+          <div class="text-h6 text-red">Delete account</div>
+          <q-space />
+          <q-btn
+            v-close-popup
+            color="grey"
+            icon="close"
+            flat
+            round
+            dense
+            @click="dialog = false"
+          />
+        </q-card-section>
+
+        <q-separator />
+
+        <q-card-section>
+          <div
+            :class="[$q.dark.isActive ? 'white' : 'text-grey-14', 'text-body1']"
+          >
+            Are you sure you want to delete your account from this app?
+          </div>
+        </q-card-section>
+
+        <q-card-actions class="q-pa-md" align="right">
+          <q-btn color="grey" flat label="cancel" @click="dialog = false" />
+          <q-btn color="red" label="delete" unelevated @click="onDelete" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
 export default {
   name: 'ProfileDropdown',
+  data() {
+    return {
+      dialog: false,
+      input: '',
+    };
+  },
   computed: {
     toggleDarkMode: {
       get() {
@@ -92,10 +206,30 @@ export default {
     },
   },
   methods: {
+    async onDelete() {
+      try {
+        this.$q.loading.show({ message: 'Deleting account...' });
+        const { status } = await this.$axios.delete('/user/account');
+
+        if (status === 204) {
+          this.$q.notify({
+            type: 'positive',
+            message: 'Deleted account.',
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.$q.loading.hide();
+      }
+    },
+    onOpenDialog() {
+      this.dialog = true;
+    },
     async onLogout() {
       try {
         this.$q.loading.show({ message: 'Logging out...' });
-        const { status } = await this.$axios.get('auth/logout');
+        const { status } = await this.$axios.get('/auth/logout');
 
         if (status === 204) {
           this.$store.commit('user/clearUser');
@@ -122,3 +256,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.q-item {
+  color: $blue;
+}
+
+.q-item--dark {
+  color: $blue;
+}
+</style>
