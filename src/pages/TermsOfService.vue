@@ -2,9 +2,17 @@
   <q-page padding>
     <div class="row">
       <div
-        class="col-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-md-3 q-gutter-y-md text-grey-14"
+        :class="[
+          $q.dark.isActive ? 'white' : 'text-grey-14',
+          'col-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-md-3 q-gutter-y-md',
+        ]"
       >
-        <div class="text-h3 text-weight-medium text-deep-purple">
+        <div
+          :class="[
+            $q.dark.isActive ? 'text-deep-purple-4' : 'text-deep-purple',
+            'text-h3 text-weight-medium q-mt-lg',
+          ]"
+        >
           Terms of service
         </div>
         <q-separator />
@@ -14,7 +22,12 @@
           are not allow to use any material created by the copyright holder of
           this app.
         </div>
-        <div class="text-subtitle2 text-deep-purple q-mt-lg">
+        <div
+          :class="[
+            $q.dark.isActive ? 'text-deep-purple-4' : 'text-deep-purple',
+            'text-subtitle2 q-mt-lg',
+          ]"
+        >
           App permissions
         </div>
         <ul class="text-body1">
@@ -45,13 +58,27 @@
             Mute, block, and report accounts for you.
           </li>
         </ul>
-        <div class="text-subtitle2 text-deep-purple q-mt-lg">Consent</div>
+        <div
+          :class="[
+            $q.dark.isActive ? 'text-deep-purple-4' : 'text-deep-purple',
+            'text-subtitle2 q-mt-lg',
+          ]"
+        >
+          Consent
+        </div>
         <div class="text-body1">
           We take any action on behalf of your account only with your consent.
           We obtain consent to publish content based on your actions on this
           app. Authorizing your account to this app does not constitute consent.
         </div>
-        <div class="text-subtitle2 text-deep-purple q-mt-lg">Purpose</div>
+        <div
+          :class="[
+            $q.dark.isActive ? 'text-deep-purple-4' : 'text-deep-purple',
+            'text-subtitle2 q-mt-lg',
+          ]"
+        >
+          Purpose
+        </div>
         <div class="text-body1">
           The sole purpose of this app is to tweet "Emoting Mokou" memes from
           your Twitter account. We also display your display name, username,
@@ -59,21 +86,43 @@
           also used for login sessions. We do not take any other actions
           provided by app permissions.
         </div>
-        <div class="text-subtitle2 text-deep-purple q-mt-lg">Ownership</div>
+        <div
+          :class="[
+            $q.dark.isActive ? 'text-deep-purple-4' : 'text-deep-purple',
+            'text-subtitle2 q-mt-lg',
+          ]"
+        >
+          Ownership
+        </div>
         <div class="text-body1">
           The "Emoting Mokou" images are created by
           <a href="https://twitter.com/jokanhiyou" target="_blank"
-            >上官绯樱 (aka MiLk @jokanihyou)</a
+            >上官绯樱 (aka MiLk @jokanihyou)
+            <q-icon name="fas fa-external-link-alt"/></a
           >. Copyright of those images belongs to that artist. This website and
           including its code is under exclusive copyright by Kevin Chhay. You do
           not have permission to copy, distribute, or modify this work.
         </div>
-        <div class="text-subtitle2 text-deep-purple q-mt-lg">Twitter API</div>
+        <div
+          :class="[
+            $q.dark.isActive ? 'text-deep-purple-4' : 'text-deep-purple',
+            'text-subtitle2 q-mt-lg',
+          ]"
+        >
+          Twitter API
+        </div>
         <div class="text-body1">
           This app uses the Twitter API. You accept whatever agreement provided
           by Twitter. You are not allow to abuse this API.
         </div>
-        <div class="text-subtitle2 text-deep-purple q-mt-lg">Suspension</div>
+        <div
+          :class="[
+            $q.dark.isActive ? 'text-deep-purple-4' : 'text-deep-purple',
+            'text-subtitle2 q-mt-lg',
+          ]"
+        >
+          Suspension
+        </div>
         <div class="text-body1">
           We reserve the right to deauthorize your Twitter account with this app
           and delete your account information stored on this app at any time
