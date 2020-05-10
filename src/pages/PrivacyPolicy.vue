@@ -2,9 +2,17 @@
   <q-page padding>
     <div class="row">
       <div
-        class="col-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-md-3 q-gutter-y-md text-grey-14"
+        :class="[
+          $q.dark.isActive ? 'white' : 'text-grey-14',
+          'col-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-md-3 q-gutter-y-md',
+        ]"
       >
-        <div class="text-h3 text-weight-medium text-deep-purple">
+        <div
+          :class="[
+            $q.dark.isActive ? 'text-deep-purple-4' : 'text-deep-purple',
+            'text-h3 text-weight-medium q-mt-lg',
+          ]"
+        >
           Privacy policy
         </div>
         <q-separator />
@@ -14,14 +22,26 @@
           are not allow to use any material created by the copyright holder of
           this app.
         </div>
-        <div class="text-subtitle2 text-deep-purple q-mt-lg">Profile</div>
+        <div
+          :class="[
+            $q.dark.isActive ? 'text-deep-purple-4' : 'text-deep-purple',
+            'text-subtitle2 q-mt-lg',
+          ]"
+        >
+          Profile
+        </div>
         <div class="text-body1">
           Once you authorize this app to have access to your Twitter account,
           your Twitter profile is stored on a secured online database for this
           app. We do not store any email, password, personal name, or phone
           number on this app.
         </div>
-        <div class="text-subtitle2 text-deep-purple q-mt-lg">
+        <div
+          :class="[
+            $q.dark.isActive ? 'text-deep-purple-4' : 'text-deep-purple',
+            'text-subtitle2 q-mt-lg',
+          ]"
+        >
           Confidentiality
         </div>
         <div class="text-body1">
@@ -29,12 +49,26 @@
           stored on this app. Your data is only used for the sole purpose of
           this app.
         </div>
-        <div class="text-subtitle2 text-deep-purple q-mt-lg">Cookies</div>
+        <div
+          :class="[
+            $q.dark.isActive ? 'text-deep-purple-4' : 'text-deep-purple',
+            'text-subtitle2 q-mt-lg',
+          ]"
+        >
+          Cookies
+        </div>
         <div class="text-body1">
           Cookies stored on your browser does not hold any sensitive
           information. It only stores data meant for login sessions.
         </div>
-        <div class="text-subtitle2 text-deep-purple q-mt-lg">Activity</div>
+        <div
+          :class="[
+            $q.dark.isActive ? 'text-deep-purple-4' : 'text-deep-purple',
+            'text-subtitle2 q-mt-lg',
+          ]"
+        >
+          Activity
+        </div>
         <div class="text-body1">
           We do not store any information regarding your activity on this app.
         </div>
