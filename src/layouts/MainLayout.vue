@@ -105,7 +105,7 @@
 
     <tweet-dialog ref="tweet-dialog" />
 
-    <q-footer>
+    <q-footer elevated>
       <q-toolbar
         :class="[{ 'q-pa-md': $q.screen.lt.sm }, 'bg-teal']"
         style="min-height: 36px;"
@@ -187,7 +187,6 @@ export default {
         }
       });
     } catch (error) {
-      console.error(error);
       next(vm => {
         vm.$store.commit('user/clearUser');
       });
