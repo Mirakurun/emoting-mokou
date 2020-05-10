@@ -69,7 +69,7 @@
         </q-item-section>
       </q-item>
 
-      <q-separator inset />
+      <q-separator class="lt-sm" inset />
 
       <!-- Terms of service -->
       <q-item
