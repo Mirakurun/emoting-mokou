@@ -5,6 +5,14 @@
   src: url(./fonts/TwitterColorEmoji-SVGinOT.ttf);
 }
 
+a {
+  color: $light-blue;
+}
+
+a:hover {
+  color: $pink;
+}
+
 .twemoji {
   font-family: 'twemoji', 'Roboto', '-apple-system', 'Helvetica Neue', Helvetica,
     Arial, sans-serif;
