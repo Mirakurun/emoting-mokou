@@ -4,24 +4,17 @@ const User = require('../models/user');
 
 // serialize user instance
 passport.serializeUser((user, done) => {
-  console.log('Serializing user...');
-  console.log(user.id);
   done(null, user.id);
 });
 
 // deserialize user instance
 passport.deserializeUser(async (id, done) => {
-  console.log('Deserializing user...');
-  console.log(id);
-
   try {
     const user = await User.findById(id);
 
     if (!user) {
       return done(new Error('Document not found!'));
     }
-
-    console.log('Deserialized user.');
 
     return done(null, user);
   } catch (error) {
@@ -40,7 +33,6 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, token, tokenSecret, profile, done) => {
-      console.log(profile);
       const { displayName, id: uid, provider, _json: json, username } = profile;
       console.log('Finding user...');
 
