@@ -42,7 +42,7 @@ export default {
     },
   },
   methods: {
-    open() {
+    toggle() {
       this.rightDrawerOpen = !this.rightDrawerOpen;
     },
   },

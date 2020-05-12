@@ -43,7 +43,7 @@
           class="lt-sm"
           flat
           round
-          @click="$refs['right-drawer'].open()"
+          @click="$refs['right-drawer'].toggle()"
         >
           <q-icon name="menu" />
         </q-btn>
@@ -98,7 +98,7 @@
           flat
           dense
           round
-          @click="$refs['right-drawer'].open()"
+          @click="$refs['right-drawer'].toggle()"
         >
           <q-avatar size="38px">
             <q-img :src="$store.state.user.profileImage" />
