@@ -7,7 +7,7 @@
             <searchbar :search-fn="searchFn" :search.sync="search" />
           </div>
         </div>
-        <div class="row q-pt-md">
+        <div v-if="status === 200" class="row q-pt-md">
           <div class="text-subtitle1">
             {{ data.length }} search result(s) for
             <span class="text-weight-bold">"{{ query }}"</span>
