@@ -71,46 +71,7 @@
 
       <q-separator class="lt-sm" inset />
 
-      <!-- Terms of service -->
-      <q-item
-        v-ripple
-        class="lt-sm"
-        :active-class="
-          $q.dark.isActive
-            ? 'text-blue-3 bg-blue-grey-10'
-            : 'text-blue-10 bg-blue-1'
-        "
-        to="/terms-of-service"
-        clickable
-        exact
-      >
-        <q-item-section avatar>
-          <q-icon name="fas fa-file-contract fa-fw" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>Terms of service</q-item-label>
-        </q-item-section>
-      </q-item>
-      <!-- Privacy policy -->
-      <q-item
-        v-ripple
-        class="lt-sm"
-        :active-class="
-          $q.dark.isActive
-            ? 'text-blue-3 bg-blue-grey-10'
-            : 'text-blue-10 bg-blue-1'
-        "
-        to="/privacy-policy"
-        clickable
-        exact
-      >
-        <q-item-section avatar>
-          <q-icon name="fas fa-user-lock fa-fw" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>Privacy policy</q-item-label>
-        </q-item-section>
-      </q-item>
+      <agreements />
 
       <q-separator inset />
 
@@ -178,8 +139,13 @@
 </template>
 
 <script>
+import Agreements from 'components/Agreements';
+
 export default {
   name: 'ProfileDropdown',
+  components: {
+    Agreements,
+  },
   data() {
     return {
       dialog: false,
@@ -212,15 +178,26 @@ export default {
         const { status } = await this.$axios.delete('/user/account');
 
         if (status === 204) {
-          this.$q.notify({
-            type: 'positive',
-            message: 'Deleted account.',
-          });
+          this.$store.commit('user/clearUser');
+          if (this.$route.path === '/') {
+            this.$q.notify({
+              type: 'positive',
+              message: 'Deleted account.',
+            });
+          } else {
+            this.$router.push('/', () => {
+              this.$q.notify({
+                type: 'positive',
+                message: 'Deleted account.',
+              });
+            });
+          }
         }
       } catch (error) {
         console.error(error);
       } finally {
         this.$q.loading.hide();
+        this.dialog = false;
       }
     },
     onOpenDialog() {
@@ -234,10 +211,16 @@ export default {
         if (status === 204) {
           this.$store.commit('user/clearUser');
           if (this.$route.path === '/') {
-            this.notify();
+            this.$q.notify({
+              type: 'info',
+              message: 'Logged out.',
+            });
           } else {
             this.$router.push('/', () => {
-              this.notify();
+              this.$q.notify({
+                type: 'info',
+                message: 'Logged out.',
+              });
             });
           }
         }
@@ -246,12 +229,6 @@ export default {
       } finally {
         this.$q.loading.hide();
       }
-    },
-    notify() {
-      this.$q.notify({
-        type: 'info',
-        message: 'Logged out.',
-      });
     },
   },
 };

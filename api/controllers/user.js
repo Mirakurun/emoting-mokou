@@ -118,3 +118,23 @@ exports.toggleDarkMode = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.deleteAccount = async (req, res, next) => {
+  const { id } = req.user;
+
+  try {
+    const user = await User.findByIdAndDelete(id);
+
+    console.log(`Deleted user: ${user.username}`);
+
+    req.session.destroy(error => {
+      if (error) {
+        next(error);
+      }
+      res.clearCookie('emoting_mokou_sid');
+      return res.status(204).send();
+    });
+  } catch (error) {
+    next(error);
+  }
+};

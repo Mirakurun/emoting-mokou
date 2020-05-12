@@ -12,6 +12,17 @@ router.get('/favorites', isAuth, userController.getFavorites);
 router.get('/populate-favorites', isAuth, userController.populateFavorites);
 
 router.post(
+  '/darkmode',
+  isAuth,
+  [
+    body('darkmode')
+      .exists()
+      .isBoolean(),
+  ],
+  userController.toggleDarkMode
+);
+
+router.post(
   '/media',
   isAuth,
   [
@@ -35,19 +46,10 @@ router.post(
   userController.addToFavorites
 );
 
+router.delete('/account', isAuth, userController.deleteAccount);
+
 router.delete('/media/:index', isAuth, userController.removeFromMedia);
 
 router.delete('/favorites/:id', isAuth, userController.removeFromFavorites);
-
-router.post(
-  '/darkmode',
-  isAuth,
-  [
-    body('darkmode')
-      .exists()
-      .isBoolean(),
-  ],
-  userController.toggleDarkMode
-);
 
 module.exports = router;
