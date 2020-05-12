@@ -9,7 +9,7 @@ a {
   color: $light-blue;
 }
 
-a:hover {
+a:hover:not([tabindex]) {
   color: $pink;
 }
 

@@ -39,6 +39,16 @@
         </q-btn>
 
         <q-btn
+          v-if="!$store.state.user.username"
+          class="lt-sm"
+          flat
+          round
+          @click="$refs['right-drawer'].open()"
+        >
+          <q-icon name="menu" />
+        </q-btn>
+
+        <q-btn
           v-if="$store.state.user.username"
           class="on-left"
           flat
@@ -83,6 +93,7 @@
         </q-btn-dropdown>
 
         <q-btn
+          v-if="$store.state.user.username"
           class="lt-sm"
           flat
           dense
@@ -105,18 +116,13 @@
 
     <tweet-dialog ref="tweet-dialog" />
 
-    <q-footer elevated>
-      <q-toolbar
-        :class="[{ 'q-pa-md': $q.screen.lt.sm }, 'bg-teal']"
-        style="min-height: 36px;"
-      >
+    <q-footer class="gt-xs" elevated>
+      <q-toolbar class="bg-teal" style="min-height: 36px;">
         <q-space />
         <q-tabs
           v-model="tab"
-          align="center"
           dense
           :indicator-color="$q.screen.lt.sm ? 'transparent' : ''"
-          :vertical="$q.screen.lt.sm"
         >
           <q-route-tab
             name="tos"
