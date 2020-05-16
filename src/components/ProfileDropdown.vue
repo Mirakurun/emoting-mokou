@@ -157,17 +157,8 @@ export default {
       get() {
         return this.$store.state.user.darkMode;
       },
-      async set(value) {
-        try {
-          const darkMode = await this.$store.dispatch(
-            'user/setDarkMode',
-            value
-          );
-
-          this.$q.dark.set(darkMode);
-        } catch (error) {
-          console.error(error);
-        }
+      set(value) {
+        this.$store.dispatch('user/setDarkMode', value);
       },
     },
   },
@@ -179,6 +170,7 @@ export default {
 
         if (status === 204) {
           this.$store.commit('user/clearUser');
+          this.$q.dark.set(false);
           if (this.$route.path === '/') {
             this.$q.notify({
               type: 'positive',
@@ -210,6 +202,7 @@ export default {
 
         if (status === 204) {
           this.$store.commit('user/clearUser');
+          this.$q.dark.set(false);
           if (this.$route.path === '/') {
             this.$q.notify({
               type: 'info',
