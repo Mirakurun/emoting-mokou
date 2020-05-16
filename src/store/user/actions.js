@@ -1,4 +1,5 @@
 import { axiosInstance } from 'boot/axios';
+import { Dark } from 'quasar';
 
 export async function fetchFavorites({ commit }) {
   try {
@@ -12,18 +13,30 @@ export async function fetchFavorites({ commit }) {
   }
 }
 
+export function fetchUser({ commit }) {
+  return axiosInstance
+    .get('/user/profile')
+    .then(({ data, status }) => {
+      if (status === 200) {
+        commit('setUser', data);
+        Dark.set(data.darkMode);
+      }
+    })
+    .catch(() => {
+      commit('clearUser');
+    });
+}
+
 export async function setDarkMode({ commit }, payload) {
-  return new Promise((resolve, reject) => {
-    axiosInstance
-      .post('/user/darkmode', { darkmode: payload })
-      .then(({ data, status }) => {
-        if (status === 200) {
-          commit('setDarkMode', data.darkMode);
-          resolve(data.darkMode);
-        }
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
+  return axiosInstance
+    .post('/user/darkmode', { darkmode: payload })
+    .then(({ data, status }) => {
+      if (status === 200) {
+        commit('setDarkMode', data.darkMode);
+        Dark.set(data.darkMode);
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
