@@ -14,7 +14,7 @@ router.get(
     if (app.get('env') === 'production') {
       return res.redirect('/');
     }
-    return res.redirect('http://localhost:8080');
+    return res.redirect(process.env.LOCALHOST);
   }
 );
 
