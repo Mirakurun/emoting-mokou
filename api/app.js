@@ -26,7 +26,10 @@ const userRouter = require('./routes/user');
 const emoteRouter = require('./routes/emote');
 
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN,
+  origin:
+    app.get('env') === 'production'
+      ? process.env.CORS_ORIGIN
+      : process.env.LOCALHOST,
   credentials: true,
 };
 
