@@ -166,7 +166,6 @@ import DraftTweetIcon from 'components/DraftTweetIcon';
 import RightDrawer from 'components/RightDrawer';
 import ProfileDropdown from 'components/ProfileDropdown';
 import TweetDialog from 'components/TweetDialog';
-import { axiosInstance } from 'boot/axios';
 
 export default {
   name: 'MainLayout',
@@ -182,21 +181,8 @@ export default {
       tab: '',
     };
   },
-  async beforeRouteEnter(to, from, next) {
-    try {
-      const { data, status } = await axiosInstance.get('/user/profile');
-
-      next(vm => {
-        if (status === 200) {
-          vm.$store.commit('user/setUser', data);
-          vm.$q.dark.set(data.darkMode);
-        }
-      });
-    } catch (error) {
-      next(vm => {
-        vm.$store.commit('user/clearUser');
-      });
-    }
+  preFetch({ store }) {
+    return store.dispatch('user/fetchUser');
   },
   computed: {
     apiURI() {
