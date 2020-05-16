@@ -7,6 +7,7 @@ export function clearMedia(state) {
 }
 
 export function clearUser(state) {
+  state.darkMode = false;
   state.displayName = '';
   state.favorites = [];
   state.media = [];
