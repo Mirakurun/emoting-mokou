@@ -66,6 +66,8 @@ provider:
 package:
   exclude:
     - tests/**
+    - emotes/**
+    - credentials/**
     - .env
     - .eslintrc.js
     - .prettierrc
