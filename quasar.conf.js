@@ -127,7 +127,7 @@ module.exports = function(ctx) {
             API: JSON.stringify('http://localhost:3000/api'),
           }
         : {
-            API: JSON.stringify('https://emoting-mokou.moe/api'),
+            API: JSON.stringify('https://emotingmokou.moe/api'),
           },
     },
 
