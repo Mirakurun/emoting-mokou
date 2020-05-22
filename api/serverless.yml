@@ -29,6 +29,9 @@ provider:
   stage: prod
   stackName: emoting-mokou-stack
   apiName: emoting-mokou-api
+  apiGateway:
+    binaryMediaTypes:
+      - '*/*'
 
 # you can overwrite defaults here
 #  stage: dev
@@ -90,8 +93,9 @@ functions:
       REGION: ${env:REGION}
       DB_URI: ${env:DB_URI}
       DB_NAME: ${env:DB_NAME}
-      CORS_ORIGIN: ${env:CORS_ORIGIN}
-      LOCALHOST: ${env:LOCALHOST}
+      HOST: ${env:HOST}
+      CLIENT_PORT: ${env:CLIENT_PORT}
+      NODE_ENV: 'production'
     timeout: 15
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
