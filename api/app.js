@@ -2,22 +2,10 @@ const passport = require('passport');
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
+const store = require('./db/store');
 require('./config/passport');
 
 const app = express();
-
-// session store
-const store = new MongoDBStore({
-  uri: process.env.DB_URI,
-  databaseName: process.env.DB_NAME,
-  collection: 'sessions',
-});
-
-// catch errors
-store.on('error', error => {
-  console.error(error);
-});
 
 const authRouter = require('./routes/auth');
 const twitterRouter = require('./routes/twitter');
@@ -28,8 +16,8 @@ const emoteRouter = require('./routes/emote');
 const corsOptions = {
   origin:
     app.get('env') === 'production'
-      ? process.env.CORS_ORIGIN
-      : process.env.LOCALHOST,
+      ? process.env.HOST
+      : `http://localhost:${process.env.CLIENT_PORT}`,
   credentials: true,
 };
 
@@ -45,13 +33,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     name: 'emoting_mokou_sid',
+    cookie: { secure: app.get('env') === 'production' },
   })
 );
-
-// if environment is production, serve secure cookies
-if (app.get('env') === 'production') {
-  session.cookie.secure = true;
-}
 
 app.use(passport.initialize()); // initialize passport
 app.use(passport.session()); // persistent login sessions
