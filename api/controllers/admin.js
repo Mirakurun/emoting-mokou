@@ -1,13 +1,18 @@
 const AWS = require('aws-sdk');
+const express = require('express');
 const Emote = require('../models/emote');
 
-AWS.config.getCredentials(err => {
-  if (err) console.log(err.stack);
-  else {
-    console.log('Access key:', AWS.config.credentials.accessKeyId);
-    console.log('Secret access key:', AWS.config.credentials.secretAccessKey);
-  }
-});
+const app = express();
+
+if (app.get('env') === 'development') {
+  AWS.config.getCredentials(err => {
+    if (err) console.log(err.stack);
+    else {
+      console.log('Access key:', AWS.config.credentials.accessKeyId);
+      console.log('Secret access key:', AWS.config.credentials.secretAccessKey);
+    }
+  });
+}
 
 AWS.config.update({ region: process.env.REGION });
 
