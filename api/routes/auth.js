@@ -12,9 +12,9 @@ router.get(
   passportTwitter.authenticate('twitter', { failureRedirect: '/' }),
   (req, res) => {
     if (app.get('env') === 'production') {
-      return res.redirect('/');
+      return res.redirect(process.env.HOST);
     }
-    return res.redirect(process.env.LOCALHOST);
+    return res.redirect(`http://localhost:${process.env.CLIENT_PORT}`);
   }
 );
 
