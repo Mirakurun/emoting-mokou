@@ -1,26 +1,19 @@
-# Emoting Mokou (emoting-mokou)
+# Emoting Mokou
 
 An app for tweeting \"Emoting Mokou\" memes
 
-## Install the dependencies
-```bash
-npm install
-```
+## Features
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
+### Search emotes
+<img src="images/500.jpg" height="300">
 
-### Lint the files
-```bash
-npm run lint
-```
 
-### Build the app for production
-```bash
-quasar build
-```
+### Boomark favorite emotes
+<img src="images/168.jpg" height="300">
 
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
+
+### Light and dark mode
+<img src="images/5.jpg" height="300"><img src="images/114.jpg" height="300">
+
+### Tweet emotes
+<img src="images/18.jpg" height="300">
