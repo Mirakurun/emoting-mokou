@@ -3,13 +3,14 @@
 An app for tweeting \"Emoting Mokou\" memes
 
 ## Features
+* [Login with Twitter](https://twitter.com/)
 * [Search emotes](#search)
 * [Boomark favorite emotes](#bookmark)
 * [Light and dark mode](#dark)
 * [Tweet emotes](#tweet)
 
 ### Search emotes <a name="search"></a>
-Search a database of 500+ emotes
+Search and explore a database of 500+ emotes and more to come
 <br>
 
 <img src="images/500.jpg" height="300">
@@ -17,7 +18,7 @@ Search a database of 500+ emotes
 <br>
 
 ### Boomark favorite emotes <a name="bookmark"></a>
-Bookmark your favorite emote
+Quickly access your favorite emotes
 <br>
 
 <img src="images/168.jpg" height="300">
