@@ -39,3 +39,8 @@ Compose a tweet with a message and up to 4 emotes
 <br>
 
 <img src="images/18.jpg" height="300">
+<br>
+<br>
+
+## Credit
+[Jokanhiyou - Creator of Emoting Mokou meme](https://twitter.com/jokanhiyou)
