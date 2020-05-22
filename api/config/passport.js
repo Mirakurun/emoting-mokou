@@ -1,6 +1,9 @@
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
+const express = require('express');
 const User = require('../models/user');
+
+const app = express();
 
 // serialize user instance
 passport.serializeUser((user, done) => {
@@ -29,7 +32,10 @@ passport.use(
     {
       consumerKey: process.env.CONSUMER_KEY,
       consumerSecret: process.env.CONSUMER_SECRET,
-      callbackURL: '/api/auth/twitter/callback',
+      callbackURL:
+        app.get('env') === 'production'
+          ? `${process.env.HOST}/api/auth/twitter/callback`
+          : `http://localhost:${process.env.PORT}/api/auth/twitter/callback`,
       passReqToCallback: true,
     },
     async (req, token, tokenSecret, profile, done) => {
@@ -50,7 +56,7 @@ passport.use(
               displayName,
               uid,
               profileBanner: json.profile_banner_url,
-              profileImage: json.profile_image_url,
+              profileImage: json.profile_image_url_https,
               provider,
               token,
               tokenSecret,
@@ -68,7 +74,7 @@ passport.use(
           user.displayName = displayName;
           user.uid = uid;
           user.profileBanner = json.profile_banner_url;
-          user.profileImage = json.profile_image_url;
+          user.profileImage = json.profile_image_url_https;
           user.provider = provider;
           user.username = username;
           user.token = token;
@@ -84,7 +90,7 @@ passport.use(
         user.displayName = displayName;
         user.uid = uid;
         user.profileBanner = json.profile_banner_url;
-        user.profileImage = json.profile_image_url;
+        user.profileImage = json.profile_image_url_https;
         user.provider = provider;
         user.username = username;
         user.token = token;
