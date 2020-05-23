@@ -13,7 +13,7 @@ An app for tweeting \"Emoting Mokou\" memes
 Search and explore a database of 500+ emotes and more to come
 <br>
 
-<img src="images/500.jpg" height="300">
+<img src="images/500.jpg" width="300">
 <br>
 <br>
 
@@ -21,7 +21,7 @@ Search and explore a database of 500+ emotes and more to come
 Quickly access your favorite emotes
 <br>
 
-<img src="images/168.jpg" height="300">
+<img src="images/168.jpg" width="300">
 <br>
 <br>
 
@@ -30,7 +30,7 @@ Quickly access your favorite emotes
 Switch between light and dark mode
 <br>
 
-<img src="images/5.jpg" height="300"><img src="images/114.jpg" height="300">
+<img src="images/5.jpg" width="300"><img src="images/114.jpg" width="300">
 <br>
 <br>
 
@@ -38,7 +38,7 @@ Switch between light and dark mode
 Compose a tweet with a message and up to 4 emotes
 <br>
 
-<img src="images/18.jpg" height="300">
+<img src="images/18.jpg" width="300">
 <br>
 <br>
 
