@@ -2,6 +2,7 @@
   <q-drawer
     v-model="rightDrawerOpen"
     behavior="mobile"
+    content-class="bg-grey-3"
     :no-swipe-open="$q.screen.gt.xs"
     side="right"
   >
