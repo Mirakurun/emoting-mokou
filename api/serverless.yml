@@ -31,7 +31,18 @@ provider:
   apiName: emoting-mokou-api
   apiGateway:
     binaryMediaTypes:
-      - '*/*'
+      - "*/*"
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:PutObject"
+        - "s3:PutObjectAcl"
+      Resource:
+       Fn::Join:
+         - ""
+         - - "arn:aws:s3:::"
+           - ${env:BUCKET}
+           - "/*"
 
 # you can overwrite defaults here
 #  stage: dev
