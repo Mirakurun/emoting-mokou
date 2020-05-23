@@ -34,11 +34,12 @@
                   label="Add to Tweet"
                 />
                 <q-btn
-                  class="gt-xs"
+                  :class="[{ 'gt-xs': this.$store.state.user.username }]"
                   :color="$q.dark.isActive ? 'cyan' : 'blue'"
                   flat
                   icon="fas fa-expand"
-                  label="fullscreen"
+                  :label="$q.screen.gt.xs ? 'fullscreen' : ''"
+                  :round="$q.screen.lt.sm"
                   @click="onToggle"
                 />
                 <edit-emote-btn
@@ -49,7 +50,8 @@
                   label="Edit"
                 />
                 <q-btn
-                  class="lt-sm"
+                  v-if="this.$store.state.user.username"
+                  :class="[{ 'lt-sm': this.$store.state.user.username }]"
                   :color="$q.dark.isActive ? 'cyan' : 'blue'"
                   icon="more_vert"
                   flat
@@ -171,11 +173,23 @@ export default {
     },
   },
   methods: {
+    async fetchEmote(id) {
+      try {
+        const { data, status } = await this.$axios.get(`/emote/${id}`);
+
+        if (status === 200) {
+          this.emote = data;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
     onShowMore() {
       this.$q
         .bottomSheet({
           actions: [
             {
+              classes: [{ hidden: !this.$store.state.user.username }],
               color: this.$q.dark.isActive ? 'cyan' : 'blue',
               label: this.$store.getters['user/isFavorite'](this.emote.id)
                 ? 'Remove from favorites'
@@ -187,6 +201,7 @@ export default {
             },
             {
               classes: [
+                { hidden: !this.$store.state.user.username },
                 { disabled: this.$store.state.user.media.length >= 4 },
                 'img-fw',
                 'svg-color',
