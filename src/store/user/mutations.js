@@ -31,6 +31,10 @@ export function setFavorites(state, payload) {
   state.favorites = payload;
 }
 
+export function setPreviousRoute(state, payload) {
+  state.previousRoute = payload;
+}
+
 export function setUser(state, payload) {
   const {
     darkMode,

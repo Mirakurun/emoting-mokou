@@ -16,9 +16,17 @@ Vue.use(Meta);
  * with the Router instance.
  */
 
-export default function(/* { store, ssrContext } */) {
+export default function({ store }) {
   const Router = new VueRouter({
-    scrollBehavior: () => ({ x: 0, y: 0 }),
+    scrollBehavior(to, from, savedPosition) {
+      if (savedPosition) {
+        return savedPosition;
+      }
+      if (to.hash) {
+        return { selector: to.hash, offset: { x: 0, y: 50 } };
+      }
+      return { x: 0, y: 0 };
+    },
     routes,
 
     // Leave these as they are and change in quasar.conf.js instead!
@@ -26,6 +34,11 @@ export default function(/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE,
+  });
+
+  Router.beforeEach((to, from, next) => {
+    store.commit('user/setPreviousRoute', from.name);
+    next();
   });
 
   return Router;

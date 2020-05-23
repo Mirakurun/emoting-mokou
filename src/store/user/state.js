@@ -4,6 +4,7 @@ export default function() {
     displayName: '',
     favorites: [],
     media: [],
+    previousRoute: '',
     profileBanner: '',
     profileImage: '',
     role: '',

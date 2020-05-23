@@ -7,7 +7,13 @@
           no-caps
           :round="$route.name !== 'home'"
           :stretch="$route.name === 'home'"
-          @click="$router.go(-1)"
+          @click="
+            $store.state.user.previousRoute === 'home'
+              ? $router.back()
+              : $route.path === '/'
+              ? $router.go(0)
+              : $router.push({ name: 'home' })
+          "
         >
           <q-avatar v-if="$route.name === 'home'" rounded>
             <q-img
