@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     onSearch(search) {
-      if (search) {
+      if (search && search !== this.$route.query.query) {
         this.searchFn(search);
       }
     },

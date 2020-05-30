@@ -1,12 +1,5 @@
 <template>
-  <q-input
-    v-model="input"
-    bottom-slots
-    color="teal"
-    :error="error"
-    error-message="Required"
-    label="Caption"
-  >
+  <q-input v-model="input" bottom-slots color="teal" label="Caption">
     <template #prepend>
       <q-icon color="teal" name="fas fa-closed-captioning" />
     </template>
@@ -20,9 +13,6 @@ export default {
     caption: {
       type: String,
       default: '',
-    },
-    error: {
-      type: Boolean,
     },
   },
   computed: {
