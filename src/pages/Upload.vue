@@ -42,10 +42,7 @@
               </template>
             </q-img>
             <!-- Caption input -->
-            <caption-input
-              :caption.sync="form.caption"
-              :error="$v.form.caption.$error"
-            />
+            <caption-input :caption.sync="form.caption" />
             <!-- Tag input -->
             <tag-input :tag.sync="tag" :tags.sync="form.tags" />
           </div>
@@ -117,9 +114,6 @@ export default {
   },
   validations: {
     form: {
-      caption: {
-        required,
-      },
       file: {
         required,
       },

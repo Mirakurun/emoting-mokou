@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const emoteSchema = new Schema(
   {
-    caption: { type: String, required: true },
+    caption: { type: String, default: '' },
     filename: { type: String, required: true },
     series: [{ type: Schema.Types.ObjectId, ref: 'Emote' }],
     tags: [{ type: String }],

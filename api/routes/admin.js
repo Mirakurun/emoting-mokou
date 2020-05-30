@@ -14,7 +14,6 @@ router.post(
     body('caption')
       .exists()
       .isString()
-      .isLength({ min: 1 })
       .trim(),
     body('filename')
       .exists()
@@ -46,7 +45,6 @@ router.put(
     body('caption')
       .optional()
       .isString()
-      .isLength({ min: 1 })
       .trim(),
     body('filename')
       .optional()
