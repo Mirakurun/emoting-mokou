@@ -23,7 +23,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions)); // CORS for all routes
 app.use(express.json()); // for parsing application/json
-app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 // use the session middleware
 app.use(
