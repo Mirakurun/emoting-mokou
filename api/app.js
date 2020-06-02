@@ -34,6 +34,7 @@ app.use(
     saveUninitialized: false,
     name: 'emoting_mokou_sid',
     cookie: { secure: app.get('env') === 'production' },
+    maxAge: 432000000, // 5 days
   })
 );
 
