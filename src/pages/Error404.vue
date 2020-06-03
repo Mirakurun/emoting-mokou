@@ -27,5 +27,17 @@
 <script>
 export default {
   name: 'Error404',
+  metaInfo() {
+    return {
+      title: 'Emoting Mokou',
+      titleTemplate: '%s - Page not found',
+      meta: [
+        {
+          name: 'description',
+          content: 'Page not found',
+        },
+      ],
+    };
+  },
 };
 </script>
