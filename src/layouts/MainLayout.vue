@@ -149,6 +149,7 @@
             type="a"
             href="https://github.com/Mirakurun/emoting-mokou"
             target="_blank"
+            rel="noopener"
           >
             <div class="text-subtitle2 text-teal-1">
               Copyright © 2020 Kevin Chhay
