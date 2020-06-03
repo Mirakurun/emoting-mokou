@@ -96,7 +96,10 @@
         </div>
         <div class="text-body1">
           The "Emoting Mokou" images are created by
-          <a href="https://twitter.com/jokanhiyou" target="_blank"
+          <a
+            href="https://twitter.com/jokanhiyou"
+            target="_blank"
+            rel="noopener"
             >上官绯樱 (aka MiLk @jokanihyou)
             <q-icon name="fas fa-external-link-alt"/></a
           >. Copyright of those images belongs to that artist. This website and
@@ -139,5 +142,17 @@
 <script>
 export default {
   name: 'TermsOfService',
+  metaInfo() {
+    return {
+      title: 'Emoting Mokou',
+      titleTemplate: '%s - Terms of Service',
+      meta: [
+        {
+          name: 'description',
+          content: 'Terms of Service',
+        },
+      ],
+    };
+  },
 };
 </script>
