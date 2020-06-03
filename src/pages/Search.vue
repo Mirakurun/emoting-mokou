@@ -50,6 +50,18 @@ import { timelineMixin } from 'mixins/timeline';
 
 export default {
   name: 'Search',
+  metaInfo() {
+    return {
+      title: 'Emoting Mokou',
+      titleTemplate: '%s - Search',
+      meta: [
+        {
+          name: 'description',
+          content: 'Search',
+        },
+      ],
+    };
+  },
   components: {
     EmoteResults,
     Searchbar,
