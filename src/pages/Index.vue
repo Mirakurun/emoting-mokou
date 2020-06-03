@@ -9,7 +9,12 @@
         </div>
         <div class="row">
           <div class="col">
-            <q-infinite-scroll debounce="1000" :offset="10" @load="onLoad">
+            <q-infinite-scroll
+              debounce="1000"
+              :disable="$route.name !== 'home'"
+              :offset="10"
+              @load="onLoad"
+            >
               <emote-results class="q-pt-md" :emotes="data" :status="status" />
               <template #loading>
                 <div class="row justify-center q-my-xl">
@@ -49,6 +54,17 @@ import { timelineMixin } from 'mixins/timeline';
 
 export default {
   name: 'Index',
+  metaInfo() {
+    return {
+      title: 'Emoting Mokou',
+      meta: [
+        {
+          name: 'description',
+          content: 'Home',
+        },
+      ],
+    };
+  },
   components: {
     EmoteResults,
     Searchbar,
