@@ -2,10 +2,13 @@ const passport = require('passport');
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
+const helmet = require('helmet');
 const store = require('./db/store');
 require('./config/passport');
 
 const app = express();
+
+app.use(helmet());
 
 const authRouter = require('./routes/auth');
 const twitterRouter = require('./routes/twitter');
