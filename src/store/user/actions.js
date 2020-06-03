@@ -27,7 +27,7 @@ export function fetchUser({ commit }) {
     });
 }
 
-export async function setDarkMode({ commit }, payload) {
+export function setDarkMode({ commit }, payload) {
   return axiosInstance
     .post('/user/darkmode', { darkmode: payload })
     .then(({ data, status }) => {
