@@ -45,6 +45,18 @@ import { timelineMixin } from 'mixins/timeline';
 
 export default {
   name: 'PageFavorites',
+  metaInfo() {
+    return {
+      title: 'Emoting Mokou',
+      titleTemplate: '%s - Favorites',
+      meta: [
+        {
+          name: 'description',
+          content: 'Favorites',
+        },
+      ],
+    };
+  },
   components: {
     EmoteResults,
     TwitterTimeline,
