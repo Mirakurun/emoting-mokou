@@ -80,5 +80,17 @@
 <script>
 export default {
   name: 'PrivacyPolicy',
+  metaInfo() {
+    return {
+      title: 'Emoting Mokou',
+      titleTemplate: '%s - Privacy Policy',
+      meta: [
+        {
+          name: 'description',
+          content: 'Privacy Policy',
+        },
+      ],
+    };
+  },
 };
 </script>
