@@ -50,4 +50,4 @@ jobs:
       - name: Deploy
         env:
           BUCKET: ${{ secrets.BUCKET }}
-        run: aws s3 sync ./dist/spa s3://$BUCKET --exclude 'statics/images/emotes'
+        run: aws s3 sync ./dist/spa s3://$BUCKET --exclude 'statics/images/emotes/*'
