@@ -51,3 +51,7 @@ jobs:
         env:
           BUCKET: ${{ secrets.BUCKET }}
         run: aws s3 sync ./dist/spa s3://$BUCKET --exclude 'statics/images/emotes/*'
+      - name: Invalidate CloudFront Cache
+        env:
+          DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}
+        run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/index.html" "/css/*" "/fonts/*" "/js/*" "/statics/icons/*"
