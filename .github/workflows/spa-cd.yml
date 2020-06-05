@@ -1,0 +1,53 @@
+name: SPA Continuous Deployment
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/**'
+      - '!.editorconfig'
+      - '!.eslintignore'
+      - '!.eslintrc.js'
+      - '!.gitignore'
+      - '!.postcssrc.js'
+      - '!.stylintrc'
+      - '!README.md'
+      - '!babel.config.js'
+      - '!jsconfig.json'
+
+jobs:
+  deploy:
+    name: Deploy SPA
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Quasar Framework
+        run: npm install @quasar/cli
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+      - name: Configure AWS credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+        run: |
+          echo "::set-env name=AWS_ACCESS_KEY_ID::$AWS_ACCESS_KEY_ID"
+          echo "::set-env name=AWS_SECRET_ACCESS_KEY::$AWS_SECRET_ACCESS_KEY"
+          echo "::set-env name=AWS_DEFAULT_REGION::$AWS_DEFAULT_REGION"
+      - name: Build
+        run: quasar build
+      - name: Deploy
+        env:
+          BUCKET: ${{ secrets.BUCKET }}
+        run: aws s3 sync ./dist/spa s3://$BUCKET --exclude 'statics/images/emotes'
