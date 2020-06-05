@@ -12,6 +12,9 @@ jobs:
   deploy:
     name: Deploy API
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./api
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
