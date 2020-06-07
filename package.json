@@ -1,6 +1,6 @@
 {
   "name": "emoting-mokou",
-  "version": "1.0.0",
+  "version": "1.24.10",
   "description": "An app for tweeting \"Emoting Mokou\" memes",
   "productName": "Emoting Mokou",
   "cordovaId": "org.cordova.quasar.app",
