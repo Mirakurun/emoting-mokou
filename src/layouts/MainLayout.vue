@@ -188,9 +188,6 @@ export default {
       tab: '',
     };
   },
-  preFetch({ store }) {
-    return store.dispatch('user/fetchUser');
-  },
   computed: {
     apiURI() {
       return process.env.API;

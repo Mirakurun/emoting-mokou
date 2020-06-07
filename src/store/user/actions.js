@@ -13,18 +13,17 @@ export async function fetchFavorites({ commit }) {
   }
 }
 
-export function fetchUser({ commit }) {
-  return axiosInstance
-    .get('/user/profile')
-    .then(({ data, status }) => {
-      if (status === 200) {
-        commit('setUser', data);
-        Dark.set(data.darkMode);
-      }
-    })
-    .catch(() => {
-      commit('clearUser');
-    });
+export async function fetchUser({ commit }) {
+  try {
+    const { data, status } = await axiosInstance.get('/user/profile');
+
+    if (status === 200) {
+      commit('setUser', data);
+      Dark.set(data.darkMode);
+    }
+  } catch (error) {
+    commit('clearUser');
+  }
 }
 
 export function setDarkMode({ commit }, payload) {
