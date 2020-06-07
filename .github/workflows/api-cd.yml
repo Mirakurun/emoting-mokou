@@ -8,8 +8,6 @@ on:
       - 'api/**'
       - '!api/.eslintrc.js'
       - '!api/server.js'
-      - '!api/package-lock.json'
-      - '!api/package.json'
 
 jobs:
   deploy:
