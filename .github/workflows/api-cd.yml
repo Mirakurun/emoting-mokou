@@ -27,12 +27,27 @@ jobs:
         run: npm ci
       - name: Install serverless framework
         run: npm install serverless
-      - name: Configure AWS credentials
+      - name: Serverless config credentials
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: npm run config
-      - name: Package
+      - name: Serverless package
         run: npm run package
-      - name: Deploy package
+      - name: Serverless deploy
+        uses: serverless/github-action@master
+        with:
+          args: deploy
+        env:
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          BUCKET: ${{ secrets.BUCKET }}
+          KEYPREFIX: ${{ secrets.KEYPREFIX }}
+          REGION: ${{ secrets.REGION }}
+          DB_URI: ${{ secrets.DB_URI }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          HOST: ${{ secrets.HOST }}
+          CLIENT_PORT: ${{ secrets.CLIENT_PORT }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
         run: npm run deploy
