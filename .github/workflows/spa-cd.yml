@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'src/**'
+      - 'package.json'
 
 jobs:
   deploy:
