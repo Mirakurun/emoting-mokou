@@ -1,3 +1,5 @@
+![SPA Continuous Deployment](https://github.com/Mirakurun/emoting-mokou/workflows/SPA%20Continuous%20Deployment/badge.svg)
+
 # Emoting Mokou
 
 An app for tweeting \"Emoting Mokou\" memes. Emoting Mokou is a collection of images featuring the character Mokou from Touhou, Japanese video game series, with Chinese and \"Engrish\" captions, created by the artist Shangguan Feiying.
