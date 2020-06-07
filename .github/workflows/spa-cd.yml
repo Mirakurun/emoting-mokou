@@ -6,15 +6,6 @@ on:
       - master
     paths:
       - 'src/**'
-      - '!.editorconfig'
-      - '!.eslintignore'
-      - '!.eslintrc.js'
-      - '!.gitignore'
-      - '!.postcssrc.js'
-      - '!.stylintrc'
-      - '!README.md'
-      - '!babel.config.js'
-      - '!jsconfig.json'
 
 jobs:
   deploy:
@@ -29,8 +20,6 @@ jobs:
           node-version: '12.x'
       - name: Install dependencies
         run: npm ci
-      - name: Install Quasar Framework
-        run: npm install @quasar/cli
       - name: Install AWS CLI
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -46,7 +35,7 @@ jobs:
           echo "::set-env name=AWS_SECRET_ACCESS_KEY::$AWS_SECRET_ACCESS_KEY"
           echo "::set-env name=AWS_DEFAULT_REGION::$AWS_DEFAULT_REGION"
       - name: Build
-        run: quasar build
+        run: npm run build
       - name: Deploy
         env:
           BUCKET: ${{ secrets.BUCKET }}
