@@ -38,7 +38,7 @@ jobs:
           node-version: '12.x'
       - name: Install dependencies
         run: npm ci
-      - mame: Install serverless framework
+      - name: Install serverless framework
         run: npm install serverless
       - name: Serverless config credentials
         run: npm run config
