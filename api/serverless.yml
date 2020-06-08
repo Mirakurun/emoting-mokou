@@ -96,16 +96,16 @@ functions:
       - http: ANY /api
       - http: 'ANY /api/{proxy+}'
     environment:
-      CONSUMER_KEY: ${opt:CONSUMER_KEY}
-      CONSUMER_SECRET: ${opt:CONSUMER_SECRET}
-      SESSION_SECRET: ${opt:SESSION_SECRET}
-      BUCKET: ${opt:BUCKET}
-      KEYPREFIX: ${opt:KEYPREFIX}
-      AWS_DEFAULT_REGION: ${opt:AWS_DEFAULT_REGION}
-      DB_URI: ${opt:DB_URI}
-      DB_NAME: ${opt:DB_NAME}
-      HOST: ${opt:HOST}
-      CLIENT_PORT: ${opt:CLIENT_PORT}
+      CONSUMER_KEY: ${env:CONSUMER_KEY}
+      CONSUMER_SECRET: ${env:CONSUMER_SECRET}
+      SESSION_SECRET: ${env:SESSION_SECRET}
+      BUCKET: ${env:BUCKET}
+      KEYPREFIX: ${env:KEYPREFIX}
+      AWS_DEFAULT_REGION: ${env:AWS_DEFAULT_REGION}
+      DB_URI: ${env:DB_URI}
+      DB_NAME: ${env:DB_NAME}
+      HOST: ${env:HOST}
+      CLIENT_PORT: ${env:CLIENT_PORT}
       NODE_ENV: 'production'
     timeout: 15
 #    The following are a few example events you can configure
