@@ -14,7 +14,7 @@ if (app.get('env') === 'development') {
   });
 }
 
-AWS.config.update({ region: process.env.REGION });
+AWS.config.update({ region: process.env.AWS_DEFAULT_REGION });
 
 const s3 = new AWS.S3();
 

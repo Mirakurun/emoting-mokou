@@ -1,14 +1,11 @@
 {
   "name": "emoting-mokou-api",
-  "version": "1.24.10",
+  "version": "1.13.2",
   "description": "API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js",
-    "config": "serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY",
-    "package": "serverless package",
-    "deploy": "serverless deploy --package .serverless"
+    "dev": "nodemon server.js"
   },
   "author": "Kevin Chhay <25449974+Mirakurun@users.noreply.github.com>",
   "license": "ISC",
