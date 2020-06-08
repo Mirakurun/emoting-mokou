@@ -26,7 +26,7 @@ jobs:
       DB_NAME: ${{ secrets.DB_NAME }}
       HOST: ${{ secrets.HOST }}
       CLIENT_PORT: ${{ secrets.CLIENT_PORT }}
-    default:
+    defaults:
       run:
         working-directory: ./api
     steps:
