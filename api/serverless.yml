@@ -20,9 +20,6 @@ service: emoting-mokou
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
-plugins:
-  - serverless-dotenv-plugin
-
 provider:
   name: aws
   runtime: nodejs12.x
@@ -96,16 +93,16 @@ functions:
       - http: ANY /api
       - http: 'ANY /api/{proxy+}'
     environment:
-      CONSUMER_KEY: ${env:CONSUMER_KEY}
-      CONSUMER_SECRET: ${env:CONSUMER_SECRET}
-      SESSION_SECRET: ${env:SESSION_SECRET}
-      BUCKET: ${env:BUCKET}
-      KEYPREFIX: ${env:KEYPREFIX}
-      AWS_DEFAULT_REGION: ${env:AWS_DEFAULT_REGION}
-      DB_URI: ${env:DB_URI}
-      DB_NAME: ${env:DB_NAME}
-      HOST: ${env:HOST}
-      CLIENT_PORT: ${env:CLIENT_PORT}
+      CONSUMER_KEY: ${ssm:/CONSUMER_KEY~true}
+      CONSUMER_SECRET: ${ssm:/CONSUMER_SECRET~true}
+      SESSION_SECRET: ${ssm:/SESSION_SECRET~true}
+      BUCKET: ${ssm:/BUCKET~true}
+      KEYPREFIX: ${ssm:/KEYPREFIX~true}
+      REGION: ${ssm:/REGION~true}
+      DB_URI: ${ssm:/DB_URI~true}
+      DB_NAME: ${ssm:/DB_NAME~true}
+      HOST: ${ssm:/HOST~true}
+      CLIENT_PORT: ${ssm:/CLIENT_PORT~true}
       NODE_ENV: 'production'
     timeout: 15
 #    The following are a few example events you can configure
