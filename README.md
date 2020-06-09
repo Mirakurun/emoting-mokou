@@ -1,4 +1,4 @@
-![SPA Continuous Deployment](https://github.com/Mirakurun/emoting-mokou/workflows/SPA%20Continuous%20Deployment/badge.svg)
+![SPA Continuous Deployment](https://github.com/Mirakurun/emoting-mokou/workflows/SPA%20Continuous%20Deployment/badge.svg) ![API Continuous Deployment](https://github.com/Mirakurun/emoting-mokou/workflows/API%20Continuous%20Deployment/badge.svg)
 
 # Emoting Mokou
 
