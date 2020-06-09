@@ -38,7 +38,7 @@ provider:
        Fn::Join:
          - ""
          - - "arn:aws:s3:::"
-           - ${env:BUCKET}
+           - ${ssm:/BUCKET~true}
            - "/*"
 
 # you can overwrite defaults here
