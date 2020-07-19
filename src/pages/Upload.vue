@@ -214,6 +214,7 @@ export default {
         this.isDisabled = false;
         this.isLoading = false;
         this.label = '';
+        this.progress = 0;
         this.$refs.form.reset();
         this.$v.form.$reset();
       }
