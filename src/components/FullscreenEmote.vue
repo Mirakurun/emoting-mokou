@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="dialog" :maximized="true">
+  <q-dialog v-model="dialog" :maximized="true" transition-show="fade">
     <div
       :class="[
         $q.dark.isActive ? 'bg-black' : 'bg-white',
@@ -7,6 +7,15 @@
         'flex-center',
       ]"
     >
+      <q-btn
+        class="absolute-top-right q-ma-sm-md"
+        flat
+        icon="fas fa-times"
+        size="lg"
+        round
+        :text-color="$q.dark.isActive ? 'cyan' : 'grey-14'"
+        @click="toggle"
+      />
       <q-img
         basic
         contain
@@ -14,14 +23,6 @@
         :height="height"
         :width="width"
         @load="load"
-      />
-      <q-btn
-        class="absolute-bottom-right"
-        flat
-        icon="fas fa-compress"
-        size="lg"
-        :text-color="$q.dark.isActive ? 'cyan' : 'grey-14'"
-        @click="toggle"
       />
     </div>
   </q-dialog>

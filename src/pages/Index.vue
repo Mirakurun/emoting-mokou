@@ -15,7 +15,12 @@
               :offset="10"
               @load="onLoad"
             >
-              <emote-results class="q-pt-md" :emotes="data" :status="status" />
+              <emote-results
+                class="q-pt-md"
+                :emotes="data"
+                :index="index"
+                :status="status"
+              />
               <template #loading>
                 <div class="row justify-center q-my-xl">
                   <q-spinner-dots color="light-blue" size="xl" />
@@ -73,6 +78,7 @@ export default {
   mixins: [timelineMixin],
   data() {
     return {
+      index: 0,
       data: [],
       done: false,
       search: '',
@@ -86,6 +92,8 @@ export default {
   },
   methods: {
     async onLoad(index, done) {
+      this.index = index;
+
       try {
         const { data, status } = await this.$axios.post(
           `/emote/random?index=${index}&size=18`,

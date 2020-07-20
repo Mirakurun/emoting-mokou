@@ -89,6 +89,8 @@ module.exports = function(ctx) {
 
       // Quasar plugins
       plugins: ['AppFullscreen', 'BottomSheet', 'Loading', 'Notify'],
+
+      cssAddon: true,
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
@@ -140,7 +142,7 @@ module.exports = function(ctx) {
 
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
-    animations: [],
+    animations: ['fadeIn', 'fadeInUp'],
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
