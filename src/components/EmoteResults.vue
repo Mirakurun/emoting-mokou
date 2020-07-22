@@ -9,22 +9,24 @@
         />
         <div class="text-subtitle1 q-mt-md">Nothing found...</div>
       </div>
-      <transition-group
-        appear
-        :enter-active-class="
-          index > 1 ? 'animated fadeInUp' : 'animated fadeIn'
-        "
-        tag="div"
-        class="row q-col-gutter-md"
-      >
-        <div
-          v-for="emote in emotes"
-          :key="emote.id"
-          class="col-xs-6 col-sm-4 col-md-3 col-lg-2"
+      <div class="col">
+        <transition-group
+          appear
+          :enter-active-class="
+            index > 1 ? 'animated fadeInUp' : 'animated fadeIn'
+          "
+          tag="div"
+          class="row q-col-gutter-md"
         >
-          <emote-card v-bind="emote" />
-        </div>
-      </transition-group>
+          <div
+            v-for="emote in emotes"
+            :key="emote.id"
+            class="col-xs-6 col-sm-4 col-md-3 col-lg-2"
+          >
+            <emote-card v-bind="emote" />
+          </div>
+        </transition-group>
+      </div>
     </div>
     <div v-if="loading" class="row q-col-gutter-md">
       <div class="col">
