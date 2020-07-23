@@ -1,11 +1,14 @@
 const express = require('express');
 const multer = require('multer');
+const mime = require('mime-types');
 const isAuth = require('../middleware/is-auth');
 const twitterController = require('../controllers/twitter');
 
 const fileFilter = (req, file, cb) => {
-  console.log(file);
-  if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') {
+  if (
+    mime.lookup(file.originalname) === 'image/png' ||
+    mime.lookup(file.originalname) === 'image/jpeg'
+  ) {
     cb(null, true);
   } else {
     cb(null, false);
