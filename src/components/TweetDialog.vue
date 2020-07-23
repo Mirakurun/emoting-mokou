@@ -252,8 +252,8 @@ export default {
 
         formData.append('text', this.tweet);
 
-        blobs.forEach(blob => {
-          formData.append('images', blob);
+        blobs.forEach((blob, i) => {
+          formData.append('images', blob, this.$store.state.user.media[i]);
         });
 
         const { data, status } = await this.$axios.post(
