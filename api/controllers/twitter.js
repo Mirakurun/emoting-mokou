@@ -7,6 +7,8 @@ exports.tweet = async (req, res, next) => {
   const { text } = req.body;
 
   try {
+    console.log(req);
+
     console.log(req.files);
 
     const promises = files.map(file => {
