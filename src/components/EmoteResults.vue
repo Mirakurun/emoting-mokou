@@ -9,7 +9,7 @@
         />
         <div class="text-subtitle1 q-mt-md">Nothing found...</div>
       </div>
-      <div class="col">
+      <div v-else class="col">
         <transition-group
           appear
           :enter-active-class="
