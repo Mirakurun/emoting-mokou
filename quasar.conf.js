@@ -39,62 +39,13 @@ module.exports = function(ctx) {
       //            (fastest compile time; minimum bundle size; most tedious)
       // * true   - Import everything from Quasar
       //            (not treeshaking Quasar; biggest bundle size; convenient)
-      all: false,
-
-      components: [
-        'QLayout',
-        'QHeader',
-        'QFooter',
-        'QDrawer',
-        'QPageContainer',
-        'QPage',
-        'QToolbar',
-        'QToolbarTitle',
-        'QBtn',
-        'QIcon',
-        'QList',
-        'QItem',
-        'QItemSection',
-        'QItemLabel',
-        'QInput',
-        'QBtnDropdown',
-        'QImg',
-        'QAvatar',
-        'QToggle',
-        'QSeparator',
-        'QForm',
-        'QCard',
-        'QCardSection',
-        'QCardActions',
-        'QFile',
-        'QChip',
-        'QLinearProgress',
-        'QSpinnerHourglass',
-        'QSpace',
-        'QInfiniteScroll',
-        'QSpinnerDots',
-        'QPageScroller',
-        'QTooltip',
-        'QDialog',
-        'QEditor',
-        'QCircularProgress',
-        'QBadge',
-        'QBanner',
-        'QMenu',
-        'QTabs',
-        'QRouteTab',
-      ],
-
-      directives: ['Ripple', 'ClosePopup'],
+      importStrategy: 'auto',
 
       // Quasar plugins
       plugins: ['AppFullscreen', 'BottomSheet', 'Loading', 'Notify'],
 
       cssAddon: true,
     },
-
-    // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
-    supportIE: true,
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
@@ -126,10 +77,10 @@ module.exports = function(ctx) {
       },
       env: ctx.dev
         ? {
-            API: JSON.stringify('http://localhost:3000/api'),
+            API: 'http://localhost:3000/api',
           }
         : {
-            API: JSON.stringify('https://www.emotingmokou.moe/api'),
+            API: 'https://www.emotingmokou.moe/api',
           },
     },
 
@@ -163,27 +114,27 @@ module.exports = function(ctx) {
         theme_color: '#027be3',
         icons: [
           {
-            src: 'statics/icons/icon-128x128.png',
+            src: 'icons/icon-128x128.png',
             sizes: '128x128',
             type: 'image/png',
           },
           {
-            src: 'statics/icons/icon-192x192.png',
+            src: 'icons/icon-192x192.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: 'statics/icons/icon-256x256.png',
+            src: 'icons/icon-256x256.png',
             sizes: '256x256',
             type: 'image/png',
           },
           {
-            src: 'statics/icons/icon-384x384.png',
+            src: 'icons/icon-384x384.png',
             sizes: '384x384',
             type: 'image/png',
           },
           {
-            src: 'statics/icons/icon-512x512.png',
+            src: 'icons/icon-512x512.png',
             sizes: '512x512',
             type: 'image/png',
           },

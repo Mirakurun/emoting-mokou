@@ -19,7 +19,7 @@
       <q-img
         basic
         contain
-        :src="`statics/images/emotes/${filename}`"
+        :src="`images/emotes/${filename}`"
         :height="height"
         :width="width"
         @load="load"

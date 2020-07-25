@@ -73,7 +73,7 @@ export default {
           const dismiss = this.$q.notify({
             classes: 'notify-icon',
             group: false,
-            icon: `img:statics/images/emotes/${this.filename}`,
+            icon: `img:images/emotes/${this.filename}`,
             message: 'Added to tweet.',
             position: 'top',
             type: 'info',

@@ -2,11 +2,7 @@
   <div>
     <div class="row q-col-gutter-md">
       <div v-if="emotes.length === 0 && status === 200" class="col text-center">
-        <q-img
-          contain
-          src="statics/images/nothing.jpg"
-          style="max-width: 355px"
-        />
+        <q-img contain src="images/nothing.jpg" style="max-width: 355px" />
         <div class="text-subtitle1 q-mt-md">Nothing found...</div>
       </div>
       <div v-else class="col">
@@ -61,3 +57,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.q-intersection {
+  & ::v-deep > div {
+    height: 100%;
+  }
+}
+</style>

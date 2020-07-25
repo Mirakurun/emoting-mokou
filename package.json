@@ -3,8 +3,6 @@
   "version": "1.22.8",
   "description": "An app for tweeting \"Emoting Mokou\" memes",
   "productName": "Emoting Mokou",
-  "cordovaId": "org.cordova.quasar.app",
-  "capacitorId": "",
   "author": "Mirakurun <25449974+Mirakurun@users.noreply.github.com>",
   "private": true,
   "scripts": {
@@ -13,18 +11,19 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.6.4",
+    "@quasar/extras": "^1.9.0",
     "axios": "^0.19.2",
+    "core-js": "^3.0.0",
     "date-fns": "^2.12.0",
     "emoji-mart-vue-fast": "^7.0.1",
-    "quasar": "^1.9.15",
+    "quasar": "^1.12.13",
     "twitter-text": "^3.1.0",
     "vue-gtag": "^1.6.2",
     "vue-meta": "^2.3.3",
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {
-    "@quasar/app": "^1.7.1",
+    "@quasar/app": "^2.0.6",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
@@ -41,11 +40,17 @@
     "yarn": ">= 1.21.1"
   },
   "browserslist": [
-    "last 1 version, not dead, ie >= 11"
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions",
+    "ie 11"
   ],
-  "resolutions": {
-    "@babel/parser": "7.7.5"
-  },
   "prettier": {
     "singleQuote": true,
     "trailingComma": "es5",

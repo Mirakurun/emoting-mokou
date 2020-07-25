@@ -9,7 +9,7 @@
                 :alt="emote.caption"
                 contain
                 :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-1'"
-                :src="`statics/images/emotes/${emote.filename}`"
+                :src="`images/emotes/${emote.filename}`"
                 :ratio="4 / 3"
                 style="max-height: 400px"
               />
@@ -89,7 +89,7 @@
             <div v-for="emote in emote.series" :key="emote.id">
               <router-link :to="`/emotes/${emote.id}`">
                 <q-img
-                  :src="`statics/images/emotes/${emote.filename}`"
+                  :src="`images/emotes/${emote.filename}`"
                   :img-style="{ border: '3px solid black' }"
                 />
               </router-link>
@@ -207,7 +207,7 @@ export default {
                 'svg-color',
               ],
               label: 'Add to tweet',
-              img: 'statics/icons/add-tweet.svg',
+              img: 'icons/add-tweet.svg',
               id: 'tweet',
             },
             {

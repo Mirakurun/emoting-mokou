@@ -19,7 +19,7 @@
             <q-img
               class="bg-white"
               contain
-              src="statics/images/padoru.jpg"
+              src="images/padoru.jpg"
               height="38px"
             />
           </q-avatar>

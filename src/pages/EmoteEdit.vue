@@ -7,7 +7,7 @@
             :alt="emote.caption"
             contain
             :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-1'"
-            :src="`statics/images/emotes/${emote.filename}`"
+            :src="`images/emotes/${emote.filename}`"
             :ratio="4 / 3"
             style="max-height: 400px"
           />

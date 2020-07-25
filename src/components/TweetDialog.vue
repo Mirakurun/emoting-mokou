@@ -48,7 +48,7 @@
       </q-card-section>
       <q-banner v-if="$store.getters['user/isEmptyMedia']">
         <template #avatar>
-          <q-img src="statics/images/comfy.png" style="width: 100px;" />
+          <q-img src="images/comfy.png" style="width: 100px;" />
         </template>
         Add at least 1 emoting mokou before you can tweet.
       </q-banner>
@@ -56,7 +56,7 @@
         <q-img
           v-for="(filename, i) in $store.state.user.media"
           :key="i"
-          :src="`statics/images/emotes/${filename}`"
+          :src="`images/emotes/${filename}`"
           basic
           class="bg-grey-8"
           contain
@@ -186,7 +186,7 @@ export default {
       return this.currentLoading === i;
     },
     fetchBlob(filename) {
-      return this.$axios.get(`/statics/images/emotes/${filename}`, {
+      return this.$axios.get(`/images/emotes/${filename}`, {
         baseURL: '/',
         responseType: 'blob',
       });

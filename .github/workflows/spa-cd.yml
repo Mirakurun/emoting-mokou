@@ -34,8 +34,8 @@ jobs:
       - name: Deploy
         env:
           BUCKET: ${{ secrets.BUCKET }}
-        run: aws s3 sync ./dist/spa s3://$BUCKET --acl public-read --delete --exclude 'statics/images/emotes/*' --exclude 'robots.txt'
+        run: aws s3 sync ./dist/spa s3://$BUCKET --acl public-read --delete --exclude 'images/emotes/*'
       - name: Invalidate CloudFront Cache
         env:
           DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}
-        run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/index.html" "/css/*" "/fonts/*" "/js/*" "/statics/icons/*"
+        run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/index.html" "/css/*" "/fonts/*" "/js/*" "/icons/*"

@@ -5,7 +5,7 @@ jspm_packages
 # Project directories
 api/credentials/*
 api/emotes
-src/statics/images/emotes/*
+public/images/emotes/*
 
 # Serverless directories
 .serverless

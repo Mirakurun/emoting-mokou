@@ -4,7 +4,7 @@
       <q-img
         :alt="caption"
         contain
-        :src="`statics/images/emotes/${filename}`"
+        :src="`images/emotes/${filename}`"
         :ratio="4 / 3"
       />
       <q-card-section class="text-body1 caption">
