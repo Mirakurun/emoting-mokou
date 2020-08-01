@@ -1,6 +1,10 @@
 <template>
   <div>
-    <q-img contain :src="$store.state.user.profileBanner">
+    <q-img
+      v-if="$store.state.user.profileBanner && $store.state.user.profileImage"
+      contain
+      :src="$store.state.user.profileBanner"
+    >
       <div class="row items-center absolute-bottom">
         <q-avatar class="on-left" size="50px">
           <q-img :src="$store.state.user.profileImage" />
@@ -13,6 +17,18 @@
         </div>
       </div>
     </q-img>
+    <q-card v-else flat style="height: 116.66px">
+      <q-item class="row items-center absolute-bottom q-pa-md">
+        <q-item-section avatar>
+          <q-skeleton size="50px" type="QAvatar" />
+        </q-item-section>
+
+        <q-item-section>
+          <q-skeleton class="text-h6" type="text" width="40%" />
+          <q-skeleton class="text-subtitle2" type="text" width="50%" />
+        </q-item-section>
+      </q-item>
+    </q-card>
     <q-list>
       <!-- Upload -->
       <q-item

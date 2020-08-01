@@ -7,7 +7,7 @@
     :transition-hide="null"
     @show="onDialogShow"
   >
-    <q-card style="width: 600px;">
+    <q-card style="width: 600px">
       <q-card-section class="row items-center">
         <div class="text-h6">Compose tweet</div>
         <q-space />
@@ -26,9 +26,10 @@
 
       <q-card-section horizontal>
         <q-card-section avatar class="q-pr-none q-pb-none">
-          <q-avatar size="50px">
+          <q-avatar v-if="$store.state.user.profileImage" size="50px">
             <q-img basic :src="$store.state.user.profileImage" />
           </q-avatar>
+          <q-skeleton v-else size="50px" type="QAvatar" />
         </q-card-section>
         <q-card-section class="col q-px-xs q-pb-none">
           <!-- Editor -->

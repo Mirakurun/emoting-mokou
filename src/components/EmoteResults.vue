@@ -57,11 +57,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.q-intersection {
-  & ::v-deep > div {
-    height: 100%;
-  }
-}
-</style>
