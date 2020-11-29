@@ -47,9 +47,8 @@ export default {
   methods: {
     load(src) {
       const image = new Image();
-      const res = src.split('statics');
 
-      image.src = `statics${res[1]}`;
+      image.src = src;
       image.onload = () => {
         this.height = `${image.naturalHeight}px`;
         this.width = `${image.naturalWidth}px`;
