@@ -33,7 +33,6 @@ provider:
     - Effect: "Allow"
       Action:
         - "s3:PutObject"
-        - "s3:PutObjectAcl"
       Resource:
        Fn::Join:
          - ""
@@ -93,18 +92,19 @@ functions:
       - http: ANY /api
       - http: 'ANY /api/{proxy+}'
     environment:
-      CONSUMER_KEY: ${ssm:/CONSUMER_KEY~true}
-      CONSUMER_SECRET: ${ssm:/CONSUMER_SECRET~true}
-      SESSION_SECRET: ${ssm:/SESSION_SECRET~true}
-      BUCKET: ${ssm:/BUCKET~true}
-      KEYPREFIX: ${ssm:/KEYPREFIX~true}
-      REGION: ${ssm:/REGION~true}
-      DB_URI: ${ssm:/DB_URI~true}
-      DB_NAME: ${ssm:/DB_NAME~true}
-      HOST: ${ssm:/HOST~true}
-      CLIENT_PORT: ${ssm:/CLIENT_PORT~true}
+      CONSUMER_KEY: ${ssm:/emoting-mokou/prod/consumer-key~true}
+      CONSUMER_SECRET: ${ssm:/emoting-mokou/prod/consumer-secret~true}
+      SESSION_SECRET: ${ssm:/emoting-mokou/prod/session-secret~true}
+      BUCKET: ${ssm:/emoting-mokou/prod/bucket~true}
+      KEYPREFIX: ${ssm:/emoting-mokou/prod/keyprefix~true}
+      REGION: ${ssm:/emoting-mokou/prod/region~true}
+      DB_URI: ${ssm:/emoting-mokou/prod/db-uri~true}
+      DB_NAME: ${ssm:/emoting-mokou/prod/db-name~true}
+      HOST: ${ssm:/emoting-mokou/prod/host~true}
+      CLIENT_PORT: ${ssm:/emoting-mokou/dev/client-port~true}
       NODE_ENV: 'production'
     timeout: 15
+    endpointType: regional
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
