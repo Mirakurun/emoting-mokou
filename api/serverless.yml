@@ -37,7 +37,7 @@ provider:
        Fn::Join:
          - ""
          - - "arn:aws:s3:::"
-           - ${ssm:/BUCKET~true}
+           - ${ssm:/emoting-mokou/prod/bucket~true}
            - "/*"
   endpointType: regional
 
