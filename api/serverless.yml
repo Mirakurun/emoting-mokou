@@ -28,17 +28,17 @@ provider:
   apiName: emoting-mokou-api
   apiGateway:
     binaryMediaTypes:
-      - "*/*"
+      - '*/*'
   iamRoleStatements:
-    - Effect: "Allow"
+    - Effect: 'Allow'
       Action:
-        - "s3:PutObject"
+        - 's3:PutObject'
       Resource:
-       Fn::Join:
-         - ""
-         - - "arn:aws:s3:::"
-           - ${ssm:/emoting-mokou/prod/bucket~true}
-           - "/*"
+        Fn::Join:
+          - ''
+          - - 'arn:aws:s3:::'
+            - ${ssm:/emoting-mokou/prod/bucket~true}
+            - '/*'
   endpointType: regional
 
 # you can overwrite defaults here
