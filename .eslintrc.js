@@ -33,6 +33,7 @@ module.exports = {
     process: true,
     Capacitor: true,
     chrome: true,
+    ClipboardItem: true
   },
 
   // add your custom rules here
