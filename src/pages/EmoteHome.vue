@@ -14,6 +14,13 @@
                 style="max-height: 400px"
               />
               <q-card-actions align="right">
+                <add-to-clipboard-btn
+                  ref="clipboard"
+                  class="gt-xs"
+                  :filename="emote.filename"
+                  flat
+                  label="Add to clipboard"
+                />
                 <add-to-favorites-btn
                   :id="emote.id"
                   ref="favorite"
@@ -111,6 +118,7 @@
 </template>
 
 <script>
+import AddToClipboardBtn from 'components/AddToClipboardBtn';
 import AddToFavoritesBtn from 'components/AddToFavoritesBtn';
 import AddToTweetBtn from 'components/AddToTweetBtn';
 import EditEmoteBtn from 'components/EditEmoteBtn';
@@ -136,6 +144,7 @@ export default {
     };
   },
   components: {
+    AddToClipboardBtn,
     AddToFavoritesBtn,
     AddToTweetBtn,
     EditEmoteBtn,
@@ -189,6 +198,12 @@ export default {
         .bottomSheet({
           actions: [
             {
+              color: this.$q.dark.isActive ? 'cyan' : 'blue',
+              label: 'Add to clipboard',
+              icon: 'far fa-clipboard fa-fw',
+              id: 'clipboard',
+            },
+            {
               classes: [{ hidden: !this.$store.state.user.username }],
               color: this.$q.dark.isActive ? 'cyan' : 'blue',
               label: this.$store.getters['user/isFavorite'](this.emote.id)
@@ -227,6 +242,9 @@ export default {
         })
         .onOk(action => {
           switch (action.id) {
+            case 'clipboard':
+              this.$refs.clipboard.onAddToClipboard(this.emote.filename);
+              break;
             case 'favorite':
               if (this.$store.getters['user/isFavorite'](this.emote.id)) {
                 this.$refs.favorite.onRemoveFromFavorites(this.emote.id);
