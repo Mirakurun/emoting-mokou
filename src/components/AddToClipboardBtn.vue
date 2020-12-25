@@ -40,37 +40,39 @@ export default {
     },
   },
   methods: {
-    fetchBlob(filename) {
+    fetchImage(filename, responseType) {
       return this.$axios.get(
         `/images/emotes/${filename.split('.jpg')[0]}.png`,
         {
           baseURL: '/',
-          responseType: 'blob',
+          responseType,
         }
       );
     },
+    notify() {
+      const dismiss = this.$q.notify({
+        classes: 'notify-icon',
+        group: false,
+        icon: `img:images/emotes/${this.filename}`,
+        message: 'Added to clipboard.',
+        position: 'top',
+        type: 'info',
+        actions: [
+          {
+            icon: 'close',
+            color: 'white',
+            round: true,
+            handler: () => dismiss(),
+          },
+        ],
+      });
+    },
     async onAddToClipboard(filename) {
       try {
-        const { data: blob } = await this.fetchBlob(filename);
+        const { data: blob } = await this.fetchImage(filename, 'blob');
         const image = [new ClipboardItem({ [blob.type]: blob })];
         await navigator.clipboard.write(image);
-
-        const dismiss = this.$q.notify({
-          classes: 'notify-icon',
-          group: false,
-          icon: `img:images/emotes/${this.filename}`,
-          message: 'Added to clipboard.',
-          position: 'top',
-          type: 'info',
-          actions: [
-            {
-              icon: 'close',
-              color: 'white',
-              round: true,
-              handler: () => dismiss(),
-            },
-          ],
-        });
+        this.notify();
       } catch (error) {
         console.error(error);
       }
