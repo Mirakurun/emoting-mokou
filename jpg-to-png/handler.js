@@ -37,6 +37,7 @@ module.exports.format = async (event) => {
           .putObject({
             Body: buffer,
             Bucket: process.env.BUCKET,
+            ContentType: 'image/png',
             Key: `${process.env.KEYPREFIX}${
               image.filename.split('.jpg')[0]
             }.png`,
