@@ -23,5 +23,17 @@ module.exports = {
     'node/no-unpublished-require': 'off',
     'no-console': 'off',
     'prettier/prettier': ['error', { singleQuote: true, trailingComma: 'es5' }],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: true,
+      },
+    ],
+    'node/no-unpublished-require': [
+      'error',
+      {
+        allowModules: ['aws-sdk'],
+      },
+    ],
   },
 };
