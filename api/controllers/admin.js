@@ -74,7 +74,7 @@ exports.createPresignedPost = (req, res, next) => {
 
   const params = {
     Bucket: process.env.BUCKET,
-    Conditions: [['starts-with', '$key', 'images/emotes/']],
+    Conditions: [['starts-with', '$key', `${process.env.KEYPREFIX}`]],
     Expires: 60,
     Fields: {
       key: `${process.env.KEYPREFIX}${filename}`,
