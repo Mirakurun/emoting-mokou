@@ -59,7 +59,12 @@
         />
       </q-card-section>
       <q-card-actions align="right" class="col items-end">
-        <add-to-clipboard-btn :filename="filename" flat round />
+        <add-to-clipboard-btn
+          v-if="!$q.platform.is.firefox"
+          :filename="filename"
+          flat
+          round
+        />
         <add-to-favorites-btn :id="id" flat round />
         <add-to-tweet-btn :id="id" :filename="filename" flat round />
         <edit-emote-btn :id="id" flat round />
