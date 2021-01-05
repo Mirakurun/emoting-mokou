@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.9.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.0.0",
     "date-fns": "^2.12.0",
     "emoji-mart-vue-fast": "^7.0.1",
