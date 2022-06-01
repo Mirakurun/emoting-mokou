@@ -21,7 +21,7 @@
     "prettier": "^2.2.1"
   },
   "dependencies": {
-    "sharp": "^0.26.3"
+    "sharp": "^0.30.5"
   },
   "prettier": {
     "singleQuote": true
