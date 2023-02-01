@@ -8,7 +8,6 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'airbnb-base',
-    'plugin:node/recommended',
     'plugin:prettier/recommended',
   ],
   plugins: ['prettier'],
@@ -20,19 +19,12 @@ module.exports = {
     ecmaVersion: 2018,
   },
   rules: {
-    'node/no-unpublished-require': 'off',
     'no-console': 'off',
     'prettier/prettier': ['error', { singleQuote: true, trailingComma: 'es5' }],
     'import/no-extraneous-dependencies': [
       'error',
       {
         devDependencies: true,
-      },
-    ],
-    'node/no-unpublished-require': [
-      'error',
-      {
-        allowModules: ['aws-sdk'],
       },
     ],
   },

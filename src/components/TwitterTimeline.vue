@@ -2,7 +2,7 @@
   <div class="q-pl-md">
     <a
       class="twitter-timeline"
-      data-height="100vh"
+      data-height="820"
       :data-theme="$store.state.user.darkMode ? 'dark' : 'light'"
       href="https://twitter.com/jokanhiyou?ref_src=twsrc%5Etfw"
       >Tweets by jokanhiyou</a
