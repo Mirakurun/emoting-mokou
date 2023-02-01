@@ -37,7 +37,7 @@ provider:
         Fn::Join:
           - ''
           - - 'arn:aws:s3:::'
-            - ${ssm:/emoting-mokou/prod/bucket~true}
+            - ${ssm:/emoting-mokou/prod/bucket}
             - '/*'
   endpointType: regional
 
@@ -93,16 +93,16 @@ functions:
       - http: ANY /api
       - http: 'ANY /api/{proxy+}'
     environment:
-      CONSUMER_KEY: ${ssm:/emoting-mokou/prod/consumer-key~true}
-      CONSUMER_SECRET: ${ssm:/emoting-mokou/prod/consumer-secret~true}
-      SESSION_SECRET: ${ssm:/emoting-mokou/prod/session-secret~true}
-      BUCKET: ${ssm:/emoting-mokou/prod/bucket~true}
-      KEYPREFIX: ${ssm:/emoting-mokou/prod/keyprefix~true}
-      REGION: ${ssm:/emoting-mokou/prod/region~true}
-      DB_URI: ${ssm:/emoting-mokou/prod/db-uri~true}
-      DB_NAME: ${ssm:/emoting-mokou/prod/db-name~true}
-      HOST: ${ssm:/emoting-mokou/prod/host~true}
-      CLIENT_PORT: ${ssm:/emoting-mokou/dev/client-port~true}
+      CONSUMER_KEY: ${ssm:/emoting-mokou/prod/consumer-key}
+      CONSUMER_SECRET: ${ssm:/emoting-mokou/prod/consumer-secret}
+      SESSION_SECRET: ${ssm:/emoting-mokou/prod/session-secret}
+      BUCKET: ${ssm:/emoting-mokou/prod/bucket}
+      KEYPREFIX: ${ssm:/emoting-mokou/prod/keyprefix}
+      REGION: ${ssm:/emoting-mokou/prod/region}
+      DB_URI: ${ssm:/emoting-mokou/prod/db-uri}
+      DB_NAME: ${ssm:/emoting-mokou/prod/db-name}
+      HOST: ${ssm:/emoting-mokou/prod/host}
+      CLIENT_PORT: ${ssm:/emoting-mokou/dev/client-port}
       NODE_ENV: 'production'
     timeout: 15
 #    The following are a few example events you can configure
