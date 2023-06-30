@@ -1,7 +1,7 @@
-const { twitter } = require('../services/twitter');
+const { twitter, twitterV2 } = require('../services/twitter');
 
 exports.tweet = async (req, res, next) => {
-  const client = twitter({ req });
+  const client = twitterV2({ req });
   const uploadClient = twitter({ req, subdomain: 'upload' });
   const { files } = req;
   const { text } = req.body;
