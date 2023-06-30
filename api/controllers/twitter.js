@@ -19,9 +19,12 @@ exports.tweet = async (req, res, next) => {
       return response.media_id_string;
     });
 
-    const tweet = await client.post('statuses/update', {
-      status: text,
-      media_ids: medias.join(),
+
+    const tweet = await client.post('tweets', {
+      text,
+      media: {
+        media_ids: medias.join()
+      },
     });
 
     console.log('Tweet sent.');
