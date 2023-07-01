@@ -3,7 +3,7 @@ const { twitter } = require("../services/twitter");
 
 exports.tweet = async (req, res, next) => {
   const client = twitter({ req });
-  const { files } = req;
+  const { files, user } = req;
   const { text } = req.body;
 
   try {
