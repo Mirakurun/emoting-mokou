@@ -18,9 +18,7 @@ exports.tweet = async (req, res, next) => {
     console.log("Uploading media done.");
 
     console.log("Sending tweet...");
-    const {
-      data: { id },
-    } = await client.v2.tweet(text, {
+    const { data } = await client.v2.tweet(text, {
       media: {
         media_ids: mediaIds,
       },
@@ -28,21 +26,21 @@ exports.tweet = async (req, res, next) => {
 
     console.log("Tweet sent.");
 
+    console.log("data: ", JSON.stringify(data));
+
     await req.user.clearMedia();
 
     console.log("Cleared emotes.");
 
-    console.log("Lookup tweet...");
+    // console.log("Lookup tweet...");
 
-    const tweets = await client.v1.tweets(id);
+    // const tweets = await client.v1.tweets(id);
 
-    console.log("tweets: ", JSON.stringify(tweets));
+    // console.log("Lookup tweet done.");
 
-    console.log("Lookup tweet done.");
+    // const { expanded_url: url } = tweets.entities.urls;
 
-    const { expanded_url: url } = tweets.entities.urls;
-
-    res.status(200).send(url);
+    res.status(200).send("done");
   } catch (error) {
     next(error);
   }
