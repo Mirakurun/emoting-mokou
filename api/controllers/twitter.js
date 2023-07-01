@@ -18,7 +18,9 @@ exports.tweet = async (req, res, next) => {
     console.log("Uploading media done.");
 
     console.log("Sending tweet...");
-    const tweet = await client.v2.tweet(text, {
+    const {
+      data: { id },
+    } = await client.v2.tweet(text, {
       media: {
         media_ids: mediaIds,
       },
@@ -30,7 +32,11 @@ exports.tweet = async (req, res, next) => {
 
     console.log("Cleared emotes.");
 
-    const { expanded_url: url } = tweet.entities.urls;
+    console.log("Lookup tweet...");
+
+    const tweets = await client.v2.tweets(id);
+
+    const { expanded_url: url } = tweets.entities.urls;
 
     res.status(200).send(url);
   } catch (error) {
