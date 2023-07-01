@@ -8,7 +8,7 @@ exports.tweet = async (req, res, next) => {
   try {
     console.log("Uploading media...");
     const promises = files.map((file) => {
-      return client.v1.uploadMedia(file.buffer);
+      return client.v1.uploadMedia(file.buffer.toString("base64"));
     });
 
     const mediaIds = await Promise.all(promises);
