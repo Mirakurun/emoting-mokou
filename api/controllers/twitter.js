@@ -19,7 +19,9 @@ exports.tweet = async (req, res, next) => {
 
     console.log("Sending tweet...");
     const tweet = await client.v2.tweet(text, {
-      media_ids: mediaIds,
+      media: {
+        media_ids: mediaIds,
+      },
     });
 
     console.log("Tweet sent.");
