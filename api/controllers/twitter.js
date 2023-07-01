@@ -1,3 +1,4 @@
+const mime = require("mime-types");
 const { twitter } = require("../services/twitter");
 
 exports.tweet = async (req, res, next) => {
@@ -8,7 +9,9 @@ exports.tweet = async (req, res, next) => {
   try {
     console.log("Uploading media...");
     const promises = files.map((file) => {
-      return client.v1.uploadMedia(file.buffer.toString("base64"));
+      return client.v1.uploadMedia(file.buffer, {
+        mimeType: mime.lookup(file.originalname),
+      });
     });
 
     const mediaIds = await Promise.all(promises);
