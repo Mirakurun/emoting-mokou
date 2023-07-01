@@ -1,13 +1,13 @@
-const express = require('express');
-const multer = require('multer');
-const mime = require('mime-types');
-const isAuth = require('../middleware/is-auth');
-const twitterController = require('../controllers/twitter');
+const express = require("express");
+const multer = require("multer");
+const mime = require("mime-types");
+const isAuth = require("../middleware/is-auth");
+const twitterController = require("../controllers/twitter");
 
 const fileFilter = (req, file, cb) => {
   if (
-    mime.lookup(file.originalname) === 'image/png' ||
-    mime.lookup(file.originalname) === 'image/jpeg'
+    mime.lookup(file.originalname) === "image/png" ||
+    mime.lookup(file.originalname) === "image/jpeg"
   ) {
     cb(null, true);
   } else {
@@ -20,9 +20,9 @@ const upload = multer({ fileFilter });
 const router = express.Router();
 
 router.post(
-  '/tweet',
+  "/tweet",
   isAuth,
-  upload.array('images', 4),
+  upload.array("images", 4),
   twitterController.tweet
 );
 

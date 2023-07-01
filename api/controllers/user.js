@@ -1,5 +1,5 @@
-const Emote = require('../models/emote');
-const User = require('../models/user');
+const Emote = require("../models/emote");
+const User = require("../models/user");
 
 exports.getProfile = (req, res) => {
   const { user } = req;
@@ -17,9 +17,9 @@ exports.populateFavorites = async (req, res, next) => {
   const { id } = req.user;
 
   try {
-    const user = await User.findById(id).populate('favorites');
+    const user = await User.findById(id).populate("favorites");
 
-    const favorites = user.favorites.map(emote => {
+    const favorites = user.favorites.map((emote) => {
       const { _id: renameId, caption, filename, tags } = emote;
       const data = {};
 
@@ -44,12 +44,12 @@ exports.addToMedia = async (req, res, next) => {
     const emote = await Emote.findById(id);
 
     if (!emote) {
-      res.status(422).json({ message: 'Emote not found.' });
+      res.status(422).json({ message: "Emote not found." });
     }
 
     await req.user.addToMedia(emote);
 
-    console.log('Added emote to media.');
+    console.log("Added emote to media.");
 
     res.status(201).send(emote.filename);
   } catch (error) {
@@ -63,7 +63,7 @@ exports.removeFromMedia = async (req, res, next) => {
   try {
     await req.user.removeFromMedia(index);
 
-    console.log('Removed emote from draft.');
+    console.log("Removed emote from draft.");
 
     res.status(204).send();
   } catch (error) {
@@ -78,12 +78,12 @@ exports.addToFavorites = async (req, res, next) => {
     const emote = await Emote.findById(id);
 
     if (!emote) {
-      res.status(422).json({ message: 'Emote not found.' });
+      res.status(422).json({ message: "Emote not found." });
     }
 
     await req.user.addToFavorites(emote);
 
-    console.log('Added emote to favorites.');
+    console.log("Added emote to favorites.");
 
     res.status(204).send();
   } catch (error) {
@@ -97,7 +97,7 @@ exports.removeFromFavorites = async (req, res, next) => {
   try {
     await req.user.removeFromFavorites(id);
 
-    console.log('Removed emote from favorite.');
+    console.log("Removed emote from favorite.");
 
     res.status(204).send();
   } catch (error) {
@@ -111,7 +111,7 @@ exports.toggleDarkMode = async (req, res, next) => {
   try {
     const { darkMode } = await req.user.toggleDarkMode(darkmode);
 
-    console.log('Toggled dark mode.');
+    console.log("Toggled dark mode.");
 
     res.status(200).json({ darkMode });
   } catch (error) {
@@ -127,11 +127,11 @@ exports.deleteAccount = async (req, res, next) => {
 
     console.log(`Deleted user: ${user.username}`);
 
-    req.session.destroy(error => {
+    req.session.destroy((error) => {
       if (error) {
         next(error);
       }
-      res.clearCookie('emoting_mokou_sid');
+      res.clearCookie("emoting_mokou_sid");
       return res.status(204).send();
     });
   } catch (error) {

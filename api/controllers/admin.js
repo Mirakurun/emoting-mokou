@@ -1,15 +1,15 @@
-const AWS = require('aws-sdk');
-const express = require('express');
-const Emote = require('../models/emote');
+const AWS = require("aws-sdk");
+const express = require("express");
+const Emote = require("../models/emote");
 
 const app = express();
 
-if (app.get('env') === 'development') {
-  AWS.config.getCredentials(err => {
+if (app.get("env") === "development") {
+  AWS.config.getCredentials((err) => {
     if (err) console.log(err.stack);
     else {
-      console.log('Access key:', AWS.config.credentials.accessKeyId);
-      console.log('Secret access key:', AWS.config.credentials.secretAccessKey);
+      console.log("Access key:", AWS.config.credentials.accessKeyId);
+      console.log("Secret access key:", AWS.config.credentials.secretAccessKey);
     }
   });
 }
@@ -28,7 +28,7 @@ exports.addEmote = async (req, res, next) => {
   const { caption, filename, tags } = req.body;
 
   try {
-    console.log('Adding emote to database...');
+    console.log("Adding emote to database...");
 
     const emote = new Emote({
       caption,
@@ -38,7 +38,7 @@ exports.addEmote = async (req, res, next) => {
 
     const data = await emote.save();
 
-    console.log('Added emote.');
+    console.log("Added emote.");
 
     res.status(201).json(data);
   } catch (error) {
@@ -51,7 +51,7 @@ exports.updateEmote = async (req, res, next) => {
   const update = req.body;
 
   try {
-    console.log('Updating emote...');
+    console.log("Updating emote...");
 
     const emote = await Emote.findByIdAndUpdate(
       id,
@@ -59,7 +59,7 @@ exports.updateEmote = async (req, res, next) => {
       { new: true }
     );
 
-    console.log('Updated emote.');
+    console.log("Updated emote.");
 
     res.status(200).json(emote);
   } catch (error) {
@@ -70,11 +70,11 @@ exports.updateEmote = async (req, res, next) => {
 exports.createPresignedPost = (req, res, next) => {
   const { filename } = req.body;
 
-  console.log('Creating pre-signed POST...');
+  console.log("Creating pre-signed POST...");
 
   const params = {
     Bucket: process.env.BUCKET,
-    Conditions: [['starts-with', '$key', `${process.env.KEYPREFIX}`]],
+    Conditions: [["starts-with", "$key", `${process.env.KEYPREFIX}`]],
     Expires: 60,
     Fields: {
       key: `${process.env.KEYPREFIX}${filename}`,
@@ -85,7 +85,7 @@ exports.createPresignedPost = (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      console.log('Created pre-signed POST.');
+      console.log("Created pre-signed POST.");
 
       res.status(200).json(data);
     }

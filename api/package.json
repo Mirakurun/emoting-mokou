@@ -25,23 +25,18 @@
     "passport": "^0.4.1",
     "passport-twitter": "^1.0.4",
     "serverless-http": "^2.5.0",
-    "twitter-lite": "^1.1.0"
+    "twitter-api-v2": "^1.15.0"
   },
   "devDependencies": {
     "aws-sdk": "^2.691.0",
     "dotenv": "^8.2.0",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-prettier": "^3.1.2",
+    "eslint": "^8.44.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
-  },
-  "prettier": {
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "endOfLine": "auto"
+    "prettier": "^2.8.8"
   },
   "engines": {
     "node": ">=12.0.0"

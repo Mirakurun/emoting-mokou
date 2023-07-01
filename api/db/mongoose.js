@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 (async () => {
   try {
@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
       useUnifiedTopology: true,
     });
 
-    console.log('Mongoose connection succeeded.');
+    console.log("Mongoose connection succeeded.");
   } catch (error) {
     console.error(error);
   }

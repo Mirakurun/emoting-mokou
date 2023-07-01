@@ -1,7 +1,7 @@
-const passport = require('passport');
-const TwitterStrategy = require('passport-twitter').Strategy;
-const express = require('express');
-const User = require('../models/user');
+const passport = require("passport");
+const TwitterStrategy = require("passport-twitter").Strategy;
+const express = require("express");
+const User = require("../models/user");
 
 const app = express();
 
@@ -16,7 +16,7 @@ passport.deserializeUser(async (id, done) => {
     const user = await User.findById(id);
 
     if (!user) {
-      return done(new Error('Document not found!'));
+      return done(new Error("Document not found!"));
     }
 
     return done(null, user);
@@ -33,25 +33,25 @@ passport.use(
       consumerKey: process.env.CONSUMER_KEY,
       consumerSecret: process.env.CONSUMER_SECRET,
       callbackURL:
-        app.get('env') === 'production'
+        app.get("env") === "production"
           ? `${process.env.HOST}/api/auth/twitter/callback`
           : `http://localhost:${process.env.PORT}/api/auth/twitter/callback`,
       passReqToCallback: true,
     },
     async (req, token, tokenSecret, profile, done) => {
       const { displayName, id: uid, provider, _json: json, username } = profile;
-      console.log('Finding user...');
+      console.log("Finding user...");
 
       try {
         if (!req.user) {
           // user not logged-in
-          console.log('User not logged-in.');
+          console.log("User not logged-in.");
           const user = await User.findOne({ uid: profile.id });
 
           if (!user) {
             // create new user
-            console.log('User not found.');
-            console.log('Creating new user...');
+            console.log("User not found.");
+            console.log("Creating new user...");
             const newUser = new User({
               displayName,
               uid,
@@ -64,12 +64,12 @@ passport.use(
             });
 
             const result = await newUser.save();
-            console.log('Created new user.');
+            console.log("Created new user.");
 
             return done(null, result);
           }
           // user exists
-          console.log('Found user.');
+          console.log("Found user.");
 
           user.displayName = displayName;
           user.uid = uid;
@@ -97,7 +97,7 @@ passport.use(
         user.tokenSecret = tokenSecret;
 
         const result = await user.save();
-        console.log('User updated.');
+        console.log("User updated.");
 
         return done(null, result);
       } catch (error) {

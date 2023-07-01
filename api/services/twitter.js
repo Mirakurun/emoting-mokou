@@ -1,26 +1,11 @@
-const Twitter = require('twitter-lite');
+const { TwitterApi } = require("twitter-api-v2");
 
-module.exports.twitter = ({ req, subdomain = 'api' }) => {
+exports.twitter = ({ req }) => {
   const { token, tokenSecret } = req.user;
-  return new Twitter({
-    subdomain,
-    consumer_key: process.env.CONSUMER_KEY,
-    consumer_secret: process.env.CONSUMER_SECRET,
-    access_token_key: token,
-    access_token_secret: tokenSecret,
-  });
-};
-
-
-module.exports.twitterV2 = ({ req, subdomain = 'api' }) => {
-  const { token, tokenSecret } = req.user;
-  return new Twitter({
-    version: "2",
-    extension: false,
-    subdomain,
-    consumer_key: process.env.CONSUMER_KEY,
-    consumer_secret: process.env.CONSUMER_SECRET,
-    access_token_key: token,
-    access_token_secret: tokenSecret,
+  return new TwitterApi({
+    appKey: process.env.CONSUMER_KEY,
+    appSecret: process.env.CONSUMER_SECRET,
+    accessToken: token,
+    accessSecret: tokenSecret,
   });
 };
