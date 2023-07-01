@@ -36,6 +36,8 @@ exports.tweet = async (req, res, next) => {
 
     const tweets = await client.v1.tweets(id);
 
+    console.log("tweets: ", JSON.stringify(tweets));
+
     console.log("Lookup tweet done.");
 
     const { expanded_url: url } = tweets.entities.urls;

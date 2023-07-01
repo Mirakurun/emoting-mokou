@@ -50,10 +50,5 @@
     "last 10 iOS versions",
     "last 5 Opera versions",
     "ie 11"
-  ],
-  "prettier": {
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "endOfLine": "auto"
-  }
+  ]
 }
