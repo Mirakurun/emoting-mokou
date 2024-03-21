@@ -11,7 +11,7 @@
   "author": "Kevin Chhay <25449974+Mirakurun@users.noreply.github.com>",
   "license": "ISC",
   "devDependencies": {
-    "aws-sdk": "^2.804.0",
+    "aws-sdk": "^2.814.0",
     "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^6.15.0",
